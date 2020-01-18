@@ -8,8 +8,7 @@ namespace LZRStatsApi.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
-
+    [Route("[controller]")]
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
@@ -21,9 +20,9 @@ namespace LZRStatsApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate([FromBody]User userParam)
+        public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
         {
-            var user = await _userService.Authenticate(userParam.Username, userParam.Password);
+            var user = await _userService.Authenticate(model.Username, model.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -38,4 +37,5 @@ namespace LZRStatsApi.Controllers
             return Ok(users);
         }
     }
+
 }
