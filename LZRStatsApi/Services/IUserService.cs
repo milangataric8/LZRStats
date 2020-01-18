@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplicationApi.Models;
+using LZRStatsApi.Models;
 
-namespace WebApplicationApi.Services
+namespace LZRStatsApi.Services
 {
     public interface IUserService
     {

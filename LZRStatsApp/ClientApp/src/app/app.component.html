@@ -1,10 +1,21 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
-  <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/">Home</a>
-      <a href="#" class="nav-item nav-link" (click)="logout()">Logout</a>
-  </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="currentUser">
+    <div class="navbar-header">         
+        <a class="navbar-left logo-hover" routerLink="/">
+        <div class="logo"></div>
+        </a>
+    </div>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link nav-link-fade-up" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link nav-link-fade-up" routerLink="/">Teams</a>   
+        </li>
+    </ul>
+    <div class="navbar-right">
+                <a class="navbar-right nav-link nav-link-fade-up" routerLink="/" (click)="logout()">Logout</a>
+    </div>         
 </nav>
-
 <!-- main app container -->
 <div class="container">
   <router-outlet></router-outlet>

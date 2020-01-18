@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using LZRStatsApi.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApplicationApi.Models;
-using WebApplicationApi.Services;
+using LZRStatsApi.Services;
 
-namespace WebApplicationApi.Controllers
+namespace LZRStatsApi.Controllers
 {
     [Authorize]
     [ApiController]

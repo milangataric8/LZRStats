@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { GridJoggingComponent } from './grid-jogging/grid-jogging.component';
-import { AddOrUpdateJoggingComponent } from './add-or-update-jogging/add-or-update-jogging.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { WorkoutService } from './_services/workout.service';
 import { DecimalPipe } from '@angular/common';
@@ -22,8 +20,6 @@ import { RouterModule, Routes } from '@angular/router';
   declarations: [
     AppComponent,
     HomeComponent,
-    GridJoggingComponent,
-    AddOrUpdateJoggingComponent,
     LoginComponent
   ],
   imports: [

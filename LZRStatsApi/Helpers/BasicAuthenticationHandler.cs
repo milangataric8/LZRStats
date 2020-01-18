@@ -9,10 +9,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using WebApplicationApi.Models;
-using WebApplicationApi.Services;
+using LZRStatsApi.Models;
+using LZRStatsApi.Services;
 
-namespace WebApplicationApi.Helpers
+namespace LZRStatsApi.Helpers
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
