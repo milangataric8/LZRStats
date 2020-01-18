@@ -16,6 +16,6 @@ code {
 }
 
 body{
-  background-image: url("curtbkg.png");
+  background-image: url("assets/images/curtbkg.png");
   background-size: contain;
 }

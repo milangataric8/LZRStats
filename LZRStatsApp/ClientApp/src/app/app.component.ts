@@ -13,9 +13,8 @@ export class AppComponent {
   currentUser: User;
 
   constructor(private authService: AuthenticationService, private router: Router) {
-    this.authService.currentUser.subscribe(x => this.currentUser = x); }
-
-
+    this.authService.currentUser.subscribe(x => this.currentUser = x);
+  }
 
   logout() {
     this.authService.logout();

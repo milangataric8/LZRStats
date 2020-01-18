@@ -1,10 +1,10 @@
 body{
-  background-image: url("../curtbkg.png");
+  background-image: url("../assets/images/curtbkg.png");
   background-size: contain;
 }
 
 .logo{
-    background-image: url("homebasketballbg.png");
+    background-image: url("../assets/images/homebasketballbg.png");
     background-size: contain;
     width: 60px;
     height: 60px;
