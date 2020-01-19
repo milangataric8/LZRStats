@@ -32,7 +32,6 @@ namespace LZRStatsApi.Services
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            // return users without passwords
             return await Task.Run(() => _repoWrapper.UserRepo.GetAll());
         }
     }
