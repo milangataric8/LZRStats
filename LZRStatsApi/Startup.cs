@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using LZRStatsApi.Data;
 using LZRStatsApi.Helpers;
 using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using LZRStatsApi.Repositories;
 
 namespace LZRStatsApi
 {
@@ -30,13 +27,15 @@ namespace LZRStatsApi
 
             services.AddCors();
             services.AddControllers();
-
+            services.AddDbContext<LzrStatsContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LZRStatsContext")));
             // configure basic authentication 
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

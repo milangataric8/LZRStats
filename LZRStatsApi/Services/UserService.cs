@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LZRStatsApi.Models;
+using LZRStatsApi.Repositories;
+using LZRStatsApi.Repositories.Common;
 
 namespace LZRStatsApi.Services
 {
     public class UserService : IUserService
     {
-        // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
+        private readonly IRepositoryWrapper _repoWrapper;
+
+        public UserService(IRepositoryWrapper repoWrapper)
         {
-            new User { Id = 1, FirstName = "Test", LastName = "User", Username = "test", Password = "test" }
-        };
+            _repoWrapper = repoWrapper;
+        }
 
         public async Task<User> Authenticate(string username, string password)
         {
-            var user = await Task.Run(() => _users.SingleOrDefault(x => x.Username == username && x.Password == password));
+            var user = await Task.Run(() => _repoWrapper.UserRepo.GetByLoginData(username, password));
 
             // return null if user not found
             if (user == null)
@@ -30,10 +33,7 @@ namespace LZRStatsApi.Services
         public async Task<IEnumerable<User>> GetAll()
         {
             // return users without passwords
-            return await Task.Run(() => _users.Select(x => {
-                x.Password = null;
-                return x;
-            }));
+            return await Task.Run(() => _repoWrapper.UserRepo.GetAll());
         }
     }
 }
