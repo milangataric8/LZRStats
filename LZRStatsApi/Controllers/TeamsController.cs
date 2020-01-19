@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LZRStatsApi.Data;
 using LZRStatsApi.Models;
+using AutoMapper;
+using LZRStatsApi.Models.Dtos;
 
 namespace LZRStatsApi.Controllers
 {
@@ -14,11 +16,13 @@ namespace LZRStatsApi.Controllers
     [ApiController]
     public class TeamsController : ControllerBase
     {
-        private readonly LzrStatsContext _context;
+        private readonly LzrStatsContext _context; //TODO use repo pattern
+        private IMapper _mapper;
 
-        public TeamsController(LzrStatsContext context)
+        public TeamsController(LzrStatsContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Teams
@@ -30,7 +34,7 @@ namespace LZRStatsApi.Controllers
 
         // GET: api/Teams/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Team>> GetTeam(int id)
+        public async Task<ActionResult<TeamDto>> GetTeam(int id)
         {
             var team = await _context.Teams.FindAsync(id);
 
@@ -38,8 +42,8 @@ namespace LZRStatsApi.Controllers
             {
                 return NotFound();
             }
-
-            return team;
+            var result = _mapper.Map(team, new TeamDto());
+            return result;
         }
 
         // PUT: api/Teams/5
