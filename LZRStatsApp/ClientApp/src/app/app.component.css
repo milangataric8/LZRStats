@@ -78,3 +78,7 @@ body{
   .nav-link-grow-up:hover::before {
     height: 5px;
   }
+
+  .navbar-welcome-text-color{
+    color: lightgrey;
+  }

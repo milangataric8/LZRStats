@@ -12,6 +12,9 @@
             <a class="nav-link nav-link-fade-up" routerLink="/">Teams</a>   
         </li>
     </ul>
+    <div class="nav-right">
+        <span class="navbar-welcome-text-color">Welcome {{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}}</span>
+    </div>
     <div class="navbar-right">
                 <a class="navbar-right nav-link nav-link-fade-up" routerLink="/" (click)="logout()">Logout</a>
     </div>         
