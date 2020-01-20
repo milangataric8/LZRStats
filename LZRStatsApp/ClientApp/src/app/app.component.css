@@ -1,15 +1,17 @@
-body{
-  background-image: url("../assets/images/curtbkg.png");
-  background-size: contain;
-}
-
 .logo{
-    background-image: url("../assets/images/homebasketballbg.png");
+    background-image: url("../assets/images/basketball-ball-logo.png");
     background-size: contain;
+    background-color: #ddd;
     width: 60px;
     height: 60px;
     margin-left: 150px;
     margin-right: 20px;
+    border-radius: 50%;
+}
+
+.logo:hover{
+  background-color: #FA8320;
+  border-radius: 50%;
 }
 
 .navbar{
@@ -57,7 +59,7 @@ body{
   
   .nav-link:hover {
     opacity: 1;
-    color: rgb(236, 235, 235);
+    color: #FA8320;
   }
   
   .nav-link::before {
@@ -65,7 +67,7 @@ body{
     height: 5px;
     content: "";
     position: absolute;
-    background-color: rgb(236, 235, 235);
+    background-color: #FA8320;
   }
 
   .nav-link-grow-up::before {
@@ -82,3 +84,36 @@ body{
   .navbar-welcome-text-color{
     color: lightgrey;
   }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 198px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 79px;
+  }
+  
+  .dropdown-content a {
+    color: ora;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #FA8320;
+    color: #343a40;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown:hover{background-color: #343a40;}

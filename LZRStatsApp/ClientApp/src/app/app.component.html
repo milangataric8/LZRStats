@@ -11,13 +11,16 @@
         <li class="nav-item">
             <a class="nav-link nav-link-fade-up" routerLink="/">Teams</a>   
         </li>
-    </ul>
-    <div class="nav-right">
-        <span class="navbar-welcome-text-color">Welcome {{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}}</span>
-    </div>
-    <div class="navbar-right">
-                <a class="navbar-right nav-link nav-link-fade-up" routerLink="/" (click)="logout()">Logout</a>
-    </div>         
+        <li class="dropdown nav-item" style="float:right">
+            <p>
+                <span class="navbar-welcome-text-color nav-link nav-link-fade-up">Welcome {{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}}</span>
+            </p>
+            <div class="dropdown-content">
+              <a class="nav-link" routerLink="/">Profile</a>
+              <a class="nav-link" routerLink="/" (click)="logout()">Logout</a>
+            </div>
+        </li>
+    </ul>     
 </nav>
 <!-- main app container -->
 <div class="container">
