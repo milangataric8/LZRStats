@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="currentUser">
+<div class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="currentUser">
     <div class="navbar-header">         
         <a class="navbar-left logo-hover" routerLink="/">
         <div class="logo"></div>
@@ -11,7 +11,8 @@
         <li class="nav-item">
             <a class="nav-link nav-link-fade-up" routerLink="/">Teams</a>   
         </li>
-        <li class="dropdown nav-item" style="float:right">
+    </ul>
+    <div class="dropdown nav-item float-right">
             <p>
                 <span class="navbar-welcome-text-color nav-link nav-link-fade-up">Welcome {{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}}</span>
             </p>
@@ -19,9 +20,9 @@
               <a class="nav-link" routerLink="/">Profile</a>
               <a class="nav-link" routerLink="/" (click)="logout()">Logout</a>
             </div>
-        </li>
-    </ul>     
-</nav>
+    </div>     
+</div>
+
 <!-- main app container -->
 <div class="container">
   <router-outlet></router-outlet>

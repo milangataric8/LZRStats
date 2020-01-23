@@ -6,6 +6,7 @@ namespace LZRStatsApi.Repositories
     {
         private LzrStatsContext _context;
         private IUserRepository _userRepository;
+        private ITeamRepository _teamRepository;
 
         public IUserRepository UserRepo
         {
@@ -17,6 +18,19 @@ namespace LZRStatsApi.Repositories
                 }
 
                 return _userRepository;
+            }
+        }
+
+        public ITeamRepository TeamRepo
+        {
+            get
+            {
+                if (_teamRepository == null)
+                {
+                    _teamRepository = new TeamRepository(_context);
+                }
+
+                return _teamRepository;
             }
         }
 

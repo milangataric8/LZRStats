@@ -21,6 +21,11 @@ namespace LZRStatsApi.Migrations
                     table.PrimaryKey("PK_Teams", x => x.Id);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Teams",
+                columns: new[] { "Id", "Name", "Wins", "Loses"},
+                values: new object[] { 1, "SkyWalkers", 8, 0});
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new

@@ -1,114 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LZRStatsApi.Data;
 using LZRStatsApi.Models;
-using AutoMapper;
-using LZRStatsApi.Models.Dtos;
+using LZRStatsApi.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace LZRStatsApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("[teams]")]
     public class TeamsController : ControllerBase
     {
-        private readonly LzrStatsContext _context; //TODO use repo pattern
-        private IMapper _mapper;
+        private ITeamService _teamService;
 
-        public TeamsController(LzrStatsContext context, IMapper mapper)
+        public TeamsController(ITeamService teamService)
         {
-            _context = context;
-            _mapper = mapper;
+            _teamService = teamService;
         }
 
-        // GET: api/Teams
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Team>>> GetTeams()
+        public async Task<IEnumerable<Team>> GetAll()
         {
-            return await _context.Teams.ToListAsync();
+            return await _teamService.GetAll();
         }
 
-        // GET: api/Teams/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TeamDto>> GetTeam(int id)
+        public IActionResult GetById(int id)
         {
-            var team = await _context.Teams.FindAsync(id);
-
-            if (team == null)
+            var e = _teamService.GetById(id);
+            if (e == null)
             {
                 return NotFound();
             }
-            var result = _mapper.Map(team, new TeamDto());
-            return result;
+            return new ObjectResult(e);
         }
 
-        // PUT: api/Teams/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeam(int id, Team team)
+        [HttpPost]
+        public IActionResult Create([FromBody] Team team)
         {
-            if (id != team.Id)
+
+            if(team == null) 
             {
                 return BadRequest();
             }
-
-            _context.Entry(team).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TeamExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            _teamService.Create(team);
+            return CreatedAtRoute(new { Controller = "Teams", id = team.Id }, team);
         }
 
-        // POST: api/Teams
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<Team>> PostTeam(Team team)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] Team team)
         {
-            _context.Teams.Add(team);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTeam", new { id = team.Id }, team);
-        }
-
-        // DELETE: api/Teams/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Team>> DeleteTeam(int id)
-        {
-            var team = await _context.Teams.FindAsync(id);
             if (team == null)
+            {
+                return BadRequest();
+            }
+            var project = _teamService.GetById(id);
+            if (project == null)
             {
                 return NotFound();
             }
-
-            _context.Teams.Remove(team);
-            await _context.SaveChangesAsync();
-
-            return team;
+            _teamService.Update(team);
+            return new NoContentResult();
         }
 
-        private bool TeamExists(int id)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            return _context.Teams.Any(e => e.Id == id);
+            _teamService.Delete(id);
+            return Ok(id);
         }
     }
 }

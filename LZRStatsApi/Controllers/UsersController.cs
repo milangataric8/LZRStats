@@ -36,6 +36,8 @@ namespace LZRStatsApi.Controllers
             var users = await _userService.GetAll();
             return Ok(users);
         }
+
+
     }
 
 }
