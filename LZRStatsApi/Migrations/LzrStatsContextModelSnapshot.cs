@@ -18,6 +18,36 @@ namespace LZRStatsApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("LZRStatsApi.Models.Player", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("JerseyNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Team")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Player");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            JerseyNumber = 8,
+                            Name = "Player 1",
+                            Team = "test team"
+                        });
+                });
+
             modelBuilder.Entity("LZRStatsApi.Models.Team", b =>
                 {
                     b.Property<int>("Id")
@@ -37,6 +67,15 @@ namespace LZRStatsApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teams");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Loses = 1,
+                            Name = "SkyWalkers",
+                            Wins = 8
+                        });
                 });
 
             modelBuilder.Entity("LZRStatsApi.Models.User", b =>

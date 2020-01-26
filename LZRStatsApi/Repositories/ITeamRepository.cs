@@ -11,9 +11,7 @@ namespace LZRStatsApi.Repositories
     public interface ITeamRepository : IRepositoryBase<Team>
     {
         void Add(Team team);
-        IEnumerable<Team> GetAll();
         Team Find(int id);
         void Remove(int id);
-        void Update(Team team);
     }
 }

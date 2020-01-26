@@ -24,12 +24,6 @@ namespace LZRStatsApi.Repositories
             _context.SaveChanges();
         }
 
-        IEnumerable<Team> ITeamRepository.GetAll()
-        {
-            var res = _context.Teams.Select(t => new Team())
-                                    .ToList();
-            return res;
-        }
 
         public Team Find(int id)
         {
@@ -43,18 +37,6 @@ namespace LZRStatsApi.Repositories
             if (teamToRemove != null)
             {
                 _context.Teams.Remove(teamToRemove);
-            }
-            _context.SaveChanges();
-        }
-
-        public void Update(Team team)
-        {
-            var res = _context.Teams.SingleOrDefault(t => t.Id == team.Id);
-            if (res != null)
-            {
-                res.Name = team.Name;
-                res.Wins = team.Wins;
-                res.Loses = team.Loses;
             }
             _context.SaveChanges();
         }

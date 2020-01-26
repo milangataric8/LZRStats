@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LZRStatsApi.Migrations
 {
     [DbContext(typeof(LzrStatsContext))]
-    [Migration("20200119155147_Initial")]
-    partial class Initial
+    [Migration("20200126214741_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,36 @@ namespace LZRStatsApi.Migrations
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("LZRStatsApi.Models.Player", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("JerseyNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Team")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Player");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            JerseyNumber = 8,
+                            Name = "Player 1",
+                            Team = "test team"
+                        });
+                });
 
             modelBuilder.Entity("LZRStatsApi.Models.Team", b =>
                 {
@@ -39,6 +69,15 @@ namespace LZRStatsApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teams");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Loses = 1,
+                            Name = "SkyWalkers",
+                            Wins = 8
+                        });
                 });
 
             modelBuilder.Entity("LZRStatsApi.Models.User", b =>

@@ -20,7 +20,7 @@ namespace LZRStatsApi.Services
 
         public async Task<IEnumerable<Team>> GetAll()
         {
-            return await Task.Run(() => _repoWrapper.TeamRepo.GetAll());
+            return await Task.Run(() => _repoWrapper.TeamRepo.GetAllAsync());
         }
 
         public Team GetById(int id)

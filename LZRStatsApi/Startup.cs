@@ -1,13 +1,13 @@
 using LZRStatsApi.Data;
 using LZRStatsApi.Helpers;
+using LZRStatsApi.Repositories;
 using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using LZRStatsApi.Repositories;
 
 namespace LZRStatsApi
 {
@@ -24,8 +24,15 @@ namespace LZRStatsApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                              .WithOrigins("http://localhost:4200/")
+            .SetIsOriginAllowed((host) => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
             services.AddControllers();
             services.AddDbContext<LzrStatsContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LZRStatsContext")));
@@ -36,6 +43,8 @@ namespace LZRStatsApi
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,11 +53,7 @@ namespace LZRStatsApi
             app.UseRouting();
 
             // global cors policy
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
-
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
 

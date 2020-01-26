@@ -16,7 +16,7 @@ namespace LZRStatsApi.Repositories
 
         public User GetByLoginData(string username, string password)
         {
-            return GetBy(x => x.Username.ToUpper() == password.ToUpper() && x.Password.Equals(password)).SingleOrDefault();
+            return GetByAsync(x => x.Username.ToUpper() == password.ToUpper() && x.Password.Equals(password)).Result.SingleOrDefault(); //TODO async?
         }
     }
 }

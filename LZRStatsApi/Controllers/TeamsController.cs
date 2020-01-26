@@ -1,75 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using LZRStatsApi.Models;
+using LZRStatsApi.Models.Dtos;
+using LZRStatsApi.Repositories;
 using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 namespace LZRStatsApi.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[teams]")]
+    [Route("[controller]")]
     public class TeamsController : ControllerBase
     {
-        private ITeamService _teamService;
-
-        public TeamsController(ITeamService teamService)
+        private readonly ITeamRepository _teamRepository;
+        public TeamsController(ITeamRepository teamRepository)
         {
-            _teamService = teamService;
+            _teamRepository = teamRepository;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Team>> GetAll()
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAll()
         {
-            return await _teamService.GetAll();
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var e = _teamService.GetById(id);
-            if (e == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(e);
-        }
-
-        [HttpPost]
-        public IActionResult Create([FromBody] Team team)
-        {
-
-            if(team == null) 
-            {
-                return BadRequest();
-            }
-            _teamService.Create(team);
-            return CreatedAtRoute(new { Controller = "Teams", id = team.Id }, team);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Team team)
-        {
-            if (team == null)
-            {
-                return BadRequest();
-            }
-            var project = _teamService.GetById(id);
-            if (project == null)
-            {
-                return NotFound();
-            }
-            _teamService.Update(team);
-            return new NoContentResult();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _teamService.Delete(id);
-            return Ok(id);
+            IEnumerable<Team> teams = await _teamRepository.GetAllAsync();
+            return Ok(teams);
         }
     }
 }

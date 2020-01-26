@@ -32,7 +32,7 @@ namespace LZRStatsApi.Services
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return await Task.Run(() => _repoWrapper.UserRepo.GetAll());
+            return await Task.Run(() => _repoWrapper.UserRepo.GetAllAsync());
         }
     }
 }

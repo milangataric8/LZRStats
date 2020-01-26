@@ -7,6 +7,7 @@ namespace LZRStatsApi.Repositories
         private LzrStatsContext _context;
         private IUserRepository _userRepository;
         private ITeamRepository _teamRepository;
+        private IPlayerRepository _playerRepository;
 
         public IUserRepository UserRepo
         {
@@ -31,6 +32,19 @@ namespace LZRStatsApi.Repositories
                 }
 
                 return _teamRepository;
+            }
+        }
+
+        public IPlayerRepository PlayerRepo
+        {
+            get
+            {
+                if (_playerRepository == null)
+                {
+                    _playerRepository = new PlayerRepository(_context);
+                }
+
+                return _playerRepository;
             }
         }
 

@@ -15,12 +15,16 @@ import { UserService } from './_services/user.service';
 import { LoginComponent } from './login/login.component';
 import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
 import { RouterModule, Routes } from '@angular/router';
+import { TeamsComponent } from './teams/teams.component';
+import { PlayersComponent } from './players/players.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    TeamsComponent,
+    PlayersComponent
   ],
   imports: [
     BrowserModule,

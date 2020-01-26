@@ -12,6 +12,7 @@ namespace LZRStatsApi.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Player> Player { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +27,13 @@ namespace LZRStatsApi.Data
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<Team>().HasData(
                 new Team { Id = 1, Name = "SkyWalkers", Wins = 8, Loses = 1});
+
+            modelBuilder.Entity<Player>()
+                .Property(t => t.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Player>().HasData(
+                new Player { Id = 1, Name = "Player 1",JerseyNumber = 8, Team = "test team" });
         }
+
     }
 }
