@@ -15,16 +15,17 @@
             <a class="nav-link nav-link-fade-up" routerLink="/players">Players</a>   
         </li>
     </ul>
-    <div class="dropdown nav-item float-right">
-            <p>
-                <span class="navbar-welcome-text-color nav-link nav-link-fade-up">Welcome {{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}}</span>
-            </p>
-            <div class="dropdown-content">
-              <a class="nav-link" routerLink="/">Profile</a>
-              <a class="nav-link" routerLink="/" (click)="logout()">Logout</a>
-            </div>
+    <div class="dropdown nav-item ml-auto">
+        <p>
+            <span class="nav-link nav-link-fade-up">Welcome {{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}}</span>
+        </p>
+        <div class="dropdown-content">
+            <a class="nav-link" routerLink="/">Profile</a>
+            <a class="nav-link" routerLink="/" (click)="logout()">Logout</a>
+        </div>
     </div>     
 </div>
+
 
 <!-- main app container -->
 <div class="container">
