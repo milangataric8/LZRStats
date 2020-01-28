@@ -1,4 +1,4 @@
-.logo{
+.logo {
   background-image: url("../assets/images/basketball-ball-logo.png");
   background-size: contain;
   background-color: #ddd;
@@ -10,13 +10,13 @@
   border-color: #ddd;
 }
 
-.logo:hover{
+.logo:hover {
   background-color: #FA8320;
   border-radius: 50%;
   border-color: #FA8320;
 }
 
-.navbar{
+.navbar {
   height: 79px;
 }
 
@@ -119,30 +119,464 @@ a {
   color: #FA8320;
 }
 
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
+@media screen and (max-width: 1220px) {
+
+  .logo {
+    background-image: url("../assets/images/basketball-ball-logo.png");
+    background-size: contain;
+    background-color: #ddd;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #ddd;
+  }
   
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+  .logo:hover {
+    background-color: #FA8320;
+    border-radius: 50%;
+    border-color: #FA8320;
+  }
+
+  .navbar {
+    height: 69px;
+  }
+
+  a {
+    padding: 11px 14px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    margin-top: 2%;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  .nav-link {
+    float: left;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(236, 235, 235);
+    padding: 34px 18px;
+    margin: 0px 0px 0px 0px;
+    display: inline-block;
+    position: relative;
+    opacity: 0.75;
+  }
   
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 195px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 63px;
+  }
+
 }
+
+@media screen and (max-width: 1600px) {
+
+  .logo {
+    background-image: url("../assets/images/basketball-ball-logo.png");
+    background-size: contain;
+    background-color: #ddd;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #ddd;
+  }
   
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
+  .logo:hover {
+    background-color: #FA8320;
+    border-radius: 50%;
+    border-color: #FA8320;
+  }
+
+  .navbar {
+    height: 76px;
+  }
+
+  a {
+    padding: 11px 14px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    margin-top: 2%;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  .nav-link {
+    float: left;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(236, 235, 235);
+    padding: 37px 18px;
+    margin: 0px 0px 0px 0px;
+    display: inline-block;
+    position: relative;
+    opacity: 0.75;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 195px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 69px;
+  }
+
 }
+
+
+@media screen and (max-width: 1200px) {
+
+  .logo {
+    background-image: url("../assets/images/basketball-ball-logo.png");
+    background-size: contain;
+    background-color: #ddd;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #ddd;
+  }
   
-.topnav-right {
-  float: right;
+  .logo:hover {
+    background-color: #FA8320;
+    border-radius: 50%;
+    border-color: #FA8320;
+  }
+
+  .navbar {
+    height: 74px;
+  }
+
+  a {
+    padding: 11px 14px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    margin-top: 2%;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  .nav-link {
+    float: left;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(236, 235, 235);
+    padding: 37px 18px;
+    margin: 0px 0px 0px 0px;
+    display: inline-block;
+    position: relative;
+    opacity: 0.75;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 195px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 69px;
+  }
+
+}
+
+@media screen and (max-width: 1000px) {
+
+  .logo {
+    background-image: url("../assets/images/basketball-ball-logo.png");
+    background-size: contain;
+    background-color: #ddd;
+    width: 47px;
+    height: 47px;
+    margin-right: 11px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #ddd;
+  }
+  
+  .logo:hover {
+    background-color: #FA8320;
+    border-radius: 50%;
+    border-color: #FA8320;
+  }
+
+  .navbar {
+    height: 69px;
+  }
+
+  a {
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    margin: 0px 0px;
+  }
+
+  .nav-link {
+    float: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(236, 235, 235);
+    padding: 18px 15px 35px;
+    margin: 0px 0px 0px 0px;
+    display: inline-block;
+    position: relative;
+    opacity: 0.75;
+  }
+  
+  .nav-link-fade-up::before {
+    width: 100%;
+    bottom: 5px;
+    opacity: 0;
+    right: 0px;
+  }
+    
+  .nav-link-fade-up:hover::before {
+    bottom: 10px;
+    opacity: 1;
+  }
+    
+  .nav-link:hover {
+    opacity: 1;
+    color: #FA8320;
+  }
+    
+  .nav-link::before {
+    transition: 300ms;
+    height: 5px;
+    content: "";
+    position: absolute;
+    background-color: #FA8320;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 166px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 45px;
+  }
+    
+  .dropdown-content a {
+    padding: 10px 14px;
+    text-decoration: none;
+    display: block;
+  }
+
+}
+
+@media screen and (max-width: 800px) {
+
+  .logo {
+    background-image: url("../assets/images/basketball-ball-logo.png");
+    background-size: contain;
+    background-color: #ddd;
+    width: 45px;
+    height: 45px;
+    margin: 0px 15px 0px 0px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #ddd;
+  }
+  
+  .logo:hover {
+    background-color: #FA8320;
+    border-radius: 50%;
+    border-color: #FA8320;
+  }
+
+  .navbar {
+    height: 64px;
+  }
+
+  a {
+    padding: 5px 0px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+  }
+
+  .nav-link {
+    float: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(236, 235, 235);
+    padding: 15px 15px 33px;
+    margin: 0px 0px;
+    opacity: 0.75;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 195px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 60px;
+  }
+  
+  .nav-link-fade-up::before {
+    width: 100%;
+    bottom: 4px;
+    opacity: 0;
+    right: 0px;
+  }
+    
+  .nav-link-fade-up:hover::before {
+    bottom: 10px;
+    opacity: 1;
+  }
+    
+  .nav-link:hover {
+    opacity: 1;
+    color: #FA8320;
+  }
+    
+  .nav-link::before {
+    transition: 300ms;
+    height: 4px;
+    content: "";
+    position: absolute;
+    background-color: #FA8320;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 166px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 40px;
+  }
+    
+  .dropdown-content a {
+    padding: 10px 14px;
+    text-decoration: none;
+    display: block;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+
+  .logo {
+    background-image: url("../assets/images/basketball-ball-logo.png");
+    background-size: contain;
+    background-color: #ddd;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #ddd;
+  }
+  
+  .logo:hover {
+    background-color: #FA8320;
+    border-radius: 50%;
+    border-color: #FA8320;
+  }
+
+  .navbar {
+    height: 59px;
+  }
+
+  a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+  }
+
+  .nav-link {
+    float: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(236, 235, 235);
+    padding: 15px 10px 30px;
+    margin: 0px 0px 0px 0px;
+    display: inline-block;
+    position: relative;
+    opacity: 0.75;
+  }
+  
+  .nav-link-fade-up::before {
+    width: 100%;
+    bottom: 4px;
+    opacity: 0;
+    right: 0px;
+  }
+    
+  .nav-link-fade-up:hover::before {
+    bottom: 10px;
+    opacity: 1;
+  }
+    
+  .nav-link:hover {
+    opacity: 1;
+    color: #FA8320;
+  }
+    
+  .nav-link::before {
+    transition: 300ms;
+    height: 3px;
+    content: "";
+    position: absolute;
+    background-color: #FA8320;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 144.5px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 35px;
+  }
+    
+  .dropdown-content a {
+    padding: 10px 14px;
+    text-decoration: none;
+    display: block;
+  }
+
 }
