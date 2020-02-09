@@ -17,6 +17,12 @@ import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
 import { RouterModule, Routes } from '@angular/router';
 import { TeamsComponent } from './teams/teams.component';
 import { PlayersComponent } from './players/players.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
+  MatSortModule, MatTableModule, MatFormFieldModule
+} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -32,11 +38,25 @@ import { PlayersComponent } from './players/players.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule
   ],
   providers: [WorkoutService, DatePipe, DecimalPipe, AuthenticationService, UserService,
-  { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
-  bootstrap: [AppComponent]
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+  bootstrap: [AppComponent],
+  exports: [
+    MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule
+  ]
 })
 export class AppModule { }
