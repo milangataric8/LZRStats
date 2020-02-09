@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using LZRStatsApi.Models;
-using LZRStatsApi.Models.Dtos;
+﻿using LZRStatsApi.Models;
 using LZRStatsApi.Repositories;
-using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

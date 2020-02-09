@@ -23,24 +23,24 @@ namespace LZRStatsApi.Services
             return await Task.Run(() => _repoWrapper.TeamRepo.GetAllAsync());
         }
 
-        public Team GetById(int id)
+        public async Task<Team> GetById(int id)
         {
-            return _repoWrapper.TeamRepo.Find(id);
+            return await Task.Run(() => _repoWrapper.TeamRepo.Find(id));
         }
 
-        public async void Create(Team team)
+        public async Task Create(Team team)
         {
-            _repoWrapper.TeamRepo.Add(team);
+            await Task.Run(() =>_repoWrapper.TeamRepo.Add(team));
         }
 
-        public async void Update(Team team)
-        {
-            _repoWrapper.TeamRepo.Update(team);
-        }
+        //public async Task Update(Team team)
+        //{
+        //    await Task.Run(() => _repoWrapper.TeamRepo.Update(team));
+        //}
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
-            _repoWrapper.TeamRepo.Remove(id);
+            await Task.Run(() => _repoWrapper.TeamRepo.Remove(id));
         }
     }
 }

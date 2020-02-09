@@ -9,9 +9,9 @@ namespace LZRStatsApi.Services
     public interface ITeamService
     {
         Task<IEnumerable<Team>> GetAll();
-        Team GetById(int id);
-        void Create(Team team);
-        void Update(Team team);
-        void Delete(int id);
+        Task<Team> GetById(int id);
+        Task Create(Team team);
+        //Task Update(Team team);
+        Task Delete(int id);
     }
 }

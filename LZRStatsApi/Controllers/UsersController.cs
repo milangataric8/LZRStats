@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using LZRStatsApi.Models;
+﻿using LZRStatsApi.Models;
+using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using LZRStatsApi.Services;
+using System.Threading.Tasks;
 
 namespace LZRStatsApi.Controllers
 {
