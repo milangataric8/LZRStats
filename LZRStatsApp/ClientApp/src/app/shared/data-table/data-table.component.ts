@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatSort, MatTableDataSource, MatTable } from '@angular/material';
+import { MatSort, MatTableDataSource, MatTable, MatPaginator } from '@angular/material';
 import { DataTableService } from 'src/app/_services/data-table.service';
 import { Observable } from 'rxjs';
 import { DataTableSettings } from './settings/data-table-settings';
@@ -17,6 +17,7 @@ export class DataTableComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(private dataTableService: DataTableService) { }
 
@@ -32,6 +33,7 @@ export class DataTableComponent implements OnInit {
     this.dataTableService.getData(this.tableDataUrl).subscribe(x => {
       this.dataSource = new MatTableDataSource(x as any[]);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 }
