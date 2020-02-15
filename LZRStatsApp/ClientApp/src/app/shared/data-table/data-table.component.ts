@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatSort, MatTableDataSource, MatTable } from '@angular/material';
 import { DataTableService } from 'src/app/_services/data-table.service';
 import { Observable } from 'rxjs';
+import { DataTableSettings } from './settings/data-table-settings';
 
 @Component({
   selector: 'data-table',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class DataTableComponent implements OnInit {
   @Input() tableDataUrl: string;
-  @Input() columnHeader: any;
+  @Input() tableSettings: DataTableSettings;
 
   objectKeys = Object.keys;
   dataSource: MatTableDataSource<any>;
@@ -20,22 +21,17 @@ export class DataTableComponent implements OnInit {
   constructor(private dataTableService: DataTableService) { }
 
   ngOnInit() {
-    const data = this.getData();
-    this.setData(data);
+    this.initData();
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  setData(data: Observable<object>) {
-    data.subscribe(x => {
+  initData() {
+    this.dataTableService.getData(this.tableDataUrl).subscribe(x => {
       this.dataSource = new MatTableDataSource(x as any[]);
       this.dataSource.sort = this.sort;
     });
-  }
-
-  getData(): Observable<object> {
-    return this.dataTableService.getData(this.tableDataUrl);
   }
 }
