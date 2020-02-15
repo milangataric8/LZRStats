@@ -22,6 +22,7 @@ import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatSortModule, MatTableModule, MatFormFieldModule
 } from '@angular/material';
+import { DataTableComponent } from './shared/data-table/data-table.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {
     HomeComponent,
     LoginComponent,
     TeamsComponent,
-    PlayersComponent
+    PlayersComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
