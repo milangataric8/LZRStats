@@ -11,7 +11,7 @@ import { DataTableSettings } from '../shared/data-table/settings/data-table-sett
 })
 export class TeamsComponent implements OnInit {
   getDataUrl: string = `${AppSettings.API_ENDPOINT}teams`;
-  tableSettings: DataTableSettings = new DataTableSettings();
+  // tableSettings: DataTableSettings = new DataTableSettings();
   
   constructor(private teamsService: TeamsService) { }
 
@@ -20,6 +20,6 @@ export class TeamsComponent implements OnInit {
   }
 
   createTableOptions() {
-    this.tableSettings.columnHeaders = { name: 'Name', wins: 'Wins', losses: 'Losses' };
+    // this.tableSettings.columnHeaders = { name: 'Name', wins: 'Wins', losses: 'Losses' };
   }
 }

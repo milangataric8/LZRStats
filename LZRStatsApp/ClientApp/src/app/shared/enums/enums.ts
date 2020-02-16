@@ -1,5 +1,5 @@
 export enum ButtonType {
-    Edit,
-    Remove,
-    Details
+    Edit = 'Edit',
+    Remove = 'Remove',
+    Details = 'Details'
 }

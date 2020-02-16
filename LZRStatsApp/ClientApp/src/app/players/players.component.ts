@@ -12,17 +12,17 @@ import { ButtonType } from '../shared/enums/enums';
 })
 export class PlayersComponent implements OnInit {
   getDataUrl: string = `${AppSettings.API_ENDPOINT}Players`;
-  tableSettings: DataTableSettings = new DataTableSettings();
 
   constructor(private playersService: PlayersService) { }
 
   ngOnInit() {
-    this.createTableOptions();
   }
 
   createTableOptions() {
-    this.tableSettings.columnHeaders = { firstName: 'First Name', lastName: 'Last Name', jerseyNumber: 'Jersey number'};
-    this.tableSettings.showButtons(ButtonType.Edit, ButtonType.Remove);
+    const headers = { firstName: 'First Name', lastName: 'Last Name', jerseyNumber: 'Jersey number', gamesPlayed: 'Games played'};
+    const settings = new DataTableSettings(headers, undefined, ButtonType.Edit, ButtonType.Remove);
+
+    return settings;
   }
 
   onEdit(event:Player){

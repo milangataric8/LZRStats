@@ -23,6 +23,7 @@ import {
   MatSortModule, MatTableModule, MatFormFieldModule
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
+import { NumberSign } from './pipes/number-sign.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DataTableComponent } from './shared/data-table/data-table.component';
     LoginComponent,
     TeamsComponent,
     PlayersComponent,
-    DataTableComponent
+    DataTableComponent,
+    NumberSign
   ],
   imports: [
     BrowserModule,
