@@ -46,5 +46,10 @@ namespace LZRStatsApi.Repositories.Common
         {
             await Task.Run(() => RepositoryContext.Set<T>().Remove(entity));
         }
+
+        public async Task SaveChangesAsync()
+        {
+            await RepositoryContext.SaveChangesAsync();
+        }
     }
 }

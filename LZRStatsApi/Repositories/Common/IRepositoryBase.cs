@@ -13,5 +13,6 @@ namespace LZRStatsApi.Repositories.Common
         Task CreateAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
+        Task SaveChangesAsync();
     }
 }

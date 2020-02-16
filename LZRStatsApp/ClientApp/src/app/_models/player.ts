@@ -3,4 +3,5 @@ export class Player{
     firstName:string;
     lastName:string;
     jerseyNumber:number; 
+    gamesPlayed:number; 
 }

@@ -19,6 +19,10 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
+    isAuthenticated():boolean{
+        return !!this.currentUserSubject.value; //!! to force boolean
+    }
+
     login(username: string, password: string) {
         const user = { username: username, password: password };
         return this.http.post<any>(`${AppSettings.API_ENDPOINT}users/authenticate`, user)

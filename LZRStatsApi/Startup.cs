@@ -1,3 +1,4 @@
+using AutoMapper;
 using LZRStatsApi.Data;
 using LZRStatsApi.Helpers;
 using LZRStatsApi.Repositories;
@@ -33,6 +34,7 @@ namespace LZRStatsApi
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddDbContext<LzrStatsContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LZRStatsContext")));

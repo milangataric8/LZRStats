@@ -11,12 +11,15 @@
   </ng-container>
 
   <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef> Action </th>
-    <td mat-cell *matCellDef="let element">
-      <i *ngIf="tableSettings.showDetailsButton" (click)="showDetails(element)" class="material-icons clickable" title="Show details"> details</i>
-      <i *ngIf="tableSettings.showEditButton" (click)="edit(element)" class="material-icons clickable" title="Edit"> edit</i>
-      <i *ngIf="tableSettings.showRemoveButton" (click)="remove(element)" class="material-icons clickable" title="Remove">remove</i>
-    </td>
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <i *ngIf="tableSettings.showDetailsButton && isUserLoggedIn" (click)="showDetails(element)" class="material-icons clickable"
+          title="Show details"> details</i>
+        <i *ngIf="tableSettings.showEditButton && isUserLoggedIn" (click)="edit(element)" class="material-icons clickable" title="Edit">
+          edit</i>
+        <i *ngIf="tableSettings.showRemoveButton && isUserLoggedIn" (click)="remove(element)" class="material-icons clickable"
+          title="Remove">remove</i>
+      </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="objectKeys(tableSettings.columnHeaders)"></tr>

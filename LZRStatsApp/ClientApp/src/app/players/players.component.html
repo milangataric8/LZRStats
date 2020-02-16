@@ -1,4 +1,4 @@
 <h1>Players</h1>
 
-<data-table [tableDataUrl]="getDataUrl" [tableSettings]="tableSettings">
+<data-table [tableDataUrl]="getDataUrl" [tableSettings]="tableSettings" (editItem)="onEdit($event)" (removeItem)="onDelete($event)">
 </data-table>
