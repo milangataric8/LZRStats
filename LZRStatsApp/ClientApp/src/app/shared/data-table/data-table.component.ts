@@ -37,8 +37,13 @@ export class DataTableComponent implements OnInit {
     });
   }
 
+  showDetails(element: any) {
+    console.log('showDetails clicked');
+    console.log(element);
+  }
+
   edit(element: any) {
-    console.log('edit clicked');
+    console.log('edit clicked'); //TODO event emitter
     console.log(element);
   }
 

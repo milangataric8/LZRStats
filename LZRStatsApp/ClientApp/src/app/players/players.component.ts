@@ -23,5 +23,6 @@ export class PlayersComponent implements OnInit {
     this.tableSettings.columnHeaders = { firstName: 'First Name', lastName: 'Last Name', jerseyNumber: 'Jersey number', action:'Action'};
     this.tableSettings.showEditButton = true;
     this.tableSettings.showRemoveButton = true;
+    this.tableSettings.showDetailsButton = true;
   }
 }
