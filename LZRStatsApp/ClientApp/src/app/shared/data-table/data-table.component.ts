@@ -36,4 +36,18 @@ export class DataTableComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
   }
+
+  edit(element: any) {
+    console.log('edit clicked');
+    console.log(element);
+  }
+
+  remove(element: any) {
+    console.log('remove clicked');
+    console.log(element);
+  }
+
+  private isActionColumn(dataSubject: string): string {
+    return dataSubject !== 'action' ? dataSubject : null;
+  }
 }

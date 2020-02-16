@@ -24,7 +24,6 @@ import {
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
