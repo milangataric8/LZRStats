@@ -23,8 +23,8 @@ export class DataTableComponent implements OnInit {
   isUserLoggedIn:boolean;
   isLoading:boolean;
 
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private dataTableService: DataTableService, private authService: AuthenticationService) { }
 
