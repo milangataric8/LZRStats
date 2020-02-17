@@ -8,5 +8,6 @@ export enum ColumnType {
     Text,
     Number,
     Date,
-    Percentage
+    Percentage,
+    Link
 }

@@ -4,8 +4,17 @@ table {
     overflow-y: hidden;
     min-width: 500px;
 }
- 
+
 th.mat-header-cell {
     text-align: left;
     max-width: 300px;
 }
+
+.clickable-cell {
+    cursor: pointer;
+    color: blue;
+}
+
+    .clickable-cell:hover {
+        text-decoration: underline;
+    }

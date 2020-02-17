@@ -20,7 +20,7 @@ export class PlayersComponent implements OnInit {
   }
 
   createTableOptions() {
-    const firstName: ColumnInfo = new ColumnInfo('First name');
+    const firstName: ColumnInfo = new ColumnInfo('First name', ColumnType.Link);
     const lastName: ColumnInfo = new ColumnInfo('Last name');
     const jerseyNumber: ColumnInfo = new ColumnInfo('Jersey number', ColumnType.Number);
     const headers = { firstName, lastName, jerseyNumber };
@@ -41,5 +41,10 @@ export class PlayersComponent implements OnInit {
   onShowDetails(event: Player) {
     //TODO player details pop-up or new page?
     console.log('details');
+  }
+
+  onItemClicked(event: Player) {
+    //TODO show player details like on show details btn(maybe remove show details btn?)
+    console.log(event);
   }
 }

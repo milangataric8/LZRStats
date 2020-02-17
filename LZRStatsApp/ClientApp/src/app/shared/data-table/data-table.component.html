@@ -12,6 +12,7 @@
         <div *ngSwitchCase="1"> {{element[dataSubject] | numberSign }} </div>
         <div *ngSwitchCase="2"> {{element[dataSubject] | date: 'dd/MM/yyyy'}} </div>
         <div *ngSwitchCase="3"> {{element[dataSubject] | percent }} </div>
+        <div *ngSwitchCase="4" class="clickable-cell" (click)="cellClicked(element)"> {{element[dataSubject] }} </div>
         <div *ngSwitchDefault> {{element[dataSubject] }} </div>
       </div>
     </td>

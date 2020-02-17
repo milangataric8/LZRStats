@@ -2,22 +2,18 @@ import { PageSizeSettings } from "./page-size-settings";
 import { ButtonType } from "../../enums/enums";
 
 export class DataTableSettings {
-    columnHeaders: any = {};
     pageSizeSettings: PageSizeSettings = new PageSizeSettings();
     protected showDetailsButton: boolean;
     protected showEditButton: boolean;
     protected showRemoveButton: boolean;
 
-    constructor(headers: any, pageSizeSettings?:PageSizeSettings, ...buttonTypes:ButtonType[]){
-        this.columnHeaders = headers;
+    constructor(private columnHeaders: any, pageSizeSettings?:PageSizeSettings, ...buttonTypes:ButtonType[]){
         this.pageSizeSettings = pageSizeSettings || this.pageSizeSettings; //if empty use default
         this.showButtons(...buttonTypes);
     }
 
     showButtons(...buttonTypes: ButtonType[]) {
-        buttonTypes.forEach(btn => {
-            this.setButtonVisibility(btn);
-        });
+        buttonTypes.forEach(btn => this.setButtonVisibility(btn));
         this.columnHeaders.action = 'Action'; //TODO handle this better https://stackoverflow.com/a/44441178
     }
 

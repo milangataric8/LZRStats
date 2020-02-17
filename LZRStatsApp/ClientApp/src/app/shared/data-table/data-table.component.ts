@@ -17,6 +17,7 @@ export class DataTableComponent implements OnInit {
   @Output() editItem: EventEmitter<any> = new EventEmitter();
   @Output() removeItem: EventEmitter<any> = new EventEmitter();
   @Output() details: EventEmitter<any> = new EventEmitter();
+  @Output() itemClicked: EventEmitter<any> = new EventEmitter();
 
   objectKeys = Object.keys;
   dataSource: MatTableDataSource<any>;
@@ -58,6 +59,10 @@ export class DataTableComponent implements OnInit {
 
   remove(element: any) {
     this.removeItem.emit(element);
+  }
+
+  cellClicked(element:any){
+    this.itemClicked.emit(element);
   }
 
   private isActionColumn(dataSubject: string): string {
