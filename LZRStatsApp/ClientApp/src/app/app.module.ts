@@ -18,10 +18,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { TeamsComponent } from './teams/teams.component';
 import { PlayersComponent } from './players/players.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule
-} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSign } from './pipes/number-sign.pipe';
 
