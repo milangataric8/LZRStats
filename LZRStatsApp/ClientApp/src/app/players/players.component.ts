@@ -20,7 +20,7 @@ export class PlayersComponent implements OnInit {
   }
 
   createTableOptions() {
-    const firstName: ColumnInfo = new ColumnInfo('First name');
+    const firstName: ColumnInfo = new ColumnInfo('First name'); //TODO clickable cell, emmit cell clicked event and catch it here
     const lastName: ColumnInfo = new ColumnInfo('Last name');
     const jerseyNumber: ColumnInfo = new ColumnInfo('Jersey number', ColumnType.Number);
     const headers = { firstName, lastName, jerseyNumber };
