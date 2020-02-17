@@ -10,6 +10,7 @@ namespace LZRStatsApi.Repositories.Common
     {
         Task<IList<T>> GetAllAsync();
         Task<IList<T>> GetByAsync(Expression<Func<T, bool>> expression);
+        Task<T> GetSingleByAsync(Expression<Func<T, bool>> expression);
         Task CreateAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);

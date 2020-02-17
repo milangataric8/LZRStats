@@ -24,6 +24,7 @@ import {
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSign } from './pipes/number-sign.pipe';
+import { MasterDetailBaseComponent } from './shared/master-detail-base/master-detail-base.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NumberSign } from './pipes/number-sign.pipe';
     TeamsComponent,
     PlayersComponent,
     DataTableComponent,
-    NumberSign
+    NumberSign,
+    MasterDetailBaseComponent
   ],
   imports: [
     BrowserModule,

@@ -5,23 +5,26 @@ import { AppSettings } from '../constants';
 import { DataTableSettings } from '../shared/data-table/settings/data-table-settings';
 import { ColumnInfo } from '../shared/data-table/column-header-models/column-info';
 import { ButtonType, ColumnType } from '../shared/enums/enums';
+import { MasterDetailBaseComponent } from '../shared/master-detail-base/master-detail-base.component';
+import { DataTableService } from '../_services/data-table.service';
 
 @Component({
   selector: 'app-teams',
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.css']
 })
-export class TeamsComponent implements OnInit {
-  getTableDataUrl: string = `${AppSettings.API_ENDPOINT}teams`;
-  
-  constructor(private teamsService: TeamsService) { }
+export class TeamsComponent extends MasterDetailBaseComponent implements OnInit {
+  getTableDataUrl: string = this.apiUrl;
 
-  ngOnInit() {
-    this.createTableOptions();
+  constructor(dataTableService: DataTableService) {
+    super(`${AppSettings.API_ENDPOINT}teams`, dataTableService);
   }
 
-  createTableOptions() : DataTableSettings {
-    const name: ColumnInfo = new ColumnInfo('Name');
+  ngOnInit() {
+  }
+
+  createTableOptions(): DataTableSettings {
+    const name: ColumnInfo = new ColumnInfo('Name', ColumnType.Link);
     const wins: ColumnInfo = new ColumnInfo('Wins');
     const losses: ColumnInfo = new ColumnInfo('Losses');
     const headers = { name, wins, losses };

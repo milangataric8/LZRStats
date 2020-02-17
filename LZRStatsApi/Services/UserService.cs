@@ -19,7 +19,7 @@ namespace LZRStatsApi.Services
 
         public async Task<User> Authenticate(string username, string password)
         {
-            var user = await Task.Run(() => _repoWrapper.UserRepo.GetByLoginData(username, password));
+            var user = await _repoWrapper.UserRepo.GetByLoginDataAsync(username, password);
 
             // return null if user not found
             if (user == null)
@@ -32,7 +32,7 @@ namespace LZRStatsApi.Services
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return await Task.Run(() => _repoWrapper.UserRepo.GetAllAsync());
+            return await _repoWrapper.UserRepo.GetAllAsync();
         }
     }
 }

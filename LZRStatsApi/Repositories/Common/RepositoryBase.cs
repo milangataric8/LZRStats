@@ -27,6 +27,11 @@ namespace LZRStatsApi.Repositories.Common
             return await RepositoryContext.Set<T>().Where(expression).AsNoTracking().ToListAsync();
         }
 
+        public async Task<T> GetSingleByAsync(Expression<Func<T, bool>> expression)
+        {
+            return await RepositoryContext.Set<T>().Where(expression).AsNoTracking().SingleOrDefaultAsync();
+        }
+
         public T GetById(int id)
         {
             return RepositoryContext.Set<T>().Find(id);

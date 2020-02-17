@@ -5,16 +5,20 @@ import { AppSettings } from '../constants';
 import { DataTableSettings } from '../shared/data-table/settings/data-table-settings';
 import { ButtonType, ColumnType } from '../shared/enums/enums';
 import { ColumnInfo } from '../shared/data-table/column-header-models/column-info';
+import { DataTableService } from '../_services/data-table.service';
+import { MasterDetailBaseComponent } from '../shared/master-detail-base/master-detail-base.component';
 
 @Component({
   selector: 'app-players',
   templateUrl: './players.component.html',
   styleUrls: ['./players.component.css']
 })
-export class PlayersComponent implements OnInit {
-  getTableDataUrl: string = `${AppSettings.API_ENDPOINT}Players`;
+export class PlayersComponent extends MasterDetailBaseComponent implements OnInit {
+  getTableDataUrl: string = this.apiUrl;
 
-  constructor(private playersService: PlayersService) { }
+  constructor(dataTableService: DataTableService) {
+    super(`${AppSettings.API_ENDPOINT}players`, dataTableService);
+  }
 
   ngOnInit() {
   }
@@ -28,23 +32,5 @@ export class PlayersComponent implements OnInit {
     const settings = new DataTableSettings(headers, undefined, ButtonType.Edit, ButtonType.Remove);
 
     return settings;
-  }
-
-  onEdit(event: Player) {
-    this.playersService.update(event);
-  }
-
-  onDelete(event: Player) {
-    this.playersService.remove(event);
-  }
-
-  onShowDetails(event: Player) {
-    //TODO player details pop-up or new page?
-    console.log('details');
-  }
-
-  onItemClicked(event: Player) {
-    //TODO show player details like on show details btn(maybe remove show details btn?)
-    console.log(event);
   }
 }
