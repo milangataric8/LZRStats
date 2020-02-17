@@ -3,6 +3,8 @@ import { TeamsService } from '../_services/teams.service';
 import { Team } from '../_models/team';
 import { AppSettings } from '../constants';
 import { DataTableSettings } from '../shared/data-table/settings/data-table-settings';
+import { ColumnInfo } from '../shared/data-table/column-header-models/column-info';
+import { ButtonType, ColumnType } from '../shared/enums/enums';
 
 @Component({
   selector: 'app-teams',
@@ -10,8 +12,7 @@ import { DataTableSettings } from '../shared/data-table/settings/data-table-sett
   styleUrls: ['./teams.component.css']
 })
 export class TeamsComponent implements OnInit {
-  getDataUrl: string = `${AppSettings.API_ENDPOINT}teams`;
-  // tableSettings: DataTableSettings = new DataTableSettings();
+  getTableDataUrl: string = `${AppSettings.API_ENDPOINT}teams`;
   
   constructor(private teamsService: TeamsService) { }
 
@@ -19,7 +20,14 @@ export class TeamsComponent implements OnInit {
     this.createTableOptions();
   }
 
-  createTableOptions() {
-    // this.tableSettings.columnHeaders = { name: 'Name', wins: 'Wins', losses: 'Losses' };
+  createTableOptions() : DataTableSettings {
+    const name: ColumnInfo = new ColumnInfo('Name');
+    const wins: ColumnInfo = new ColumnInfo('Wins');
+    const losses: ColumnInfo = new ColumnInfo('Losses');
+    const headers = { name, wins, losses };
+
+    const settings = new DataTableSettings(headers, undefined, ButtonType.Edit, ButtonType.Remove);
+
+    return settings;
   }
 }

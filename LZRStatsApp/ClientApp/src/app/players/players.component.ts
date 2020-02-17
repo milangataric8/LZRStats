@@ -3,7 +3,8 @@ import { PlayersService } from '../_services/players.service';
 import { Player } from '../_models/player';
 import { AppSettings } from '../constants';
 import { DataTableSettings } from '../shared/data-table/settings/data-table-settings';
-import { ButtonType } from '../shared/enums/enums';
+import { ButtonType, ColumnType } from '../shared/enums/enums';
+import { ColumnInfo } from '../shared/data-table/column-header-models/column-info';
 
 @Component({
   selector: 'app-players',
@@ -11,7 +12,7 @@ import { ButtonType } from '../shared/enums/enums';
   styleUrls: ['./players.component.css']
 })
 export class PlayersComponent implements OnInit {
-  getDataUrl: string = `${AppSettings.API_ENDPOINT}Players`;
+  getTableDataUrl: string = `${AppSettings.API_ENDPOINT}Players`;
 
   constructor(private playersService: PlayersService) { }
 
@@ -19,21 +20,25 @@ export class PlayersComponent implements OnInit {
   }
 
   createTableOptions() {
-    const headers = { firstName: 'First Name', lastName: 'Last Name', jerseyNumber: 'Jersey number', gamesPlayed: 'Games played'};
+    const firstName: ColumnInfo = new ColumnInfo('First name');
+    const lastName: ColumnInfo = new ColumnInfo('Last name');
+    const jerseyNumber: ColumnInfo = new ColumnInfo('Jersey number', ColumnType.Number);
+    const headers = { firstName, lastName, jerseyNumber };
+
     const settings = new DataTableSettings(headers, undefined, ButtonType.Edit, ButtonType.Remove);
 
     return settings;
   }
 
-  onEdit(event:Player){
+  onEdit(event: Player) {
     this.playersService.update(event);
   }
 
-  onDelete(event:Player){
+  onDelete(event: Player) {
     this.playersService.remove(event);
   }
 
-  onShowDetails(event:Player){
+  onShowDetails(event: Player) {
     //TODO player details pop-up or new page?
     console.log('details');
   }

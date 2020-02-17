@@ -30,16 +30,18 @@ namespace LZRStatsApi.Controllers
         {
             var players = await _playerRepo.GetAllAsync();
 
-            //for (int i = 0; i < 60; i++)
-            //{
-            //    players.Add(new Player
-            //    {
-            //        Id = i + 2,
-            //        FirstName = "Player" + i,
-            //        LastName = i % 2 == 0 ? "Prezime" + i : "Lastname" + i,
-            //        JerseyNumber = i
-            //    });
-            //}
+            //TODO return view model
+            //TODO remove fake data 
+            for (int i = 0; i < 6000; i++)
+            {
+                players.Add(new Player
+                {
+                    Id = i + 2,
+                    FirstName = "Player" + i,
+                    LastName = i % 2 == 0 ? "Prezime" + i : "Lastname" + i,
+                    JerseyNumber = i
+                });
+            }
 
             //var result = _mapper.Map<PlayerViewModel>(players);
             return Ok(players);

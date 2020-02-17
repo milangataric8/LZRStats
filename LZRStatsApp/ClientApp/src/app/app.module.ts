@@ -20,7 +20,7 @@ import { PlayersComponent } from './players/players.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule, MatFormFieldModule
+  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSign } from './pipes/number-sign.pipe';
@@ -48,7 +48,8 @@ import { NumberSign } from './pipes/number-sign.pipe';
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule
   ],
   providers: [WorkoutService, DatePipe, DecimalPipe, AuthenticationService, UserService,
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

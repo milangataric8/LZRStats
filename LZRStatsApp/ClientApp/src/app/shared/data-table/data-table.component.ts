@@ -4,6 +4,7 @@ import { DataTableService } from 'src/app/_services/data-table.service';
 import { Observable } from 'rxjs';
 import { DataTableSettings } from './settings/data-table-settings';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { ColumnType } from '../enums/enums';
 
 @Component({
   selector: 'data-table',
@@ -20,6 +21,7 @@ export class DataTableComponent implements OnInit {
   objectKeys = Object.keys;
   dataSource: MatTableDataSource<any>;
   isUserLoggedIn:boolean;
+  isLoading:boolean;
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -27,8 +29,8 @@ export class DataTableComponent implements OnInit {
   constructor(private dataTableService: DataTableService, private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.isUserLoggedIn = this.authService.isAuthenticated();
-    console.log(this.isUserLoggedIn);
     this.initData();
   }
 
@@ -41,7 +43,9 @@ export class DataTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource(x as any[]);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    });
+      this.isLoading = false
+    },
+    error => this.isLoading = false);
   }
 
   showDetails(element: any) {
@@ -58,5 +62,21 @@ export class DataTableComponent implements OnInit {
 
   private isActionColumn(dataSubject: string): string {
     return dataSubject !== 'action' ? dataSubject : null;
+  }
+
+  private isTextColumn(columnType:ColumnType){
+    return columnType == ColumnType.Text;
+  }
+
+  private isNumberColumn(columnType:ColumnType){
+    return columnType == ColumnType.Number;
+  }
+
+  private isDateColumn(columnType:ColumnType){
+    return columnType == ColumnType.Date;
+  }
+
+  private isPercentageColumn(columnType:ColumnType){
+    return columnType == ColumnType.Percentage;
   }
 }

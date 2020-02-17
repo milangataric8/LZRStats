@@ -3,3 +3,10 @@ export enum ButtonType {
     Remove = 'Remove',
     Details = 'Details'
 }
+
+export enum ColumnType {
+    Text,
+    Number,
+    Date,
+    Percentage
+}
