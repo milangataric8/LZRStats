@@ -16,6 +16,8 @@ namespace LZRStatsApi.Models
         public virtual Team Team { get; set; }
         public virtual ICollection<PlayerStats> PlayerStats { get; set; }
 
+
+        //TODO extract to PlayerStatsCalculator
         public double GetPointsPerGame()
         {
             return GetTotalPoints() / PlayerStats.Count;

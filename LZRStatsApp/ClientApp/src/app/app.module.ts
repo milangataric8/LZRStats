@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { WorkoutService } from './_services/workout.service';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, PercentPipe } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as _ from 'lodash';
@@ -23,8 +23,9 @@ import {
   MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
-import { NumberSign } from './pipes/number-sign.pipe';
+import { NumberSignPipe } from './pipes/number-sign.pipe';
 import { MasterDetailBaseComponent } from './shared/master-detail-base/master-detail-base.component';
+import { DynamicPipe } from './pipes/dynamic.pipe';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,9 @@ import { MasterDetailBaseComponent } from './shared/master-detail-base/master-de
     TeamsComponent,
     PlayersComponent,
     DataTableComponent,
-    NumberSign,
-    MasterDetailBaseComponent
+    NumberSignPipe,
+    MasterDetailBaseComponent,
+    DynamicPipe
   ],
   imports: [
     BrowserModule,
@@ -53,9 +55,17 @@ import { MasterDetailBaseComponent } from './shared/master-detail-base/master-de
     MatSortModule,
     MatCardModule
   ],
-  providers: [WorkoutService, DatePipe, DecimalPipe, AuthenticationService, UserService,
+  providers: [
+    WorkoutService,
+    DatePipe,
+    DecimalPipe,
+    NumberSignPipe,
+    PercentPipe,
+    AuthenticationService,
+    UserService,
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
   exports: [
     MatTableModule,

@@ -4,7 +4,8 @@ import { DataTableService } from 'src/app/_services/data-table.service';
 import { Observable } from 'rxjs';
 import { DataTableSettings } from './settings/data-table-settings';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { ColumnType } from '../enums/enums';
+import { ButtonClickedItem } from './event-models/button-clicked-item';
+import { ActionType } from '../enums/enums';
 
 @Component({
   selector: 'data-table',
@@ -14,15 +15,13 @@ import { ColumnType } from '../enums/enums';
 export class DataTableComponent implements OnInit {
   @Input() tableDataUrl: string;
   @Input() tableSettings: DataTableSettings;
-  @Output() editItem: EventEmitter<any> = new EventEmitter();
-  @Output() removeItem: EventEmitter<any> = new EventEmitter();
-  @Output() details: EventEmitter<any> = new EventEmitter();
   @Output() itemClicked: EventEmitter<any> = new EventEmitter();
+  @Output() tableButtonClicked: EventEmitter<any> = new EventEmitter();
 
   objectKeys = Object.keys;
   dataSource: MatTableDataSource<any>;
-  isUserLoggedIn:boolean;
-  isLoading:boolean;
+  isUserLoggedIn: boolean;
+  isLoading: boolean;
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -46,42 +45,18 @@ export class DataTableComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.isLoading = false
     },
-    error => this.isLoading = false);
+      error => this.isLoading = false);
   }
 
-  showDetails(element: any) {
-    this.details.emit(element);
+  onActionButtonClicked(element: any, actionType: ActionType) {
+    this.tableButtonClicked.emit(new ButtonClickedItem(actionType, element));
   }
 
-  edit(element: any) {
-    this.editItem.emit(element);
-  }
-
-  remove(element: any) {
-    this.removeItem.emit(element);
-  }
-
-  cellClicked(element:any){
+  cellClicked(element: any) {
     this.itemClicked.emit(element);
   }
 
   private isActionColumn(dataSubject: string): string {
     return dataSubject !== 'action' ? dataSubject : null;
-  }
-
-  private isTextColumn(columnType:ColumnType){
-    return columnType == ColumnType.Text;
-  }
-
-  private isNumberColumn(columnType:ColumnType){
-    return columnType == ColumnType.Number;
-  }
-
-  private isDateColumn(columnType:ColumnType){
-    return columnType == ColumnType.Date;
-  }
-
-  private isPercentageColumn(columnType:ColumnType){
-    return columnType == ColumnType.Percentage;
   }
 }

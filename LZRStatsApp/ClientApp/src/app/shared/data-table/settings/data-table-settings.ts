@@ -1,37 +1,22 @@
 import { PageSizeSettings } from "./page-size-settings";
-import { ButtonType } from "../../enums/enums";
+import { TableActionButton } from "./table-action-button";
 
 export class DataTableSettings {
     pageSizeSettings: PageSizeSettings = new PageSizeSettings();
+    actionButtons: TableActionButton[] = [];
     protected showDetailsButton: boolean;
     protected showEditButton: boolean;
     protected showRemoveButton: boolean;
 
-    constructor(private columnHeaders: any, pageSizeSettings?:PageSizeSettings, ...buttonTypes:ButtonType[]){
+    constructor(private columnHeaders: any, pageSizeSettings?:PageSizeSettings, ...actionButtons:TableActionButton[]){
         this.pageSizeSettings = pageSizeSettings || this.pageSizeSettings; //if empty use default
-        this.showButtons(...buttonTypes);
+        this.showButtons(...actionButtons);
     }
 
-    showButtons(...buttonTypes: ButtonType[]) {
-        buttonTypes.forEach(btn => this.setButtonVisibility(btn));
-        this.columnHeaders.action = 'Action'; //TODO handle this better https://stackoverflow.com/a/44441178
-    }
-
-    //switch alternative https://ultimatecourses.com/blog/deprecating-the-switch-statement-for-object-literals
-    setButtonVisibility(buttonType: ButtonType) {
-        const self = this;
-        const btnTypes = {
-            'Edit': function () {
-                self.showEditButton = true;
-            },
-            'Remove': function () {
-                self.showRemoveButton = true;
-            },
-            'Details': function () {
-                self.showDetailsButton = true;
-            },
-        };
-        btnTypes[buttonType]();
+    showButtons(...buttons: TableActionButton[]) {
+        this.actionButtons = buttons;
+        this.columnHeaders.action = 'Action'; 
+        //TODO handle this better https://stackoverflow.com/a/44441178
     }
 }
 

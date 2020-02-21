@@ -1,4 +1,7 @@
 <h1>Teams</h1>
 
-<data-table [tableDataUrl]="getTableDataUrl" [tableSettings]="createTableOptions()" (editItem)="onEdit($event)" (removeItem)="onDelete($event)">
+<data-table 
+    [tableDataUrl]="getTableDataUrl" 
+    [tableSettings]="createTableOptions()" 
+    (tableButtonClicked)="onTableButtonClicked($event)">
 </data-table>

@@ -1,5 +1,5 @@
-import { ColumnType } from "../../enums/enums";
+import { Pipe } from "@angular/core";
 
 export class ColumnInfo {
-    constructor(private value: any, private type: ColumnType = ColumnType.Text) { }
+    constructor(private value: any, private pipe: Pipe = undefined, private pipeArgs: string[] = []) { }
 }
