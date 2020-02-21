@@ -31,7 +31,7 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
     const jerseyNumber: ColumnInfo = new ColumnInfo('Jersey number', NumberSignPipe);
     const headers = { firstName, lastName, jerseyNumber };
     const editBtn = new TableActionButton('edit', ActionType.Edit);
-    const removeBtn = new TableActionButton('remove', ActionType.Remove);
+    const removeBtn = new TableActionButton('delete', ActionType.Remove);
     const settings = new DataTableSettings(headers, undefined, editBtn, removeBtn);
 
     return settings;

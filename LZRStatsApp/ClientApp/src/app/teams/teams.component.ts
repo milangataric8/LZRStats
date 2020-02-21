@@ -30,7 +30,7 @@ export class TeamsComponent extends MasterDetailBaseComponent implements OnInit 
     const losses: ColumnInfo = new ColumnInfo('Losses');
     const headers = { name, wins, losses };
     const editBtn = new TableActionButton('edit', ActionType.Edit);
-    const removeBtn = new TableActionButton('remove', ActionType.Remove);
+    const removeBtn = new TableActionButton('delete', ActionType.Remove);
     const settings = new DataTableSettings(headers, undefined, editBtn, removeBtn);
 
     return settings;

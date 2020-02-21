@@ -37,11 +37,13 @@ export class MasterDetailBaseComponent implements OnInit {
   //switch alternative https://ultimatecourses.com/blog/deprecating-the-switch-statement-for-object-literals
   invokeButtonAction(item: ButtonClickedItem) {
     const btnTypes = {
-      0: () => {
+      'Edit': () => {
         //TODO show edit modal
+        console.log('edit');
       },
-      1: () => {
+      'Remove': () => {
         //TODO show confirm remove modal
+        console.log('delete');
       }
     };
     btnTypes[item.getActionType()]();
