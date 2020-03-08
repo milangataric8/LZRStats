@@ -15,6 +15,10 @@ th.mat-header-cell {
     color: blue;
 }
 
-    .clickable-cell:hover {
-        text-decoration: underline;
-    }
+.clickable-cell:hover {
+    text-decoration: underline;
+}
+
+i {
+    line-height: unset;
+}

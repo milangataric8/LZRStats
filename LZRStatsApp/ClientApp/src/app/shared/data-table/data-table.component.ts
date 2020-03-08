@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MatSort, MatTableDataSource, MatTable, MatPaginator } from '@angular/material';
 import { DataTableService } from 'src/app/_services/data-table.service';
-import { Observable } from 'rxjs';
 import { DataTableSettings } from './settings/data-table-settings';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ButtonClickedItem } from './event-models/button-clicked-item';
@@ -43,7 +42,7 @@ export class DataTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource(x as any[]);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.isLoading = false
+      this.isLoading = false;
     },
       error => this.isLoading = false);
   }

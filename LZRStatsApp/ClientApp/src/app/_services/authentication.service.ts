@@ -19,18 +19,18 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    isAuthenticated():boolean{
-        return !!this.currentUserSubject.value; //!! to force boolean
+    isAuthenticated(): boolean {
+        return !!this.currentUserSubject.value; // !! to force boolean
     }
 
     login(username: string, password: string) {
         const user = { username: username, password: password };
         return this.http.post<any>(`${AppSettings.API_ENDPOINT}users/authenticate`, user)
-            .pipe(map(user => {
+            .pipe(map(result => {
                 // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-                user.authdata = window.btoa(username + ':' + password);
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
+                result.authdata = window.btoa(username + ':' + password);
+                localStorage.setItem('currentUser', JSON.stringify(result));
+                this.currentUserSubject.next(result);
                 return user;
             }));
     }

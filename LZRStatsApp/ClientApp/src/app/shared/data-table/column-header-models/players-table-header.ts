@@ -1,5 +1,5 @@
-export class PlayersTableHeader{
-    firstName:string;
-    lastName:string;
-    jerseyNumber:string;
+export class PlayersTableHeader {
+    firstName: string;
+    lastName: string;
+    jerseyNumber: string;
 }

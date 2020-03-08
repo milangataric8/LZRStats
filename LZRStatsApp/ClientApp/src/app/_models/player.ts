@@ -1,7 +1,7 @@
-export class Player{
-    id:number;
-    firstName:string;
-    lastName:string;
-    jerseyNumber:number; 
-    gamesPlayed:number; 
+export class Player {
+    id: number;
+    firstName: string;
+    lastName: string;
+    jerseyNumber: number;
+    gamesPlayed: number;
 }

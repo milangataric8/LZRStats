@@ -17,32 +17,36 @@ export class MasterDetailBaseComponent implements OnInit {
 
   onCreate(event: any) {
     console.log(this.apiUrl);
-    //TODO show empty modal dialog(***MUST use the same dialog for add/edit!!!)
+    // TODO show empty modal dialog(***MUST use the same dialog for add/edit!!!)
   }
 
   add(payload: any) {
-    this.dataTableService.add(this.apiUrl, event)
+    this.dataTableService.add(this.apiUrl, payload)
       .subscribe(x => {
-        //TODO open edit dialog
+        // TODO open edit dialog
       }, error => console.log(error));
   }
 
   onTableButtonClicked(event: any) {
     console.log(event);
-    //TODO open edit dialog
+    // TODO open edit dialog
     this.invokeButtonAction(event);
   }
 
-  //TODO handle waaay diferently!!
-  //switch alternative https://ultimatecourses.com/blog/deprecating-the-switch-statement-for-object-literals
+  // TODO handle waaay differently!!
+  // switch alternative https://ultimatecourses.com/blog/deprecating-the-switch-statement-for-object-literals
   invokeButtonAction(item: ButtonClickedItem) {
     const btnTypes = {
+      'Add': () => {
+          // TODO show add modal
+          console.log('add');
+        },
       'Edit': () => {
-        //TODO show edit modal
+        // TODO show edit modal
         console.log('edit');
       },
       'Remove': () => {
-        //TODO show confirm remove modal
+        // TODO show confirm remove modal
         console.log('delete');
       }
     };
@@ -50,16 +54,16 @@ export class MasterDetailBaseComponent implements OnInit {
   }
 
   update(payload: any) {
-    this.dataTableService.update(this.apiUrl, event)
+    this.dataTableService.update(this.apiUrl, payload)
       .subscribe(x => {
-        //TODO after api call
+        // TODO after api call
       }, error => console.log(error));
   }
 
   delete(payload: any) {
-    this.dataTableService.remove(this.apiUrl, event)
+    this.dataTableService.remove(this.apiUrl, payload)
       .subscribe(x => {
-        //TODO after api call
+        // TODO after api call
       }, error => console.log(error));
   }
 
