@@ -44,7 +44,7 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
   }
 
   onRowSelected = (player: Player) => {
-    this.router.navigateByUrl(`players/${player.id}`)
+    this.router.navigateByUrl(`players/${player.id}`);
   }
 
   delete() {

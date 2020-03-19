@@ -48,8 +48,8 @@ export class MasterDetailBaseComponent implements OnInit {
         console.log('edit');
       },
       'Remove': () => {
-        //TODO show confirm remove modal
-        this.openDialog();
+        // TODO show confirm remove modal
+        this.openDialog(item.element);
         console.log('delete');
       }
     };
@@ -75,8 +75,11 @@ export class MasterDetailBaseComponent implements OnInit {
   }
 
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DeleteModalComponent);
+  openDialog(item: any) {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      width: '350px',
+      data: {dialogTitle: 'Confirm delete', dialogText: `Are you sure you want to delete this item? ${item}`, item: item}
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

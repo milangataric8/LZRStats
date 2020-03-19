@@ -11,7 +11,7 @@ export class DataTableService {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 
-  getData(accessPointUrl: string){
+  getData(accessPointUrl: string) {
     return this.httpClient.get(accessPointUrl);
   }
 

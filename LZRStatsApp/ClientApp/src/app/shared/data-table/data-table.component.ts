@@ -58,4 +58,8 @@ export class DataTableComponent implements OnInit {
   private isActionColumn(dataSubject: string): string {
     return dataSubject !== 'action' ? dataSubject : null;
   }
+
+  refresh() {
+    this.initData();
+  }
 }
