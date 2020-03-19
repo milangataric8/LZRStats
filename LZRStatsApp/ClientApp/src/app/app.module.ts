@@ -25,6 +25,7 @@ import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSignPipe } from './pipes/number-sign.pipe';
 import { MasterDetailBaseComponent } from './shared/master-detail-base/master-detail-base.component';
 import { DynamicPipe } from './pipes/dynamic.pipe';
+import { StatsUploadComponent } from './stats-upload/stats-upload.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DynamicPipe } from './pipes/dynamic.pipe';
     DataTableComponent,
     NumberSignPipe,
     MasterDetailBaseComponent,
-    DynamicPipe
+    DynamicPipe,
+    StatsUploadComponent
   ],
   imports: [
     BrowserModule,
