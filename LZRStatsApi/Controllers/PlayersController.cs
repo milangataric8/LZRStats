@@ -30,7 +30,10 @@ namespace LZRStatsApi.Controllers
         [AllowAnonymous]
         public IEnumerable<PlayerResponse> GetAll()
         {
-            return _playerRepo.GetAll();
+            var result =  _playerRepo.GetAll();
+            var players = _mapper.Map<IEnumerable<PlayerResponse>>(result);
+
+            return players;
         }
 
         [HttpGet("{id}")]

@@ -1,0 +1,13 @@
+button {
+    margin-right: 8px;
+}
+
+.delete-button {
+    background-color: #FA8320;
+    color: white;
+}
+
+/* mat-dialog-content, mat-dialog-actions {
+    background-color: #343a40;
+    color: white;
+} */

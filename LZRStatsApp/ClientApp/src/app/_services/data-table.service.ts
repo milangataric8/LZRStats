@@ -7,11 +7,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class DataTableService {
   private headers: HttpHeaders;
 
-  constructor(private httpClient:HttpClient) { 
+  constructor(private httpClient: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 
-  getData(accessPointUrl:string){
+  getData(accessPointUrl: string){
     return this.httpClient.get(accessPointUrl);
   }
 

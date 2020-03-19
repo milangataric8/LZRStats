@@ -8,6 +8,7 @@ import { MasterDetailBaseComponent } from '../shared/master-detail-base/master-d
 import { DataTableService } from '../_services/data-table.service';
 import { TableActionButton } from '../shared/data-table/settings/table-action-button';
 import { ActionType } from '../shared/enums/enums';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-teams',
@@ -17,8 +18,8 @@ import { ActionType } from '../shared/enums/enums';
 export class TeamsComponent extends MasterDetailBaseComponent implements OnInit {
   getTableDataUrl: string = this.apiUrl;
 
-  constructor(dataTableService: DataTableService) {
-    super(`${AppSettings.API_ENDPOINT}teams`, dataTableService);
+  constructor(dataTableService: DataTableService, public dialog: MatDialog) {
+    super(`${AppSettings.API_ENDPOINT}teams`, dataTableService, dialog);
   }
 
   ngOnInit() {
