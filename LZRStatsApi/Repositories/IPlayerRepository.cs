@@ -9,8 +9,8 @@ namespace LZRStatsApi.Repositories
     {
 
         void Add(Player player);
-        IEnumerable<PlayerResponse> GetAll();
-        PlayerResponse Find(int id);
+        IEnumerable<Player> GetAll();
+        Player Find(int id);
         void Remove(int id);
         void Update(Player player);
     }

@@ -17,3 +17,9 @@
 button:hover{
     background-color: rgb(201, 103, 23);
 }
+
+body {
+    background-image: url("../../assets/images/bbllbkg.jpg") !important;
+    background-repeat:no-repeat;
+    background-size:cover;
+}

@@ -40,10 +40,10 @@ export class DataTableComponent implements OnInit {
 
   initData() {
     this.dataTableService.getData(this.tableDataUrl).subscribe(x => {
-      this.dataSource = new MatTableDataSource(x as any[]);
+      this.dataSource = new MatTableDataSource(x as object[]);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.isLoading = false
+      this.isLoading = false;
     },
       error => this.isLoading = false);
   }

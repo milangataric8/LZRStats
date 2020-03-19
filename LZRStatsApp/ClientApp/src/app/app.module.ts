@@ -20,12 +20,15 @@ import { PlayersComponent } from './players/players.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule
+  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSignPipe } from './pipes/number-sign.pipe';
 import { MasterDetailBaseComponent } from './shared/master-detail-base/master-detail-base.component';
 import { DynamicPipe } from './pipes/dynamic.pipe';
+import { PlayerComponent } from './players/player/player.component';
+import { PlayerDetailComponent } from './player-detail/player-detail.component';
+import { DeleteModalComponent } from './shared/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { DynamicPipe } from './pipes/dynamic.pipe';
     DataTableComponent,
     NumberSignPipe,
     MasterDetailBaseComponent,
-    DynamicPipe
+    DynamicPipe,
+    PlayerComponent,
+    PlayerDetailComponent,
+    DeleteModalComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +59,8 @@ import { DynamicPipe } from './pipes/dynamic.pipe';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [
     WorkoutService,
@@ -73,6 +80,7 @@ import { DynamicPipe } from './pipes/dynamic.pipe';
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule
-  ]
+  ],
+  entryComponents: [DeleteModalComponent]
 })
 export class AppModule { }

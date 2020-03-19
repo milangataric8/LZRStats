@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LZRStatsApi.Models;
 using LZRStatsApi.Models.Dtos;
+using LZRStatsApi.Models.Responses;
 using LZRStatsApi.ViewModels;
 
 namespace LZRStatsApi.MappingProfile
@@ -10,7 +11,7 @@ namespace LZRStatsApi.MappingProfile
         public MappingProfile()
         {
             CreateMap<Team, TeamDto>().ReverseMap();
-            CreateMap<Player, PlayerViewModel>().ReverseMap();
+            CreateMap<Player, PlayerResponse>().ReverseMap();
         }
     }
 }

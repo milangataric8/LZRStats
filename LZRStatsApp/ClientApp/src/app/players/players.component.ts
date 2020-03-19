@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { PlayersService } from '../_services/players.service';
 import { Player } from '../_models/player';
 import { AppSettings } from '../constants';
@@ -10,6 +12,7 @@ import { NumberSignPipe } from '../pipes/number-sign.pipe';
 import { PercentPipe } from '@angular/common';
 import { TableActionButton } from '../shared/data-table/settings/table-action-button';
 import { ActionType } from '../shared/enums/enums';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-players',
@@ -17,9 +20,12 @@ import { ActionType } from '../shared/enums/enums';
   styleUrls: ['./players.component.css']
 })
 export class PlayersComponent extends MasterDetailBaseComponent implements OnInit {
+
   getTableDataUrl: string = this.apiUrl;
-  constructor(dataTableService: DataTableService) {
-    super(`${AppSettings.API_ENDPOINT}players`, dataTableService);
+  @Output() deleteButtonClicked: EventEmitter<any> = new EventEmitter();
+
+  constructor(dataTableService: DataTableService, private router: Router, public dialog: MatDialog) {
+    super(`${AppSettings.API_ENDPOINT}players`, dataTableService, dialog);
   }
 
   ngOnInit() {
@@ -35,5 +41,13 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
     const settings = new DataTableSettings(headers, undefined, editBtn, removeBtn);
 
     return settings;
+  }
+
+  onRowSelected = (player: Player) => {
+    this.router.navigateByUrl(`players/${player.id}`)
+  }
+
+  delete() {
+    this.deleteButtonClicked.emit();
   }
 }

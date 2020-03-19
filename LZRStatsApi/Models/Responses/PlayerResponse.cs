@@ -13,15 +13,5 @@ namespace LZRStatsApi.Models.Responses
         public string LastName { get; set; }
         public int JerseyNumber { get; set; }
         public int GamesPlayed { get; set; }
-
-        public PlayerResponse(Player player)
-        {
-            Id = player.Id;
-            TeamId = player.TeamId;
-            FirstName = player.FirstName;
-            LastName = player.LastName;
-            JerseyNumber = player.JerseyNumber;
-            GamesPlayed = player.GamesPlayed;
-        }
     }
 }

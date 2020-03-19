@@ -23,19 +23,17 @@ namespace LZRStatsApi.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<PlayerResponse> GetAll()
+        public IEnumerable<Player> GetAll()
         {
             var result = _context.Player
-                .Select(e => new PlayerResponse(e))
                 .ToList();
             return result;
         }
 
-        public PlayerResponse Find(int id)
+        public Player Find(int id)
         {
-            var result = _context.Player
+            return _context.Player
                 .Single(x => x.Id == id);
-            return new PlayerResponse(result);
         }
 
         public void Update(Player player)
