@@ -5,12 +5,14 @@ import { AuthGuard } from './_helpers';
 import { LoginComponent } from './login/login.component';
 import { TeamsComponent } from './teams/teams.component';
 import { PlayersComponent } from './players/players.component';
+import { StatsUploadComponent } from './stats-upload/stats-upload.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'players', component: PlayersComponent },
+  { path: 'stats-upload', component: StatsUploadComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

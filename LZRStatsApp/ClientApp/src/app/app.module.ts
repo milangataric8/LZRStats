@@ -28,6 +28,7 @@ import { DynamicPipe } from './pipes/dynamic.pipe';
 import { PlayerComponent } from './players/player/player.component';
 import { PlayerDetailComponent } from './player-detail/player-detail.component';
 import { DeleteModalComponent } from './shared/delete-modal/delete-modal.component';
+import { StatsUploadComponent } from './stats-upload/stats-upload.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DeleteModalComponent } from './shared/delete-modal/delete-modal.compone
     DynamicPipe,
     PlayerComponent,
     PlayerDetailComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    StatsUploadComponent
   ],
   imports: [
     BrowserModule,
