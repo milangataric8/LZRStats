@@ -2,6 +2,7 @@
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
 
+
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
   <ng-container [matColumnDef]="isActionColumn(dataSubject)"
@@ -36,3 +37,5 @@
 <mat-paginator [pageSize]="tableSettings.pageSizeSettings.currentPageSize"
   [pageSizeOptions]="tableSettings.pageSizeSettings.pageSizeOptions">
 </mat-paginator>
+
+<button mat-button (click)="onActionButtonClicked(undefined,undefined)" mat-flat-button color="primary"> <i class="material-icons">add_box</i> </button>

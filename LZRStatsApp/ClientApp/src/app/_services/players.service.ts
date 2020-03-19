@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 })
 export class PlayersService {
   private headers: HttpHeaders;
-  private accessPointUrl: string = `${AppSettings.API_ENDPOINT}Players`;
+  private accessPointUrl = `${AppSettings.API_ENDPOINT}Players`;
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 
   getAll() {
-    return this.http.get(`${AppSettings.API_ENDPOINT}Players`);
+    return this.http.get(this.accessPointUrl);
   }
 
   getBy = (playerId: Number): Observable<any> =>{

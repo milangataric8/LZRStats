@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { WorkoutService } from './_services/workout.service';
 import { DecimalPipe, PercentPipe } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -63,7 +62,6 @@ import { DeleteModalComponent } from './shared/delete-modal/delete-modal.compone
     MatDialogModule
   ],
   providers: [
-    WorkoutService,
     DatePipe,
     DecimalPipe,
     NumberSignPipe,

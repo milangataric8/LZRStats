@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MatSort, MatTableDataSource, MatTable, MatPaginator } from '@angular/material';
 import { DataTableService } from 'src/app/_services/data-table.service';
-import { Observable } from 'rxjs';
 import { DataTableSettings } from './settings/data-table-settings';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ButtonClickedItem } from './event-models/button-clicked-item';

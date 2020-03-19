@@ -1,12 +1,13 @@
 import {
     Injector,
     Pipe,
-    PipeTransform
+    PipeTransform,
+    Type
 } from '@angular/core';
 
 
 @Pipe({
-  name: 'dynamicPipe'
+    name: 'dynamicPipe'
 })
 export class DynamicPipe implements PipeTransform {
 
@@ -17,9 +18,8 @@ export class DynamicPipe implements PipeTransform {
         if (!pipeToken) {
             return value;
         }
-        else {
-            let pipe = this.injector.get(pipeToken);
-            return pipe.transform(value, ...pipeArgs);
-        }
+
+        const pipe = this.injector.get<PipeTransform>(pipeToken as Type<PipeTransform>);
+        return pipe.transform(value, ...pipeArgs);
     }
 }

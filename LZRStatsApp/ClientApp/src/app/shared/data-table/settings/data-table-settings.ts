@@ -8,15 +8,15 @@ export class DataTableSettings {
     protected showEditButton: boolean;
     protected showRemoveButton: boolean;
 
-    constructor(private columnHeaders: any, pageSizeSettings?:PageSizeSettings, ...actionButtons:TableActionButton[]){
-        this.pageSizeSettings = pageSizeSettings || this.pageSizeSettings; //if empty use default
+    constructor(private columnHeaders: any, pageSizeSettings?: PageSizeSettings, ...actionButtons: TableActionButton[]) {
+        this.pageSizeSettings = pageSizeSettings || this.pageSizeSettings; // if empty use default
         this.showButtons(...actionButtons);
     }
 
     showButtons(...buttons: TableActionButton[]) {
         this.actionButtons = buttons;
-        this.columnHeaders.action = 'Action'; 
-        //TODO handle this better https://stackoverflow.com/a/44441178
+        this.columnHeaders.action = 'Action';
+        // TODO handle this better https://stackoverflow.com/a/44441178
     }
 }
 
