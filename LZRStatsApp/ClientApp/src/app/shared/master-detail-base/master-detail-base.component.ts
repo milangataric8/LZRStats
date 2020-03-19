@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataTableService } from 'src/app/_services/data-table.service';
 import { ButtonClickedItem } from '../data-table/event-models/button-clicked-item';
 import { ActionType } from '../enums/enums';
+import { MatDialog } from '@angular/material';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-master-detail-base',
@@ -10,7 +12,7 @@ import { ActionType } from '../enums/enums';
 })
 export class MasterDetailBaseComponent implements OnInit {
 
-  constructor(public readonly apiUrl: string, private dataTableService: DataTableService) { }
+  constructor(public readonly apiUrl: string, private dataTableService: DataTableService, public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -46,7 +48,8 @@ export class MasterDetailBaseComponent implements OnInit {
         console.log('edit');
       },
       'Remove': () => {
-        // TODO show confirm remove modal
+        //TODO show confirm remove modal
+        this.openDialog();
         console.log('delete');
       }
     };
@@ -69,5 +72,14 @@ export class MasterDetailBaseComponent implements OnInit {
 
   onItemClicked(event: any) {
     console.log(event);
+  }
+
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DeleteModalComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
