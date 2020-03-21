@@ -31,6 +31,11 @@ namespace LZRStatsApi.Repositories
             return res;
         }
 
+        public async Task<Team> FindByNameAsync(string teamName)
+        {
+            return await _context.Teams.SingleOrDefaultAsync(t => t.Name.Equals(teamName, StringComparison.InvariantCultureIgnoreCase));
+        }
+
         public void Remove(int id)
         {
             var teamToRemove = _context.Teams.SingleOrDefault(t => t.Id == id);

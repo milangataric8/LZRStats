@@ -58,5 +58,11 @@ namespace LZRStatsApi.Repositories
             }
             _context.SaveChanges();
         }
+
+        public Player Find(int teamId, string lastName, string firstName, int jerseyNo)
+        {
+            return _context.Player.Where(x => x.TeamId == teamId && x.LastName == lastName && x.FirstName == firstName && x.JerseyNumber == jerseyNo)
+                .SingleOrDefault();
+        }
     }
 }

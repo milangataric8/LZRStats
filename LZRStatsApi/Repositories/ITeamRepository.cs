@@ -13,5 +13,6 @@ namespace LZRStatsApi.Repositories
         void Add(Team team);
         Team Find(int id);
         void Remove(int id);
+        Task<Team> FindByNameAsync(string teamName);
     }
 }

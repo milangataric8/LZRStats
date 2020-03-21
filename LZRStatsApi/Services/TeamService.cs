@@ -11,36 +11,36 @@ namespace LZRStatsApi.Services
 {
     public class TeamService : ITeamService
     {
-        private readonly IRepositoryWrapper _repoWrapper;
+        private readonly ITeamRepository _teamRepository;
 
-        public TeamService(IRepositoryWrapper repositoryWrapper)
+        public TeamService(ITeamRepository teamRepository)
         {
-            _repoWrapper = repositoryWrapper;
+            _teamRepository = teamRepository;
         }
 
         public async Task<IEnumerable<Team>> GetAll()
         {
-            return await Task.Run(() => _repoWrapper.TeamRepo.GetAllAsync());
+            return await _teamRepository.GetAllAsync();
         }
 
         public async Task<Team> GetById(int id)
         {
-            return await Task.Run(() => _repoWrapper.TeamRepo.Find(id));
+            return await Task.Run(() => _teamRepository.Find(id));
         }
 
         public async Task Create(Team team)
         {
-            await Task.Run(() =>_repoWrapper.TeamRepo.Add(team));
+            await _teamRepository.CreateAsync(team);
         }
 
-        //public async Task Update(Team team)
-        //{
-        //    await Task.Run(() => _repoWrapper.TeamRepo.Update(team));
-        //}
-
-        public async Task Delete(int id)
+        public async Task Update(Team team)
         {
-            await Task.Run(() => _repoWrapper.TeamRepo.Remove(id));
+            await _teamRepository.UpdateAsync(team);
+        }
+
+        public async Task Delete(Team team)
+        {
+            await _teamRepository.DeleteAsync(team);
         }
     }
 }

@@ -1,6 +1,7 @@
 using AutoMapper;
 using LZRStatsApi.Data;
 using LZRStatsApi.Helpers;
+using LZRStatsApi.Importers;
 using LZRStatsApi.Repositories;
 using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -48,9 +49,11 @@ namespace LZRStatsApi
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IStatsImporter, StatsImporter>();
 
             services.Configure<FormOptions>(o =>
             {

@@ -10,16 +10,16 @@ namespace LZRStatsApi.Services
 {
     public class UserService : IUserService
     {
-        private readonly IRepositoryWrapper _repoWrapper;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IRepositoryWrapper repoWrapper)
+        public UserService(IUserRepository userRepository)
         {
-            _repoWrapper = repoWrapper;
+            _userRepository = userRepository;
         }
 
         public async Task<User> Authenticate(string username, string password)
         {
-            var user = await _repoWrapper.UserRepo.GetByLoginDataAsync(username, password);
+            var user = await _userRepository.GetByLoginDataAsync(username, password);
 
             // return null if user not found
             if (user == null)
@@ -32,7 +32,7 @@ namespace LZRStatsApi.Services
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return await _repoWrapper.UserRepo.GetAllAsync();
+            return await _userRepository.GetAllAsync();
         }
     }
 }

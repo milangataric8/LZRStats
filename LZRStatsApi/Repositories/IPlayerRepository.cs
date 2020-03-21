@@ -13,5 +13,6 @@ namespace LZRStatsApi.Repositories
         Player Find(int id);
         void Remove(int id);
         void Update(Player player);
+        Player Find(int teamId, string lastName, string firstName, int jerseyNo);
     }
 }

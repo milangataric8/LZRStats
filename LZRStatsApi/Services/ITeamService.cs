@@ -11,7 +11,7 @@ namespace LZRStatsApi.Services
         Task<IEnumerable<Team>> GetAll();
         Task<Team> GetById(int id);
         Task Create(Team team);
-        //Task Update(Team team);
-        Task Delete(int id);
+        Task Update(Team team);
+        Task Delete(Team team);
     }
 }

@@ -1,9 +1,11 @@
 ﻿using LZRStatsApi.Helpers;
+using LZRStatsApi.Importers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace LZRStatsApi.Controllers
 {
@@ -12,43 +14,51 @@ namespace LZRStatsApi.Controllers
     [ApiController]
     public class StatsImportController : ControllerBase
     {
+        private readonly IStatsImporter _statsImporter;
+        private readonly string tempFileName = "temp.docx";
+        public StatsImportController(IStatsImporter statsImporter)
+        {
+            _statsImporter = statsImporter;
+        }
 
         [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Import()
+        public async Task<IActionResult> Import()
         {
+            string fullPath = string.Empty;
+            string wordFilePath = string.Empty;
             try
             {
                 var file = Request.Form.Files[0];
                 var folderName = Path.Combine("Resources", "Files", "PDF");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (!Directory.Exists(pathToSave))
+                    Directory.CreateDirectory(pathToSave);
 
+                if (file.Length <= 0) return BadRequest("Invalid file content!");
 
-                if (file.Length > 0)
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                fullPath = Path.Combine(pathToSave, fileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    var fullPath = Path.Combine(pathToSave, fileName);
-                    var dbPath = Path.Combine(folderName, fileName);
-
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-
-                    string wordFilePath = FileConverter.ConvertPdfToDocx(fullPath);
-                    // TODO import data and clean
-                    //System.IO.File.Delete(fullPath);
-                    //System.IO.File.Delete(wordFilePath);
-
-                    return Ok(new { dbPath });
+                    file.CopyTo(stream);
                 }
-                else
-                {
-                    return BadRequest();
-                }
+                wordFilePath = Path.Combine(pathToSave, tempFileName);
+                FileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
+
+                //TODO refactor
+                //await _statsImporter.ExtractFromFile(wordFilePath, fileName);
+
+                return Ok();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex}");
+                return BadRequest(ex.Message);
+            }
+            finally
+            {
+                if (System.IO.File.Exists(fullPath)) System.IO.File.Delete(fullPath);
+                if (System.IO.File.Exists(wordFilePath)) System.IO.File.Delete(wordFilePath);
             }
         }
     }
