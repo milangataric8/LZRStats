@@ -53,6 +53,7 @@ namespace LZRStatsApi
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITeamGameRepository, TeamGameRepository>();
             services.AddScoped<IStatsImporter, StatsImporter>();
 
             services.Configure<FormOptions>(o =>

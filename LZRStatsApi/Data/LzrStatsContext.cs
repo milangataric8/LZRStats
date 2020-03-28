@@ -62,24 +62,24 @@ namespace LZRStatsApi.Data
             //modelBuilder.Entity<Team>()
             //    .Property(t => t.Id)
             //    .ValueGeneratedOnAdd();
-            var teams = new List<Team>();
-            for (int i = 1; i < 50; i++)
-            {
-                teams.Add(new Team { Id = i, Name = "Team" + DateTime.Now.Ticks * i, Wins = i, Losses = i - 1 });
-            }
+            //var teams = new List<Team>();
+            //for (int i = 1; i < 50; i++)
+            //{
+            //    teams.Add(new Team { Id = i, Name = "Team" + DateTime.Now.Ticks * i, Wins = i, Losses = i - 1 });
+            //}
 
-            modelBuilder.Entity<Team>().HasData(teams);
+            //modelBuilder.Entity<Team>().HasData(teams);
 
-            //modelBuilder.Entity<Player>()
-            //    .Property(t => t.Id)
-            //    .ValueGeneratedOnAdd();
-            var players = new List<Player>();
-            for (int i = 1; i < 50; i++)
-            {
-                players.Add(new Player { Id = i, FirstName = "Player" + DateTime.Now.Ticks * i, LastName = "Lastname" + DateTime.Now.Ticks * i, GamesPlayed = 2 * i, TeamId = 1, JerseyNumber = i });
-            }
+            ////modelBuilder.Entity<Player>()
+            ////    .Property(t => t.Id)
+            ////    .ValueGeneratedOnAdd();
+            //var players = new List<Player>();
+            //for (int i = 1; i < 50; i++)
+            //{
+            //    players.Add(new Player { Id = i, FirstName = "Player" + DateTime.Now.Ticks * i, LastName = "Lastname" + DateTime.Now.Ticks * i, GamesPlayed = 2 * i, TeamId = 1, JerseyNumber = i });
+            //}
 
-            modelBuilder.Entity<Player>().HasData(players);
+            //modelBuilder.Entity<Player>().HasData(players);
         }
 
     }

@@ -46,7 +46,7 @@ namespace LZRStatsApi.Controllers
                 wordFilePath = Path.Combine(pathToSave, tempFileName);
                 FileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
 
-                //TODO refactor
+                //TODO db access rework
                 //await _statsImporter.ExtractFromFile(wordFilePath, fileName);
 
                 return Ok();

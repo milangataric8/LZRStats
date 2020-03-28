@@ -83,7 +83,14 @@ namespace LZRStatsApi.Migrations
                 {
                     TeamId = table.Column<int>(nullable: false),
                     GameId = table.Column<int>(nullable: false),
-                    PointsScored = table.Column<int>(nullable: false)
+                    PointsScored = table.Column<int>(nullable: false),
+                    TotalRebounds = table.Column<int>(nullable: false),
+                    OffensiveRebounds = table.Column<int>(nullable: false),
+                    DefensiveRebounds = table.Column<int>(nullable: false),
+                    Assists = table.Column<int>(nullable: false),
+                    Turnovers = table.Column<int>(nullable: false),
+                    Steals = table.Column<int>(nullable: false),
+                    Blocks = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,19 +152,9 @@ namespace LZRStatsApi.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Teams",
-                columns: new[] { "Id", "Losses", "Name", "Wins" },
-                values: new object[] { 1, 1, "SkyWalkers", 8 });
-
-            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "FirstName", "LastName", "Password", "Username" },
                 values: new object[] { 1, "Super", "Admin", "admin", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "Player",
-                columns: new[] { "Id", "FirstName", "GamesPlayed", "JerseyNumber", "LastName", "TeamId" },
-                values: new object[] { 1, "Player 1", 0, 8, "Lastname", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Player_TeamId",

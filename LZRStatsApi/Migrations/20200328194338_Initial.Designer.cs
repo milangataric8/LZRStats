@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LZRStatsApi.Migrations
 {
     [DbContext(typeof(LzrStatsContext))]
-    [Migration("20200209113338_Initial")]
+    [Migration("20200328194338_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,17 +72,6 @@ namespace LZRStatsApi.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Player");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "Player 1",
-                            GamesPlayed = 0,
-                            JerseyNumber = 8,
-                            LastName = "Lastname",
-                            TeamId = 1
-                        });
                 });
 
             modelBuilder.Entity("LZRStatsApi.Models.PlayerStats", b =>
@@ -174,15 +163,6 @@ namespace LZRStatsApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teams");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Losses = 1,
-                            Name = "SkyWalkers",
-                            Wins = 8
-                        });
                 });
 
             modelBuilder.Entity("LZRStatsApi.Models.TeamGame", b =>
@@ -193,7 +173,28 @@ namespace LZRStatsApi.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Assists")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Blocks")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DefensiveRebounds")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OffensiveRebounds")
+                        .HasColumnType("int");
+
                     b.Property<int>("PointsScored")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Steals")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalRebounds")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Turnovers")
                         .HasColumnType("int");
 
                     b.HasKey("TeamId", "GameId");

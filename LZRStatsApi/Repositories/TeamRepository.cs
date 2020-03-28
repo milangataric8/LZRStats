@@ -33,7 +33,7 @@ namespace LZRStatsApi.Repositories
 
         public async Task<Team> FindByNameAsync(string teamName)
         {
-            return await _context.Teams.SingleOrDefaultAsync(t => t.Name.Equals(teamName, StringComparison.InvariantCultureIgnoreCase));
+            return await _context.Teams.SingleOrDefaultAsync(t => t.Name == teamName);
         }
 
         public void Remove(int id)
