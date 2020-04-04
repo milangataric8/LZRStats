@@ -23,33 +23,35 @@ namespace LZRStatsApi.Controllers
         }
 
         [HttpPost, DisableRequestSizeLimit]
-        [ServiceFilter(typeof(ValidateFileAttribute))]
+        //[ServiceFilter(typeof(ValidateFileAttribute))]
         public async Task<IActionResult> Import()
         {
             string fullPath = string.Empty;
             string wordFilePath = string.Empty;
             try
             {
-                var file = Request.Form.Files[0];
-                var folderName = Path.Combine("Resources", "Files", "PDF");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                if (!Directory.Exists(pathToSave))
-                    Directory.CreateDirectory(pathToSave);
-
-                if (file.Length <= 0) return BadRequest("Invalid file content!");
-
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                fullPath = Path.Combine(pathToSave, fileName);
-
-                using (var stream = new FileStream(fullPath, FileMode.Create))
+                foreach (var file in Request.Form.Files)
                 {
-                    file.CopyTo(stream);
-                }
-                wordFilePath = Path.Combine(pathToSave, tempFileName);
-                FileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
+                    var folderName = Path.Combine("Resources", "Files", "PDF");
+                    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                    if (!Directory.Exists(pathToSave))
+                        Directory.CreateDirectory(pathToSave);
 
-                //TODO db access rework
-                await _statsImporter.ExtractFromFile(wordFilePath, fileName);
+                    if (file.Length <= 0) return BadRequest("Invalid file content!");
+
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    fullPath = Path.Combine(pathToSave, fileName);
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    wordFilePath = Path.Combine(pathToSave, tempFileName);
+                    FileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
+
+                    //TODO db access rework
+                    await _statsImporter.ExtractFromFile(wordFilePath, fileName);
+                }
 
                 return Ok();
             }

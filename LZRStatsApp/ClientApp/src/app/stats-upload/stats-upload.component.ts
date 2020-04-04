@@ -23,9 +23,13 @@ export class StatsUploadComponent implements OnInit {
       return;
     }
 
-    const fileToUpload = <File>files[0];
+    const filesToUpload = <File[]>files;
     const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
+    for (let index = 0; index < filesToUpload.length; index++) {
+      const file = filesToUpload[index];
+      formData.append('file' + file.name, file, file.name);
+    }
+
     this.statsService.upload(formData).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(100 * event.loaded / event.total);
