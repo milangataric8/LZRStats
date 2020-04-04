@@ -2,6 +2,7 @@
 using LZRStatsApi.Models;
 using LZRStatsApi.Models.Responses;
 using LZRStatsApi.Repositories.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +62,12 @@ namespace LZRStatsApi.Repositories
 
         public async Task<Player> Find(int teamId, string lastName, string firstName, int jerseyNo)
         {
-            return await Task.Run(() => _context.Set<Player>().SingleOrDefault(x => x.TeamId == teamId && x.LastName == lastName && x.FirstName == firstName && x.JerseyNumber == jerseyNo));
+            return await Task.Run(() =>
+            {
+                return _context.Player
+                    .Include(p => p.PlayerStats)
+                    .SingleOrDefault(x => x.TeamId == teamId && x.LastName == lastName && x.FirstName == firstName && x.JerseyNumber == jerseyNo);
+            });
         }
     }
 }

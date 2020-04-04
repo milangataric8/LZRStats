@@ -6,6 +6,6 @@ namespace LZRStatsApi.Services
 {
     public interface IGameService
     {
-        Task<IList<Game>> GetGamesByRoundAndGameNumberAsync(int roundNumber, int matchNumber);
+        Task<bool> IsGameImported(int roundNumber, int matchNumber, string teamName);
     }
 }

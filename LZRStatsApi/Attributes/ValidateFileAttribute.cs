@@ -21,9 +21,10 @@ namespace LZRStatsApi.Attributes
             fileName = fileName.ReplaceBadMinusCharacter();
             var matchData = fileName.Split('-');
 
-            var games = await _gameService.GetGamesByRoundAndGameNumberAsync(int.Parse(matchData[0]), int.Parse(matchData[1]));
-            if (games.Count >= 2)
+            var gameImported = await _gameService.IsGameImported(int.Parse(matchData[0]), int.Parse(matchData[1]), matchData[2]);
+            if (gameImported)
                 context.Result = new BadRequestResult();
+            await next.Invoke();
         }
     }
 }
