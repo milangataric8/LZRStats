@@ -1,4 +1,5 @@
 using AutoMapper;
+using LZRStatsApi.Attributes;
 using LZRStatsApi.Data;
 using LZRStatsApi.Helpers;
 using LZRStatsApi.Importers;
@@ -47,14 +48,7 @@ namespace LZRStatsApi
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
-            // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IGameRepository, GameRepository>();
-            services.AddScoped<ITeamRepository, TeamRepository>();
-            services.AddScoped<IPlayerRepository, PlayerRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ITeamGameRepository, TeamGameRepository>();
-            services.AddScoped<IStatsImporter, StatsImporter>();
+            RegisterServices(services);
 
             services.Configure<FormOptions>(o =>
             {
@@ -62,6 +56,21 @@ namespace LZRStatsApi
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
             });
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITeamService, TeamService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITeamGameRepository, TeamGameRepository>();
+            services.AddScoped<IStatsImporter, StatsImporter>();
+            services.AddScoped<ValidateFileAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

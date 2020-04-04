@@ -1,7 +1,7 @@
 ﻿using LZRStatsApi.Models;
-using LZRStatsApi.Models.Responses;
 using LZRStatsApi.Repositories.Common;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LZRStatsApi.Repositories
 {
@@ -13,6 +13,6 @@ namespace LZRStatsApi.Repositories
         Player Find(int id);
         void Remove(int id);
         void Update(Player player);
-        Player Find(int teamId, string lastName, string firstName, int jerseyNo);
+        Task<Player> Find(int teamId, string lastName, string firstName, int jerseyNo);
     }
 }

@@ -42,5 +42,22 @@ namespace LZRStatsApi.Services
         {
             await _teamRepository.DeleteAsync(team);
         }
+
+        public async Task<Team> GetOrCreateTeam(string teamName)
+        {
+            Team team = await _teamRepository.FindByNameAsync(teamName) ?? new Team { Name = teamName, TeamGames = new List<TeamGame>() };
+            //if (team.Id == 0)
+            //{
+            //    await _teamRepository.CreateAsync(team);
+            //    await _teamRepository.SaveChangesAsync();
+            //}
+
+            return team;
+        }
+
+        public async Task SaveChanges()
+        {
+            await _teamRepository.SaveChangesAsync();
+        }
     }
 }

@@ -17,5 +17,15 @@ namespace LZRStatsApi.Repositories
         {
             _context = repositoryContext;
         }
+
+        public async Task AddGameAsync(Game game)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task AddTeamAsync(Team team)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

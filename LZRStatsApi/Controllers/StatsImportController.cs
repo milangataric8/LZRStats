@@ -1,4 +1,5 @@
-﻿using LZRStatsApi.Helpers;
+﻿using LZRStatsApi.Attributes;
+using LZRStatsApi.Helpers;
 using LZRStatsApi.Importers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ namespace LZRStatsApi.Controllers
         }
 
         [HttpPost, DisableRequestSizeLimit]
+        [ServiceFilter(typeof(ValidateFileAttribute))]
         public async Task<IActionResult> Import()
         {
             string fullPath = string.Empty;
@@ -47,7 +49,7 @@ namespace LZRStatsApi.Controllers
                 FileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
 
                 //TODO db access rework
-                //await _statsImporter.ExtractFromFile(wordFilePath, fileName);
+                await _statsImporter.ExtractFromFile(wordFilePath, fileName);
 
                 return Ok();
             }

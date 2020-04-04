@@ -13,5 +13,7 @@ namespace LZRStatsApi.Services
         Task Create(Team team);
         Task Update(Team team);
         Task Delete(Team team);
+        Task<Team> GetOrCreateTeam(string teamName);
+        Task SaveChanges();
     }
 }

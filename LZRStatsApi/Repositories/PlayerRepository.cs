@@ -59,10 +59,9 @@ namespace LZRStatsApi.Repositories
             _context.SaveChanges();
         }
 
-        public Player Find(int teamId, string lastName, string firstName, int jerseyNo)
+        public async Task<Player> Find(int teamId, string lastName, string firstName, int jerseyNo)
         {
-            return _context.Player.Where(x => x.TeamId == teamId && x.LastName == lastName && x.FirstName == firstName && x.JerseyNumber == jerseyNo)
-                .SingleOrDefault();
+            return await Task.Run(() => _context.Set<Player>().SingleOrDefault(x => x.TeamId == teamId && x.LastName == lastName && x.FirstName == firstName && x.JerseyNumber == jerseyNo));
         }
     }
 }

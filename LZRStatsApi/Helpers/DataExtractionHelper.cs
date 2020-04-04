@@ -2,10 +2,12 @@
 using DocumentFormat.OpenXml.Wordprocessing;
 using LZRStatsApi.Models;
 using LZRStatsApi.Models.Dtos;
+using LZRStatsApi.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LZRStatsApi.Helpers
 {
@@ -17,6 +19,7 @@ namespace LZRStatsApi.Helpers
         private const char FgStatSeparator = '/';
         private const int DataToSkipFirstCount = 19;
         private const int DataToSkipLastCount = 18;
+
 
         public static List<string> GetFileData(this string filePath)
         {
@@ -90,49 +93,52 @@ namespace LZRStatsApi.Helpers
             return fullName.Split(null);
         }
 
-        public static List<Player> ExtractPlayers(this List<string> data)
+        public static async Task<List<Player>> ExtractPlayers(this List<string> data, int teamId, Game game, IPlayerRepository repo)
         {
             var playersData = data.Skip(DataToSkipFirstCount).SkipLast(DataToSkipLastCount).ToList();
-            var numberOfPlayers = data.GetNumberOfPlayers();
             var players = playersData.ChunkBy(SinglePlayerRelatedDataCount);
             var result = new List<Player>();
             foreach (var playerData in players)
             {
-                Player player = ExtractPlayerInfo(playerData);
-                PlayerStats stats = ExtractPlayerStats(playerData);
-                player.PlayerStats = new List<PlayerStats> { stats };
+                Player player =  await playerData.ExtractPlayerInfo(teamId, repo);
+                player.PlayerStats.Add(ExtractPlayerStats(playerData, game));
                 result.Add(player);
             }
 
             return result;
         }
 
-        private static Player ExtractPlayerInfo(List<string> playerData)
+        private static async Task<Player> ExtractPlayerInfo(this List<string> playerData, int teamId, IPlayerRepository repo)
         {
             var name = playerData.GetTextValue((int)PlayerStatIndex.Name);
             var separatedName = SplitFullName(name);
-            var player = new Player
+            string firstName = separatedName[0];
+            string lastName = separatedName[1];
+            int jerseyNo = playerData.GetNumberValue((int)PlayerStatIndex.Number);
+            var player = await repo.Find(teamId, lastName, firstName, jerseyNo) ?? new Player
             {
-                FirstName = separatedName[0],
-                LastName = separatedName[1],
-                JerseyNumber = playerData.GetNumberValue((int)PlayerStatIndex.Number),
-                GamesPlayed = 1
+                FirstName = firstName,
+                LastName = lastName,
+                JerseyNumber = jerseyNo,
+                GamesPlayed = 1,
+                PlayerStats = new List<PlayerStats>()
             };
+
             return player;
         }
 
-        private static PlayerStats ExtractPlayerStats(List<string> playerData)
+        private static PlayerStats ExtractPlayerStats(List<string> playerData, Game game)
         {
             var fg = playerData.GetFGStatValue((int)PlayerStatIndex.FG);
             var fg2 = playerData.GetFGStatValue((int)PlayerStatIndex.FG2);
             var fg3 = playerData.GetFGStatValue((int)PlayerStatIndex.FG3);
             var ft = playerData.GetFGStatValue((int)PlayerStatIndex.FT);
-            PlayerStats stats = playerData.GetPlayerStats(fg2, fg3, ft);
+            PlayerStats stats = playerData.GetPlayerStats(fg2, fg3, ft, game);
 
             return stats;
         }
 
-        private static PlayerStats GetPlayerStats(this List<string> playerData, FieldGoal fg2, FieldGoal fg3, FieldGoal ft)
+        private static PlayerStats GetPlayerStats(this List<string> playerData, FieldGoal fg2, FieldGoal fg3, FieldGoal ft, Game game)
         {
             return new PlayerStats
             {
@@ -151,7 +157,8 @@ namespace LZRStatsApi.Helpers
                 FG3Attempted = fg3.Attempted,
                 FG3Made = fg3.Made,
                 FTAttempted = ft.Attempted,
-                FTMade = ft.Made
+                FTMade = ft.Made,
+                Game = game
             };
         }
     }

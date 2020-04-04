@@ -10,6 +10,7 @@ namespace LZRStatsApi.Repositories
 {
     public interface ITeamGameRepository : IRepositoryBase<TeamGame>
     {
-
+        Task AddGameAsync(Game game);
+        Task AddTeamAsync(Team team);
     }
 }

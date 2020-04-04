@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using LZRStatsApi.Helpers;
 using LZRStatsApi.Models;
 using LZRStatsApi.Repositories;
+using LZRStatsApi.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,14 +16,13 @@ namespace LZRStatsApi.Importers
     {
         private readonly IPlayerRepository _playerRepo;
         private readonly IGameRepository _gameRepo;
-        private readonly ITeamRepository _teamRepo;
+        private readonly ITeamService _teamService;
         private readonly ITeamGameRepository _teamGameRepo;
-        public StatsImporter(IPlayerRepository playerRepo, IGameRepository gameRepository, ITeamRepository teamRepository, ITeamGameRepository teamGameRepository)
+        public StatsImporter(IPlayerRepository playerRepo, IGameRepository gameRepository, ITeamService teamService, ITeamGameRepository teamGameRepository)
         {
             _playerRepo = playerRepo;
             _gameRepo = gameRepository;
-            _teamRepo = teamRepository;
-            _teamRepo = teamRepository;
+            _teamService = teamService;
             _teamGameRepo = teamGameRepository;
         }
 
@@ -30,30 +30,28 @@ namespace LZRStatsApi.Importers
         {
             var data = filePath.GetFileData();
             var teamName = data.GetTeamName();
-            Team team = await GetOrCreateTeam(teamName);
+            Team team = await _teamService.GetOrCreateTeam(teamName);
             Game game = await GetOrCreateGame(fileName, data);
-            //var opposingTeamName = data.GetOpposingTeamName();
-            //var totalFG = data.GetFGStatValue((int)FGStatIndex.TotalFG);
-            //var totalFG2 = data.GetFGStatValue((int)FGStatIndex.TotalFG2);
-            //var totalFG3 = data.GetFGStatValue((int)FGStatIndex.TotalFG3);
-            //var totalFT = data.GetFGStatValue((int)FGStatIndex.TotalFT);
+            team.Players = await data.ExtractPlayers(team.Id, game, _playerRepo);
+            TeamGame teamGame = ExtractTeamGameData(data);
+            teamGame.Team = team;
+            teamGame.Game = game;
+            game.TeamGames.Add(teamGame);
 
-            TeamGame teamGame = await ExtractTeamGameData(data, team, game);
+            await _gameRepo.CreateAsync(game);
+            await _teamService.Create(team);
+            await _teamService.SaveChanges();
 
-            var players = data.ExtractPlayers();
-            foreach (var p in players)
-            {
-                p.Team = team;
-                var dbPlayer = await _playerRepo.GetSingleByAsync(x => x.FirstName == p.FirstName && x.LastName == p.LastName && x.JerseyNumber == p.JerseyNumber && x.Team == p.Team);
-                if(dbPlayer == null)
-                {
-                    await _playerRepo.CreateAsync(p);
-                }
-            }
-            await _playerRepo.SaveChangesAsync();
+            //await _teamGameRepo.SaveChangesAsync();
         }
 
-        private async Task<TeamGame> ExtractTeamGameData(List<string> data, Team team, Game game)
+        //var opposingTeamName = data.GetOpposingTeamName();
+        //var totalFG = data.GetFGStatValue((int)FGStatIndex.TotalFG);
+        //var totalFG2 = data.GetFGStatValue((int)FGStatIndex.TotalFG2);
+        //var totalFG3 = data.GetFGStatValue((int)FGStatIndex.TotalFG3);
+        //var totalFT = data.GetFGStatValue((int)FGStatIndex.TotalFT);
+
+        private TeamGame ExtractTeamGameData(List<string> data)
         {
             var teamGame = new TeamGame
             {
@@ -61,16 +59,11 @@ namespace LZRStatsApi.Importers
                 Blocks = data.GetNumberValue((int)StatIndex.TotalBlocks),
                 DefensiveRebounds = data.GetNumberValue((int)StatIndex.TeamDefensiveRebounds),
                 OffensiveRebounds = data.GetNumberValue((int)StatIndex.TeamOffensiveRebounds),
-                Game = game,
                 PointsScored = data.GetNumberValue((int)StatIndex.TotalPoints),
                 Steals = data.GetNumberValue((int)StatIndex.TotalSteals),
-                Team = team,
                 TotalRebounds = data.GetNumberValue((int)StatIndex.TotalRebounds),
                 Turnovers = data.GetNumberValue((int)StatIndex.TotalTurnovers)
             };
-
-            await _teamGameRepo.CreateAsync(teamGame);
-            await _teamGameRepo.SaveChangesAsync();
 
             return teamGame;
         }
@@ -83,28 +76,19 @@ namespace LZRStatsApi.Importers
             {
                 PlayedOn = data.GetDatePlayed(),
                 Round = int.Parse(matchData[0]),
-                MatchNumber = int.Parse(matchData[1])
+                MatchNumber = int.Parse(matchData[1]),
+                TeamGames = new List<TeamGame>()
             };
             var dbGame = await _gameRepo.GetByAsync(x => x.PlayedOn == game.PlayedOn && x.Round == game.Round && x.MatchNumber == game.MatchNumber);
-            if(dbGame.Count == 0)
-            {
-                await _gameRepo.CreateAsync(game);
-                await _gameRepo.SaveChangesAsync();
-            }
+            //if(dbGame.Count == 0)
+            //{
+            //    await _gameRepo.CreateAsync(game);
+            //    await _gameRepo.SaveChangesAsync();
+            //}
             return dbGame?.SingleOrDefault() ?? game;
         }
 
-        private async Task<Team> GetOrCreateTeam(string teamName)
-        {
-            Team team = await _teamRepo.FindByNameAsync(teamName) ?? new Team { Name = teamName, TeamGames = new List<TeamGame>() };
-            if (team.Id == 0)
-            {
-                await _teamRepo.CreateAsync(team);
-                await _teamRepo.SaveChangesAsync();
-            }
 
-            return team;
-        }
 
         private async Task ImportData()
         {
