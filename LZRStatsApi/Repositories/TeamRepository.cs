@@ -27,21 +27,21 @@ namespace LZRStatsApi.Repositories
 
         public Team Find(int id)
         {
-            var res = _context.Teams.Single(t => t.Id == id);
+            var res = _context.Team.Single(t => t.Id == id);
             return res;
         }
 
         public async Task<Team> FindByNameAsync(string teamName)
         {
-            return await _context.Teams.SingleOrDefaultAsync(t => t.Name == teamName);
+            return await _context.Team.SingleOrDefaultAsync(t => t.Name == teamName);
         }
 
         public void Remove(int id)
         {
-            var teamToRemove = _context.Teams.SingleOrDefault(t => t.Id == id);
+            var teamToRemove = _context.Team.SingleOrDefault(t => t.Id == id);
             if (teamToRemove != null)
             {
-                _context.Teams.Remove(teamToRemove);
+                _context.Team.Remove(teamToRemove);
             }
             _context.SaveChanges();
         }

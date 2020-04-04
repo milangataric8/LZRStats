@@ -15,13 +15,13 @@ namespace LZRStatsApi.Importers
     public class StatsImporter : IStatsImporter
     {
         private readonly IPlayerRepository _playerRepo;
-        private readonly IGameRepository _gameRepo;
+        private readonly IGameService _gameService;
         private readonly ITeamService _teamService;
         private readonly ITeamGameRepository _teamGameRepo;
-        public StatsImporter(IPlayerRepository playerRepo, IGameRepository gameRepository, ITeamService teamService, ITeamGameRepository teamGameRepository)
+        public StatsImporter(IPlayerRepository playerRepo, IGameService gameService, ITeamService teamService, ITeamGameRepository teamGameRepository)
         {
             _playerRepo = playerRepo;
-            _gameRepo = gameRepository;
+            _gameService = gameService;
             _teamService = teamService;
             _teamGameRepo = teamGameRepository;
         }
@@ -38,11 +38,9 @@ namespace LZRStatsApi.Importers
             teamGame.Game = game;
             game.TeamGames.Add(teamGame);
 
-            await _gameRepo.CreateAsync(game);
-            await _teamService.Create(team);
-            await _teamService.SaveChanges();
-
-            //await _teamGameRepo.SaveChangesAsync();
+            await _gameService.AddOrUpdateAsync(game);
+            await _teamService.AddOrUpdateAsync(team);
+            await _teamService.SaveChangesAsync();
         }
 
         //var opposingTeamName = data.GetOpposingTeamName();
@@ -72,20 +70,20 @@ namespace LZRStatsApi.Importers
         {
             fileName = fileName.ReplaceBadMinusCharacter();
             var matchData = fileName.Split('-');
-            Game game = new Game
+            //TODO extract from here and FileValidateAttr to one method
+            DateTime playedOn = data.GetDatePlayed();
+            int roundNo = int.Parse(matchData[0]);
+            int matchNo = int.Parse(matchData[1]);
+            Game game = await _gameService.FindGameAsync(playedOn, roundNo, matchNo) ??
+            new Game
             {
-                PlayedOn = data.GetDatePlayed(),
-                Round = int.Parse(matchData[0]),
-                MatchNumber = int.Parse(matchData[1]),
+                PlayedOn = playedOn,
+                Round = roundNo,
+                MatchNumber = matchNo,
                 TeamGames = new List<TeamGame>()
             };
-            var dbGame = await _gameRepo.GetByAsync(x => x.PlayedOn == game.PlayedOn && x.Round == game.Round && x.MatchNumber == game.MatchNumber);
-            //if(dbGame.Count == 0)
-            //{
-            //    await _gameRepo.CreateAsync(game);
-            //    await _gameRepo.SaveChangesAsync();
-            //}
-            return dbGame?.SingleOrDefault() ?? game;
+
+            return  game;
         }
 
 

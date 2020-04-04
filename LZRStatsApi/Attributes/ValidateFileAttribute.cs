@@ -21,7 +21,7 @@ namespace LZRStatsApi.Attributes
             fileName = fileName.ReplaceBadMinusCharacter();
             var matchData = fileName.Split('-');
 
-            var gameImported = await _gameService.IsGameImported(int.Parse(matchData[0]), int.Parse(matchData[1]), matchData[2]);
+            var gameImported = await _gameService.IsGameImported(int.Parse(matchData[0]), int.Parse(matchData[1]), matchData[2].Split('.')[0]);
             if (gameImported)
                 context.Result = new BadRequestResult();
             await next.Invoke();

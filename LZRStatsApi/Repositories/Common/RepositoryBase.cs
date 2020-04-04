@@ -39,7 +39,7 @@ namespace LZRStatsApi.Repositories.Common
 
         public async Task CreateAsync(T entity)
         {
-            await Task.Run(() =>RepositoryContext.Set<T>().Add(entity));
+            await RepositoryContext.Set<T>().AddAsync(entity);
         }
 
         public async Task UpdateAsync(T entity)
@@ -55,6 +55,15 @@ namespace LZRStatsApi.Repositories.Common
         public async Task SaveChangesAsync()
         {
             await RepositoryContext.SaveChangesAsync();
+        }
+
+        public async Task AddOrUpdateAsync(T entity)
+        {
+            if ((int)entity.GetType().GetProperty("Id").GetValue(entity, null) == 0)
+                await CreateAsync(entity);
+            else
+                await UpdateAsync(entity);
+
         }
     }
 }

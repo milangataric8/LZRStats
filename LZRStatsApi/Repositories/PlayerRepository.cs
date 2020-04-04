@@ -65,7 +65,6 @@ namespace LZRStatsApi.Repositories
             return await Task.Run(() =>
             {
                 return _context.Player
-                    .Include(p => p.PlayerStats)
                     .SingleOrDefault(x => x.TeamId == teamId && x.LastName == lastName && x.FirstName == firstName && x.JerseyNumber == jerseyNo);
             });
         }

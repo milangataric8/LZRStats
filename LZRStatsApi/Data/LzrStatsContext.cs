@@ -11,7 +11,7 @@ namespace LZRStatsApi.Data
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Team> Teams { get; set; }
+        public DbSet<Team> Team { get; set; }
         public DbSet<Player> Player { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -60,7 +60,7 @@ namespace LZRStatsApi.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseLazyLoadingProxies();
+            optionsBuilder.UseLazyLoadingProxies();
         }
     }
 }

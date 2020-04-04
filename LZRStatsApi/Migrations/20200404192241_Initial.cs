@@ -24,7 +24,7 @@ namespace LZRStatsApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Teams",
+                name: "Team",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -35,7 +35,7 @@ namespace LZRStatsApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.PrimaryKey("PK_Team", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,9 +70,9 @@ namespace LZRStatsApi.Migrations
                 {
                     table.PrimaryKey("PK_Player", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Player_Teams_TeamId",
+                        name: "FK_Player_Team_TeamId",
                         column: x => x.TeamId,
-                        principalTable: "Teams",
+                        principalTable: "Team",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -102,9 +102,9 @@ namespace LZRStatsApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TeamGame_Teams_TeamId",
+                        name: "FK_TeamGame_Team_TeamId",
                         column: x => x.TeamId,
-                        principalTable: "Teams",
+                        principalTable: "Team",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -195,7 +195,7 @@ namespace LZRStatsApi.Migrations
                 name: "Game");
 
             migrationBuilder.DropTable(
-                name: "Teams");
+                name: "Team");
         }
     }
 }

@@ -55,9 +55,14 @@ namespace LZRStatsApi.Services
             return team;
         }
 
-        public async Task SaveChanges()
+        public async Task SaveChangesAsync()
         {
             await _teamRepository.SaveChangesAsync();
+        }
+
+        public async Task AddOrUpdateAsync(Team team)
+        {
+            await _teamRepository.AddOrUpdateAsync(team);
         }
     }
 }
