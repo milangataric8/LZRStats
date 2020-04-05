@@ -40,7 +40,7 @@ namespace LZRStatsApi
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup).Assembly);
             services.AddControllers();
             services.AddDbContext<LzrStatsContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LZRStatsContext")));
@@ -70,6 +70,7 @@ namespace LZRStatsApi
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITeamGameRepository, TeamGameRepository>();
             services.AddScoped<IStatsImporter, StatsImporter>();
+            services.AddScoped<IPlayerStatsCalculator, PlayerStatsCalculator>();
             services.AddScoped<ValidateFileAttribute>();
         }
 

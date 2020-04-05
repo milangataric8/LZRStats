@@ -35,7 +35,16 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
     const firstName: ColumnInfo = new ColumnInfo('First name');
     const lastName: ColumnInfo = new ColumnInfo('Last name');
     const jerseyNumber: ColumnInfo = new ColumnInfo('Jersey number', NumberSignPipe);
-    const headers = { firstName, lastName, jerseyNumber };
+    const mpg: ColumnInfo = new ColumnInfo('MPG');
+    const ppg: ColumnInfo = new ColumnInfo('PPG');
+    const apg: ColumnInfo = new ColumnInfo('APG');
+    const rpg: ColumnInfo = new ColumnInfo('RPG');
+    const spg: ColumnInfo = new ColumnInfo('SPG');
+    const bpg: ColumnInfo = new ColumnInfo('BPG');
+    const tpg: ColumnInfo = new ColumnInfo('TPG');
+    const fgPct: ColumnInfo = new ColumnInfo('FG%', PercentPipe);
+    const fg3Pct: ColumnInfo = new ColumnInfo('3PT%', PercentPipe);
+    const headers = { firstName, lastName, jerseyNumber, mpg, ppg, apg, rpg, spg, bpg, tpg, fgPct, fg3Pct };
     const editBtn = new TableActionButton('edit', ActionType.Edit);
     const removeBtn = new TableActionButton('delete', ActionType.Remove);
     const settings = new DataTableSettings(headers, undefined, editBtn, removeBtn);

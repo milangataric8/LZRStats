@@ -11,7 +11,7 @@ namespace LZRStatsApi.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int JerseyNumber { get; set; }
-        public int GamesPlayed { get; set; }
+        public int GamesPlayed { get; set; } // TODO - remove this. (user playerStats.count instead)
         public virtual Team Team { get; set; }
         public virtual ICollection<PlayerStats> PlayerStats { get; set; }
     }

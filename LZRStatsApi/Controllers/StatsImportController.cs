@@ -37,7 +37,7 @@ namespace LZRStatsApi.Controllers
                     if (!Directory.Exists(pathToSave))
                         Directory.CreateDirectory(pathToSave);
 
-                    if (file.Length <= 0) return BadRequest("Invalid file content!");
+                    if (file.Length <= 0) return BadRequest("Invalid file content!"); // TODO - log for which file!! Add isFileUploaded check
 
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     fullPath = Path.Combine(pathToSave, fileName);

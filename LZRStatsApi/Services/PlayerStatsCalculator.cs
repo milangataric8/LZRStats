@@ -1,19 +1,17 @@
 ﻿using LZRStatsApi.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LZRStatsApi.Services
 {
-    public class PlayerStatsCalculator:IPlayerStatsCalculator
+    public class PlayerStatsCalculator : IPlayerStatsCalculator
     {
-        public double GetPointsPerGame(Player player)
+        public decimal GetPointsPerGame(Player player)
         {
             return GetTotalPoints(player) / player.PlayerStats.Count;
         }
 
-        public double GetFGPercentage(Player player)
+        public decimal GetFGPercentage(Player player)
         {
             var totalFG2Made = GetTotalFG2Made(player);
             var totalFG3Made = GetTotalFG2Made(player);
@@ -23,6 +21,14 @@ namespace LZRStatsApi.Services
             var totalShotsAttempted = totalFG2Attempted + totalFG3Attempted;
 
             return (totalShotsMade / totalShotsAttempted) * 100;
+        }
+
+        public decimal GetFG3Percentage(Player player)
+        {
+            var totalFG3Made = GetTotalFG2Made(player);
+            var totalFG3Attempted = GetTotalFG3Attempted(player);
+
+            return (totalFG3Made / totalFG3Attempted) * 100;
         }
 
         public int GetTotalPoints(Player player)
@@ -48,6 +54,41 @@ namespace LZRStatsApi.Services
         public int GetTotalFG3Attempted(Player player)
         {
             return player.PlayerStats.Sum(x => x.FG3Attempted);
+        }
+
+        public decimal GetAssistsPerGame(Player player)
+        {
+            return CalculatePerGameStat(player, x => x.Assists);
+        }
+
+        public decimal GetReboundsPerGame(Player player)
+        {
+            return CalculatePerGameStat(player, x => x.TotalRebounds);
+        }
+
+        public decimal GetStealsPerGame(Player player)
+        {
+            return CalculatePerGameStat(player, x => x.Steals);
+        }
+
+        public decimal GetBlocksPerGame(Player player)
+        {
+            return CalculatePerGameStat(player, x => x.Blocks);
+        }
+
+        public decimal GetTurnoversPerGame(Player player)
+        {
+            return CalculatePerGameStat(player, x => x.Turnovers);
+        }
+
+        public decimal GetMinutesPerGame(Player player)
+        {
+            return CalculatePerGameStat(player, x => x.MinutesPlayed);
+        }
+
+        private decimal CalculatePerGameStat(Player player, Func<PlayerStats, decimal> stat)
+        {
+            return player.PlayerStats.Sum(stat) / player.PlayerStats.Count;
         }
     }
 }
