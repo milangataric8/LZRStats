@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { HttpEventType } from '@angular/common/http';
+import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { StatsService } from '../_services/stats.service';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-stats-upload',
@@ -11,6 +13,7 @@ export class StatsUploadComponent implements OnInit {
 
   public progress: number;
   public message: string;
+  public inProgress: boolean;
   @Output() public UploadFinished = new EventEmitter();
 
   constructor(private statsService: StatsService) { }
@@ -22,7 +25,8 @@ export class StatsUploadComponent implements OnInit {
     if (files.length === 0) {
       return;
     }
-
+    this.inProgress = true;
+    this.message = '';
     const filesToUpload = <File[]>files;
     const formData = new FormData();
     for (let index = 0; index < filesToUpload.length; index++) {
@@ -30,14 +34,27 @@ export class StatsUploadComponent implements OnInit {
       formData.append('file' + file.name, file, file.name);
     }
 
-    this.statsService.upload(formData).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress = Math.round(100 * event.loaded / event.total);
-      } else
-        if (event.type === HttpEventType.Response) {
-          this.message = 'Upload success.';
-          this.UploadFinished.emit(event.body);
+    this.statsService.upload(formData).pipe(
+      map(event => {
+        switch (event.type) {
+          case HttpEventType.UploadProgress:
+            this.progress = Math.round(event.loaded * 100 / event.total);
+            break;
+          case HttpEventType.Response:
+            this.inProgress = false;
+            this.message = 'Upload success.';
+            this.UploadFinished.emit(event.body);
+            return event;
         }
-    });
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.inProgress = false;
+        this.message = 'Upload failed.';
+        return of(`Upload failed.`);
+      })).subscribe((event: any) => {
+        if (typeof (event) === 'object') {
+          console.log(event.body);
+        }
+      });
   }
 }

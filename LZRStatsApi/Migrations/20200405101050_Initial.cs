@@ -63,8 +63,7 @@ namespace LZRStatsApi.Migrations
                     TeamId = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    JerseyNumber = table.Column<int>(nullable: false),
-                    GamesPlayed = table.Column<int>(nullable: false)
+                    JerseyNumber = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

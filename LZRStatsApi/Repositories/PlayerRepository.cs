@@ -39,14 +39,7 @@ namespace LZRStatsApi.Repositories
 
         public void Update(Player player)
         {
-            var p = _context.Player.SingleOrDefault(r => r.Id == player.Id);
-            if (p != null)
-            {
-                p.FirstName = player.FirstName;
-                p.LastName = player.LastName;
-                p.GamesPlayed = player.GamesPlayed;
-                p.JerseyNumber = player.JerseyNumber;
-            }
+            _context.Player.Update(player);
             _context.SaveChanges();
         }
 

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LZRStatsApi.Migrations
 {
     [DbContext(typeof(LzrStatsContext))]
-    [Migration("20200404192241_Initial")]
+    [Migration("20200405101050_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,9 +54,6 @@ namespace LZRStatsApi.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GamesPlayed")
-                        .HasColumnType("int");
 
                     b.Property<int>("JerseyNumber")
                         .HasColumnType("int");

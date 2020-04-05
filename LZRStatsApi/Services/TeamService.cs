@@ -45,12 +45,13 @@ namespace LZRStatsApi.Services
 
         public async Task<Team> GetOrCreateTeam(string teamName)
         {
-            Team team = await _teamRepository.FindByNameAsync(teamName) ?? new Team { Name = teamName, TeamGames = new List<TeamGame>() };
-            //if (team.Id == 0)
-            //{
-            //    await _teamRepository.CreateAsync(team);
-            //    await _teamRepository.SaveChangesAsync();
-            //}
+            Team team = await _teamRepository.FindByNameAsync(teamName) 
+                ?? new Team 
+                { 
+                    Name = teamName,
+                    TeamGames = new List<TeamGame>(),
+                    Players = new List<Player>()
+                };
 
             return team;
         }

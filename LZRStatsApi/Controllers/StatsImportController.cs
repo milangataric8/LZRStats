@@ -1,6 +1,7 @@
 ﻿using LZRStatsApi.Attributes;
 using LZRStatsApi.Helpers;
 using LZRStatsApi.Importers;
+using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,10 +17,12 @@ namespace LZRStatsApi.Controllers
     public class StatsImportController : ControllerBase
     {
         private readonly IStatsImporter _statsImporter;
+        private readonly IGameService _gameService;
         private readonly string tempFileName = "temp.docx";
-        public StatsImportController(IStatsImporter statsImporter)
+        public StatsImportController(IStatsImporter statsImporter, IGameService gameService)
         {
             _statsImporter = statsImporter;
+            _gameService = gameService;
         }
 
         [HttpPost, DisableRequestSizeLimit]
@@ -30,16 +33,18 @@ namespace LZRStatsApi.Controllers
             string wordFilePath = string.Empty;
             try
             {
+                var folderName = Path.Combine("Resources", "Files", "PDF");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (!Directory.Exists(pathToSave))
+                    Directory.CreateDirectory(pathToSave);
                 foreach (var file in Request.Form.Files)
                 {
-                    var folderName = Path.Combine("Resources", "Files", "PDF");
-                    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                    if (!Directory.Exists(pathToSave))
-                        Directory.CreateDirectory(pathToSave);
-
-                    if (file.Length <= 0) return BadRequest("Invalid file content!"); // TODO - log for which file!! Add isFileUploaded check
-
+                    if (file.Length <= 0) continue; // TODO - log for which file!! Add isFileUploaded check
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var matchData = fileName.ReplaceBadMinusCharacter().Split('-');
+                    var gameImported = await _gameService.IsGameImported(int.Parse(matchData[0]), int.Parse(matchData[1]), matchData[2].Split('.')[0]);
+                    if (gameImported) continue;
+
                     fullPath = Path.Combine(pathToSave, fileName);
 
                     using (var stream = new FileStream(fullPath, FileMode.Create))
@@ -57,7 +62,8 @@ namespace LZRStatsApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                // TODO log error
+                return BadRequest("Import failed.");
             }
             finally
             {

@@ -34,7 +34,9 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
   createTableOptions() {
     const firstName: ColumnInfo = new ColumnInfo('First name');
     const lastName: ColumnInfo = new ColumnInfo('Last name');
+    const teamName: ColumnInfo = new ColumnInfo('Team');
     const jerseyNumber: ColumnInfo = new ColumnInfo('Jersey number', NumberSignPipe);
+    const gamesPlayed: ColumnInfo = new ColumnInfo('Games played'); // TODO align content right
     const mpg: ColumnInfo = new ColumnInfo('MPG');
     const ppg: ColumnInfo = new ColumnInfo('PPG');
     const apg: ColumnInfo = new ColumnInfo('APG');
@@ -42,9 +44,44 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
     const spg: ColumnInfo = new ColumnInfo('SPG');
     const bpg: ColumnInfo = new ColumnInfo('BPG');
     const tpg: ColumnInfo = new ColumnInfo('TPG');
-    const fgPct: ColumnInfo = new ColumnInfo('FG%', PercentPipe);
-    const fg3Pct: ColumnInfo = new ColumnInfo('3PT%', PercentPipe);
-    const headers = { firstName, lastName, jerseyNumber, mpg, ppg, apg, rpg, spg, bpg, tpg, fgPct, fg3Pct };
+    const fgPercentage: ColumnInfo = new ColumnInfo('FG%'); // TODO show percent pipe
+    const fG2Percentage: ColumnInfo = new ColumnInfo('2PT%');
+    const fG3Percentage: ColumnInfo = new ColumnInfo('3PT%');
+    const ftPercentage: ColumnInfo = new ColumnInfo('FT%');
+    const fgm: ColumnInfo = new ColumnInfo('FGM');
+    const fga: ColumnInfo = new ColumnInfo('FGA');
+    const fG2M: ColumnInfo = new ColumnInfo('FG2M');
+    const fG2A: ColumnInfo = new ColumnInfo('FG2A');
+    const fG3M: ColumnInfo = new ColumnInfo('FG3M');
+    const fG3A: ColumnInfo = new ColumnInfo('FG3A');
+    const ftm: ColumnInfo = new ColumnInfo('FTM');
+    const fta: ColumnInfo = new ColumnInfo('FTA');
+    const headers = {
+      firstName,
+      lastName,
+      jerseyNumber,
+      teamName,
+      gamesPlayed,
+      mpg,
+      ppg,
+      apg,
+      rpg,
+      spg,
+      bpg,
+      tpg,
+      fgm,
+      fga,
+      fgPercentage,
+      fG2M,
+      fG2A,
+      fG2Percentage,
+      fG3M,
+      fG3A,
+      fG3Percentage,
+      ftm,
+      fta,
+      ftPercentage
+    };
     const editBtn = new TableActionButton('edit', ActionType.Edit);
     const removeBtn = new TableActionButton('delete', ActionType.Remove);
     const settings = new DataTableSettings(headers, undefined, editBtn, removeBtn);

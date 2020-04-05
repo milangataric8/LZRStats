@@ -1,14 +1,27 @@
-<div class="row" style="margin-bottom:15px;">
+<div class="row" style="margin-bottom:15px; margin-top: 100px;">
     <div class="col-md-3">
-        <input type="file" multiple="multiple" accept="application/pdf" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+        <input type="file" multiple="multiple" accept="application/pdf" #file placeholder="Choose file"
+            (change)="uploadFile(file.files)" style="display:none;">
         <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
     </div>
     <div class="col-md-4">
-        <span class="upload" *ngIf="progress > 0">
-            {{progress}}%
-        </span>
-        <span class="upload" *ngIf="message">
-            {{message}}
-        </span>
+        <mat-card class="import-spinner-card" *ngIf="inProgress">
+            <mat-progress-spinner color="accent" mode="indeterminate">
+            </mat-progress-spinner>
+            <p style="color: white;">Please wait.
+                Importing file(s)
+            </p>
+        </mat-card>
+
+        <mat-progress-spinner value="progress" mode="determinate" color="accent">
+        </mat-progress-spinner>
+
+        <mat-card class="import-spinner-card" *ngIf="message">
+            <span style="color: white;">
+                {{message}}
+            </span>
+        </mat-card>
+
+     
     </div>
 </div>

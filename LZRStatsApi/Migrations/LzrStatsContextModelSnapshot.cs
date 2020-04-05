@@ -53,9 +53,6 @@ namespace LZRStatsApi.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GamesPlayed")
-                        .HasColumnType("int");
-
                     b.Property<int>("JerseyNumber")
                         .HasColumnType("int");
 

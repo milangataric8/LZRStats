@@ -32,7 +32,7 @@ namespace LZRStatsApi.Importers
             var teamName = data.GetTeamName();
             Team team = await _teamService.GetOrCreateTeam(teamName);
             Game game = await GetOrCreateGame(fileName, data);
-            team.Players = await data.ExtractPlayers(team.Id, game, _playerRepo);
+            await data.ExtractPlayers(team, game, _playerRepo);
             TeamGame teamGame = ExtractTeamGameData(data);
             teamGame.Team = team;
             teamGame.Game = game;

@@ -93,19 +93,17 @@ namespace LZRStatsApi.Helpers
             return fullName.Split(null);
         }
 
-        public static async Task<List<Player>> ExtractPlayers(this List<string> data, int teamId, Game game, IPlayerRepository repo)
+        public static async Task ExtractPlayers(this List<string> data, Team team, Game game, IPlayerRepository repo)
         {
             var playersData = data.Skip(DataToSkipFirstCount).SkipLast(DataToSkipLastCount).ToList();
             var players = playersData.ChunkBy(SinglePlayerRelatedDataCount);
-            var result = new List<Player>();
             foreach (var playerData in players)
             {
-                Player player =  await playerData.ExtractPlayerInfo(teamId, repo);
+                Player player = await playerData.ExtractPlayerInfo(team.Id, repo);
                 player.PlayerStats.Add(ExtractPlayerStats(playerData, game));
-                result.Add(player);
+                if (player.Id == 0)
+                    team.Players.Add(player);
             }
-
-            return result;
         }
 
         private static async Task<Player> ExtractPlayerInfo(this List<string> playerData, int teamId, IPlayerRepository repo)
@@ -120,7 +118,6 @@ namespace LZRStatsApi.Helpers
                 FirstName = firstName,
                 LastName = lastName,
                 JerseyNumber = jerseyNo,
-                GamesPlayed = 1,
                 PlayerStats = new List<PlayerStats>()
             };
 
