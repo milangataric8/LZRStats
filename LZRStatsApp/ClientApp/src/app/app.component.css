@@ -10,6 +10,10 @@
   border-color: #ddd;
 }
 
+li a:focus {
+  color: #FA8320;
+}
+
 .logo:hover {
   background-color: #FA8320;
   border-radius: 50%;

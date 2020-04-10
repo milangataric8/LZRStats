@@ -1,9 +1,20 @@
-<div class="row" style="margin-bottom:15px; margin-top: 100px;">
+<div  id="wrapper" class="row" style="margin-bottom:15px; margin-top: 100px;">
     <div class="col-md-3">
         <input type="file" multiple="multiple" accept="application/pdf" #file placeholder="Choose file"
             (change)="uploadFile(file.files)" style="display:none;">
-        <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+        <!-- <button type="button" class="btn btn-success" (click)="file.click()">Upload File <i class="material-icons">add_box</i></button> -->
+       
+        <!-- <button class="button" (click)="file.click()"><span>Upload </span></button> -->
+        <div class="wrapper">
+            <div class="link_wrapper">
+              <a (click)="file.click()">Upload File</a>
+              <div class="icon">
+                <i class="material-icons"><strong>cloud_upload</strong></i>
+              </div>
+            </div>    
+        </div>
     </div>
+    
     <div class="col-md-4">
         <mat-card class="import-spinner-card" *ngIf="inProgress">
             <mat-progress-spinner color="accent" mode="indeterminate">
@@ -25,3 +36,5 @@
      
     </div>
 </div>
+
+
