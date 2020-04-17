@@ -1,31 +1,30 @@
 <div  id="wrapper" class="row" style="margin-bottom:15px; margin-top: 100px;">
     <div class="col-md-3">
         <input type="file" multiple="multiple" accept="application/pdf" #file placeholder="Choose file"
-            (change)="uploadFile(file.files)" style="display:none;">
-        <!-- <button type="button" class="btn btn-success" (click)="file.click()">Upload File <i class="material-icons">add_box</i></button> -->
-       
-        <!-- <button class="button" (click)="file.click()"><span>Upload </span></button> -->
+            (change)="uploadFile(file.files)" style="display:none;">>
         <div class="wrapper">
             <div class="link_wrapper">
               <a (click)="file.click()">Upload File</a>
               <div class="icon">
                 <i class="material-icons"><strong>cloud_upload</strong></i>
               </div>
+              <mat-progress-spinner *ngIf="inProgress" color="accent" mode="indeterminate">
+            </mat-progress-spinner>
             </div>    
         </div>
     </div>
     
     <div class="col-md-4">
-        <mat-card class="import-spinner-card" *ngIf="inProgress">
+        <!-- <mat-card class="import-spinner-card" *ngIf="inProgress">
             <mat-progress-spinner color="accent" mode="indeterminate">
             </mat-progress-spinner>
             <p style="color: white;">Please wait.
                 Importing file(s)
             </p>
-        </mat-card>
+        </mat-card> -->
 
-        <mat-progress-spinner value="progress" mode="determinate" color="accent">
-        </mat-progress-spinner>
+        <!-- <mat-progress-spinner value="progress" mode="determinate" color="accent">
+        </mat-progress-spinner> -->
 
         <mat-card class="import-spinner-card" *ngIf="message">
             <span style="color: white;">

@@ -27,7 +27,7 @@ import { MasterDetailBaseComponent } from './shared/master-detail-base/master-de
 import { DynamicPipe } from './pipes/dynamic.pipe';
 import { PlayerComponent } from './players/player/player.component';
 import { PlayerDetailComponent } from './player-detail/player-detail.component';
-import { DeleteModalComponent } from './shared/delete-modal/delete-modal.component';
+import { ConfirmModalComponent } from './shared/delete-modal/confirm-modal.component';
 import { StatsUploadComponent } from './stats-upload/stats-upload.component';
 
 @NgModule({
@@ -43,7 +43,7 @@ import { StatsUploadComponent } from './stats-upload/stats-upload.component';
     DynamicPipe,
     PlayerComponent,
     PlayerDetailComponent,
-    DeleteModalComponent,
+    ConfirmModalComponent,
     StatsUploadComponent
   ],
   imports: [
@@ -81,6 +81,6 @@ import { StatsUploadComponent } from './stats-upload/stats-upload.component';
     MatInputModule,
     MatPaginatorModule
   ],
-  entryComponents: [DeleteModalComponent]
+  entryComponents: [ConfirmModalComponent]
 })
 export class AppModule { }

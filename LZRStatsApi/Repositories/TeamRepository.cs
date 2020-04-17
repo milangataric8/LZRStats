@@ -2,10 +2,8 @@
 using LZRStatsApi.Models;
 using LZRStatsApi.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace LZRStatsApi.Repositories
@@ -34,6 +32,12 @@ namespace LZRStatsApi.Repositories
         public async Task<Team> FindByNameAsync(string teamName)
         {
             return await _context.Team.SingleOrDefaultAsync(t => t.Name == teamName);
+        }
+
+        public IEnumerable<Team> GetAll()
+        {
+            var result = _context.Team.ToList();
+            return result;
         }
 
         public void Remove(int id)

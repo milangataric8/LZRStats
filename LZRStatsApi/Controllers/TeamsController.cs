@@ -1,4 +1,6 @@
-﻿using LZRStatsApi.Models;
+﻿using AutoMapper;
+using LZRStatsApi.Models;
+using LZRStatsApi.Models.Responses;
 using LZRStatsApi.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,23 +16,29 @@ namespace LZRStatsApi.Controllers
     public class TeamsController : ControllerBase
     {
         private readonly ITeamRepository _teamRepository;
-        public TeamsController(ITeamRepository teamRepository)
+        private readonly IMapper _mapper;
+        public TeamsController(ITeamRepository teamRepository, IMapper mapper)
         {
             _teamRepository = teamRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAll()
+        public IEnumerable<TeamResponse> GetAll()
         {
-            IEnumerable<Team> teams = await _teamRepository.GetAllAsync();
-            return Ok(teams);
+            IEnumerable<Team> teams = _teamRepository.GetAll();
+            var result = _mapper.Map<IEnumerable<TeamResponse>>(teams);
+
+            return result;
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
-            //await _teamRepository.DeleteAsync(team);
+            var team = await _teamRepository.GetSingleByAsync(x => x.Id == id);
+            await _teamRepository.DeleteAsync(team);
+            await _teamRepository.SaveChangesAsync();
 
             return Ok();
         }

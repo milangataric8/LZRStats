@@ -14,5 +14,7 @@ namespace LZRStatsApi.Repositories
         Team Find(int id);
         void Remove(int id);
         Task<Team> FindByNameAsync(string teamName);
+        IEnumerable<Team> GetAll();
+
     }
 }
