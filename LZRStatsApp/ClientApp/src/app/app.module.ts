@@ -29,6 +29,7 @@ import { PlayerComponent } from './players/player/player.component';
 import { PlayerDetailComponent } from './player-detail/player-detail.component';
 import { ConfirmModalComponent } from './shared/delete-modal/confirm-modal.component';
 import { StatsUploadComponent } from './stats-upload/stats-upload.component';
+import { AddEditModalComponent } from './shared/add-edit-modal/add-edit-modal/add-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { StatsUploadComponent } from './stats-upload/stats-upload.component';
     PlayerComponent,
     PlayerDetailComponent,
     ConfirmModalComponent,
-    StatsUploadComponent
+    StatsUploadComponent,
+    AddEditModalComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +83,6 @@ import { StatsUploadComponent } from './stats-upload/stats-upload.component';
     MatInputModule,
     MatPaginatorModule
   ],
-  entryComponents: [ConfirmModalComponent]
+  entryComponents: [ConfirmModalComponent, AddEditModalComponent]
 })
 export class AppModule { }

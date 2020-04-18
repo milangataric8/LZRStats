@@ -1,25 +1,32 @@
+
 import { Component, Inject, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-confirm-modal',
-  templateUrl: 'confirm-modal.component.html',
-  styleUrls: ['./confirm-modal.component.css']
+  selector: 'app-add-edit-modal',
+  templateUrl: 'add-edit-modal.component.html',
+  styleUrls: ['./add-edit-modal.component.css']
 })
-export class ConfirmModalComponent {
+export class AddEditModalComponent {
   dialogTitle: string;
-  dialogText: string;
   item: any;
   @Output() submitClicked = new EventEmitter<any>();
 
-  constructor(private dialogRef: MatDialogRef<ConfirmModalComponent>,
+  constructor(private dialogRef: MatDialogRef<AddEditModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dialogTitle = this.data.dialogTitle;
-    this.dialogText = this.data.dialogText;
     this.item = this.data.item;
   }
 
   close() {
     this.dialogRef.close();
+  }
+
+  onChange(prop: any) {
+    if (typeof this.item[prop.key] === 'number') {
+      this.item[prop.key] = +prop.value;
+    } else {
+      this.item[prop.key] = prop.value;
+    }
   }
 }

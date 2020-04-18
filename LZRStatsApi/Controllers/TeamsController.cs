@@ -36,18 +36,36 @@ namespace LZRStatsApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
-            var team = await _teamRepository.GetSingleByAsync(x => x.Id == id);
-            await _teamRepository.DeleteAsync(team);
-            await _teamRepository.SaveChangesAsync();
+            try
+            {
+                var team = await _teamRepository.GetSingleByAsync(x => x.Id == id);
+                await _teamRepository.DeleteAsync(team);
+                await _teamRepository.SaveChangesAsync();
 
-            return Ok();
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                // TODO log error
+                throw;
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] Team team)
         {
+            try
+            {
+                await _teamRepository.UpdateAsync(team);
+                await _teamRepository.SaveChangesAsync();
 
-            return Ok();
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                // TODO log error
+                throw;
+            }
         }
     }
 }

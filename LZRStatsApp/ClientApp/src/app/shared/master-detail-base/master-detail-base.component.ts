@@ -4,6 +4,7 @@ import { ButtonClickedItem } from '../data-table/event-models/button-clicked-ite
 import { MatDialog, MatTable } from '@angular/material';
 import { ConfirmModalComponent } from '../delete-modal/confirm-modal.component';
 import { DataTableComponent } from '../data-table/data-table.component';
+import { AddEditModalComponent } from '../add-edit-modal/add-edit-modal/add-edit-modal.component';
 
 @Component({
   selector: 'app-master-detail-base',
@@ -11,7 +12,7 @@ import { DataTableComponent } from '../data-table/data-table.component';
   styles: ['']
 })
 export class MasterDetailBaseComponent implements OnInit {
-  @ViewChild(DataTableComponent, {static: true}) table: DataTableComponent;
+  @ViewChild(DataTableComponent, { static: true }) table: DataTableComponent;
   constructor(public readonly apiUrl: string, private dataTableService: DataTableService, public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -40,33 +41,31 @@ export class MasterDetailBaseComponent implements OnInit {
   invokeButtonAction(item: ButtonClickedItem) {
     const btnTypes = {
       'Add': () => {
-        // TODO show add modal
-        console.log('add');
+        this.ShowAddEditModal(item, 'Add item');
       },
       'Edit': () => {
-        // TODO show edit modal
-        console.log('edit');
+        this.ShowAddEditModal(item, 'Edit item');
       },
       'Remove': () => {
-        this.openDialog(item.element, 'Confirm delete', `Are you sure you want to delete this item?`, this.delete);
+        this.ShowDeleteModal(item);
       }
     };
     btnTypes[item.getActionType()]();
   }
 
-  update(payload: any) {
-    this.dataTableService.update(this.apiUrl, payload)
-      .subscribe(x => {
-        // TODO after api call
-      }, error => console.log(error));
+  update(self: any) {
+    self.dataTableService.update(self.apiUrl, this)
+      .subscribe((x: any) => {
+        // TODO show toast notification
+        self.table.initData();
+      }, (error: any) => console.log(error));
   }
 
   delete(self: any) {
     self.dataTableService.remove(self.apiUrl, this)
       .subscribe((x: any) => {
-        // TODO after api call refresh table
-        //self.table.renderRows();
-        //self.table.dataSource.data.pop(this)
+        // TODO show toast notification
+        self.table.initData();
       }, (error: any) => console.log(error));
   }
 
@@ -74,16 +73,30 @@ export class MasterDetailBaseComponent implements OnInit {
     console.log(event);
   }
 
-
-  openDialog(item: any, title: string, text: string, func: (payload: any) => void) {
-    this.dialog.open(ConfirmModalComponent, {
-      width: '350px',
-      data: { dialogTitle: title, dialogText: text, item: item }
-    })
+  openDialog(modalType: any, item: any, config: any, callback: (payload: any) => void) {
+    this.dialog.open(modalType, config)
       .afterClosed().subscribe(result => {
         if (result) {
-          func.call(item, this);
+          callback.call(item, this);
         }
       });
+  }
+
+  private ShowAddEditModal(item: ButtonClickedItem, title: string) {
+    const data = { dialogTitle: title, item: item.element };
+    const config = {
+      width: '350px',
+      data: data
+    };
+    this.openDialog(AddEditModalComponent, item.element, config, this.update);
+  }
+
+  private ShowDeleteModal(item: ButtonClickedItem) {
+    const data = { dialogTitle: 'Confirm delete', dialogText: `Are you sure you want to delete this item?`, item: item.element };
+    const config = {
+      width: '350px',
+      data: data
+    };
+    this.openDialog(ConfirmModalComponent, item.element, config, this.delete);
   }
 }
