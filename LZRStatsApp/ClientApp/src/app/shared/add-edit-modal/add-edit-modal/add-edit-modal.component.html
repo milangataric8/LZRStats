@@ -2,6 +2,7 @@
 <mat-dialog-content class="modal-background">
     <div *ngFor="let x of item | keyvalue">
         <mat-form-field *ngIf="x.key !== 'id'">
+            <!-- TODO pretty print x.key (custom pipe lastName -> Last name) -->
             <input placeholder="{{x.key}}" matInput (change)="onChange(x)" [(ngModel)]="x.value">
             <!-- [(ngModel)]="item[x.key]" -->
         </mat-form-field>

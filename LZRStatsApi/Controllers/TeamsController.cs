@@ -51,6 +51,23 @@ namespace LZRStatsApi.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> PutAsync([FromBody] Team team)
+        {
+            try
+            {
+                await _teamRepository.AddOrUpdateAsync(team);
+                await _teamRepository.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                // TODO log error
+                throw;
+            }
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] Team team)
         {

@@ -23,13 +23,6 @@ export class MasterDetailBaseComponent implements OnInit {
     // TODO show empty modal dialog(***MUST use the same dialog for add/edit!!!)
   }
 
-  add(payload: any) {
-    this.dataTableService.add(this.apiUrl, payload)
-      .subscribe(x => {
-        // TODO open edit dialog
-      }, error => console.log(error));
-  }
-
   onTableButtonClicked(event: any) {
     console.log(event);
     // TODO open edit dialog
@@ -40,17 +33,22 @@ export class MasterDetailBaseComponent implements OnInit {
   // switch alternative https://ultimatecourses.com/blog/deprecating-the-switch-statement-for-object-literals
   invokeButtonAction(item: ButtonClickedItem) {
     const btnTypes = {
-      'Add': () => {
-        this.ShowAddEditModal(item, 'Add item');
-      },
       'Edit': () => {
-        this.ShowAddEditModal(item, 'Edit item');
+        this.ShowAddEditModal(item.element, 'Edit item', this.update);
       },
       'Remove': () => {
-        this.ShowDeleteModal(item);
+        this.ShowDeleteModal(item.element);
       }
     };
     btnTypes[item.getActionType()]();
+  }
+
+  add(self: any) {
+    self.dataTableService.add(self.apiUrl, this)
+      .subscribe((x: any) => {
+        // TODO how toast notification
+        self.table.initData();
+      }, (error: any) => console.log(error));
   }
 
   update(self: any) {
@@ -82,21 +80,21 @@ export class MasterDetailBaseComponent implements OnInit {
       });
   }
 
-  private ShowAddEditModal(item: ButtonClickedItem, title: string) {
-    const data = { dialogTitle: title, item: item.element };
+  ShowAddEditModal(item: any, title: string, callback: (payload: any) => void) {
+    const data = { dialogTitle: title, item: item };
     const config = {
       width: '350px',
       data: data
     };
-    this.openDialog(AddEditModalComponent, item.element, config, this.update);
+    this.openDialog(AddEditModalComponent, item, config, callback);
   }
 
-  private ShowDeleteModal(item: ButtonClickedItem) {
-    const data = { dialogTitle: 'Confirm delete', dialogText: `Are you sure you want to delete this item?`, item: item.element };
+  ShowDeleteModal(item: any) {
+    const data = { dialogTitle: 'Confirm delete', dialogText: `Are you sure you want to delete this item?`, item: item };
     const config = {
       width: '350px',
       data: data
     };
-    this.openDialog(ConfirmModalComponent, item.element, config, this.delete);
+    this.openDialog(ConfirmModalComponent, item, config, this.delete);
   }
 }

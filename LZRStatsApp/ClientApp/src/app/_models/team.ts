@@ -1,6 +1,6 @@
 export class Team {
-    id: number;
-    name: string;
-    wins: number;
-    losses: number;
+    id = 0;
+    name = '';
+    wins = 0;
+    losses = 0;
 }

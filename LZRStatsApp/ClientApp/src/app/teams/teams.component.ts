@@ -36,4 +36,9 @@ export class TeamsComponent extends MasterDetailBaseComponent implements OnInit 
 
     return settings;
   }
+
+  addRow() {
+    const team = new Team();
+    this.ShowAddEditModal(team, 'Add item', this.add);
+  }
 }
