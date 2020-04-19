@@ -1,0 +1,10 @@
+{
+  "HOME": {
+    "TITLE": "Početna stranica",
+    "SELECT": "Promeni jezik",
+    "TEAMS": "Timovi",
+    "PLAYERS": "Igrači",
+    "STATS_IMPORT": "Uvezi statistiku",
+    "WELCOME_MSG": "Dobrodosao {{name}} {{lastName}}"
+  }
+}

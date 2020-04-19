@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { DecimalPipe, PercentPipe } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +30,8 @@ import { PlayerDetailComponent } from './player-detail/player-detail.component';
 import { ConfirmModalComponent } from './shared/delete-modal/confirm-modal.component';
 import { StatsUploadComponent } from './stats-upload/stats-upload.component';
 import { AddEditModalComponent } from './shared/add-edit-modal/add-edit-modal/add-edit-modal.component';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,14 @@ import { AddEditModalComponent } from './shared/add-edit-modal/add-edit-modal/ad
     MatProgressSpinnerModule,
     MatSortModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  })
   ],
   providers: [
     DatePipe,
@@ -86,3 +95,7 @@ import { AddEditModalComponent } from './shared/add-edit-modal/add-edit-modal/ad
   entryComponents: [ConfirmModalComponent, AddEditModalComponent]
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

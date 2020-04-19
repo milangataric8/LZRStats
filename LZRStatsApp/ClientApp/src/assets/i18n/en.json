@@ -1,0 +1,10 @@
+{
+    "HOME": {
+        "TITLE": "Home",
+        "SELECT": "Change language",
+        "TEAMS": "Teams",
+        "PLAYERS": "Players",
+        "STATS_IMPORT": "Stats import",
+        "WELCOME_MSG": "Welcome {{name}} {{lastName}}"
+      }
+}

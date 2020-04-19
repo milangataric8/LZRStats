@@ -1,36 +1,39 @@
 <div class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="currentUser">
-    <div class="navbar-header">         
+    <div class="navbar-header">
         <a class="navbar-left logo-hover" routerLink="/">
-        <div class="logo"></div>
+            <div class="logo"></div>
         </a>
     </div>
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link nav-link-fade-up" routerLink="/">Home</a>
+            <a class="nav-link nav-link-fade-up" routerLink="/">{{ 'HOME.TITLE' | translate }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link nav-link-fade-up" routerLink="/teams">Teams</a>   
+            <a class="nav-link nav-link-fade-up" routerLink="/teams">Teams</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link nav-link-fade-up" routerLink="/players">Players</a>   
+            <a class="nav-link nav-link-fade-up" routerLink="/players">Players</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link nav-link-fade-up" routerLink="/stats-upload">Stats upload</a>   
+            <a class="nav-link nav-link-fade-up" routerLink="/stats-upload">Stats upload</a>
         </li>
     </ul>
     <div class="dropdown nav-item ml-auto">
         <p>
-            <span class="nav-link nav-link-fade-up">Welcome {{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}}</span>
+            <span class="nav-link nav-link-fade-up">
+                {{ 'HOME.WELCOME_MSG' | translate:{'name':currentUser.firstName | uppercase, 'lastName': currentUser.lastName | uppercase }}}
+            </span>
+            <!-- {{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}} -->
         </p>
         <div class="dropdown-content">
             <a class="nav-link" routerLink="/">Profile</a>
             <a class="nav-link" routerLink="/" (click)="logout()">Logout</a> <!-- TODO login button if not logged in -->
         </div>
-    </div>     
+    </div>
 </div>
 
 
 <!-- main app container -->
 <div class="container">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>
