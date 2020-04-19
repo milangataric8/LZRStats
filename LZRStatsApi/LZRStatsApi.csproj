@@ -26,6 +26,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="sautinsoft.pdffocus" Version="7.5.3.27" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
     <PackageReference Include="Spire.PDF" Version="6.3.16" />
   </ItemGroup>
 

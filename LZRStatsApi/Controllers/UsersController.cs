@@ -2,6 +2,7 @@
 using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace LZRStatsApi.Controllers
@@ -12,22 +13,32 @@ namespace LZRStatsApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, ILogger<UsersController> logger)
         {
             _userService = userService;
+            _logger = logger;
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
         {
-            var user = await _userService.Authenticate(model.Username, model.Password);
+            try
+            {
+                var user = await _userService.Authenticate(model.Username, model.Password);
 
-            if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+                if (user == null)
+                    return BadRequest(new { message = "Username or password is incorrect" });
 
-            return Ok(user);
+                return Ok(user);
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, $"Authenticate faild for user {model.Username}");
+                return BadRequest("Error occured");
+            }
         }
 
         [HttpGet]

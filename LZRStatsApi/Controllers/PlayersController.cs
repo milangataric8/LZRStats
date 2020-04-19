@@ -2,10 +2,9 @@
 using LZRStatsApi.Models;
 using LZRStatsApi.Models.Responses;
 using LZRStatsApi.Repositories;
-using LZRStatsApi.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,10 +18,12 @@ namespace LZRStatsApi.Controllers
     {
         private readonly IPlayerRepository _playerRepo;
         private readonly IMapper _mapper;
-        public PlayersController(IPlayerRepository playerRepo, IMapper mapper)
+        private readonly ILogger<PlayersController> _logger;
+        public PlayersController(IPlayerRepository playerRepo, IMapper mapper, ILogger<PlayersController> logger)
         {
             _playerRepo = playerRepo;
             _mapper = mapper;
+            _logger = logger;
         }
 
 
@@ -30,133 +31,63 @@ namespace LZRStatsApi.Controllers
         [AllowAnonymous]
         public IEnumerable<PlayerResponse> GetAll()
         {
-            var result =  _playerRepo.GetAll();
+            var result = _playerRepo.GetAll();
             var players = _mapper.Map<IEnumerable<PlayerResponse>>(result);
 
             return players;
         }
 
-        [HttpGet("{id}")]
-        [AllowAnonymous]
-        public IActionResult GetPlayerById(int id)
-        {
-            var p = _playerRepo.Find(id);
-            if (p == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(p);
-        }
-
         [HttpPost]
-        public IActionResult Create([FromBody] Player item)
+        public async Task<IActionResult> CreateAsync([FromBody] Player item)
         {
-            if (item == null)
+            try
             {
-                return BadRequest();
-            }
-            _playerRepo.Add(item);
-            return CreatedAtRoute((Controller: "Player", id: item.Id), item);
-        }
+                await _playerRepo.AddOrUpdateAsync(item);
+                await _playerRepo.SaveChangesAsync();
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Player item)
-        {
-            if (item == null)
-            {
-                return BadRequest();
+                return Ok();
             }
-            var project = _playerRepo.Find(id);
-            if (project == null)
+            catch (System.Exception ex)
             {
-                return NotFound();
+                _logger.LogError(ex, $"Create failed for player {item.LastName}");
+                return BadRequest("Error occured");
             }
-            _playerRepo.Update(item);
-            return new NoContentResult();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
-            _playerRepo.Remove(id);
-            return Ok(id);
+            try
+            {
+                var player = await _playerRepo.GetSingleByAsync(x => x.Id == id);
+                await _playerRepo.DeleteAsync(player);
+                await _playerRepo.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, $"Delete failed for player {id}");
+                return BadRequest("Error occured");
+            }
         }
 
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    var players = await _playerRepo.GetAllAsync();
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] Player player)
+        {
+            try
+            {
+                await _playerRepo.UpdateAsync(player);
+                await _playerRepo.SaveChangesAsync();
 
-        //    //TODO return view model
-        //    //var result = _mapper.Map<PlayerViewModel>(players);
-        //    return Ok(players);
-        //}
-
-
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutPlayer([FromRoute] int id, [FromBody] Player player)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != player.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-
-        //    try
-        //    {
-        //        var entity = _mapper.Map<Player>(player);
-        //        await _playerRepo.UpdateAsync(entity);
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        throw;
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Workouts
-        //[HttpPost]
-        //public async Task<IActionResult> PostPlayer([FromBody] PlayerViewModel player)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var newPlayer = _mapper.Map<Player>(player);
-        //    await _playerRepo.CreateAsync(newPlayer);
-        //    await _playerRepo.SaveChangesAsync();
-
-        //    return Ok();
-        //}
-
-        //// DELETE: api/Workouts/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeletePlayer([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var players = await _playerRepo.GetByAsync(x => x.Id == id);
-        //    if (players == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    await _playerRepo.DeleteAsync(players.SingleOrDefault());
-        //    await _playerRepo.SaveChangesAsync();
-
-        //    return Ok(players);
-        //}
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, $"Update failed for player {id}");
+                return BadRequest("Error occured");
+            }
+        }
     }
 
 }

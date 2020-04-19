@@ -1,9 +1,9 @@
-﻿using LZRStatsApi.Attributes;
-using LZRStatsApi.Helpers;
+﻿using LZRStatsApi.Helpers;
 using LZRStatsApi.Importers;
 using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Net.Http.Headers;
@@ -18,15 +18,16 @@ namespace LZRStatsApi.Controllers
     {
         private readonly IStatsImporter _statsImporter;
         private readonly IGameService _gameService;
+        private readonly ILogger<StatsImportController> _logger;
         private readonly string tempFileName = "temp.docx";
-        public StatsImportController(IStatsImporter statsImporter, IGameService gameService)
+        public StatsImportController(IStatsImporter statsImporter, IGameService gameService, ILogger<StatsImportController> logger)
         {
             _statsImporter = statsImporter;
             _gameService = gameService;
+            _logger = logger;
         }
 
         [HttpPost, DisableRequestSizeLimit]
-        //[ServiceFilter(typeof(ValidateFileAttribute))]
         public async Task<IActionResult> Import()
         {
             string fullPath = string.Empty;
@@ -39,11 +40,19 @@ namespace LZRStatsApi.Controllers
                     Directory.CreateDirectory(pathToSave);
                 foreach (var file in Request.Form.Files)
                 {
-                    if (file.Length <= 0) continue; // TODO - log for which file!! Add isFileUploaded check
+                    if (file.Length <= 0)
+                    {
+                        _logger.LogWarning($"File invalid. {file.FileName}");
+                        continue;
+                    }
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     var matchData = fileName.ReplaceBadMinusCharacter().Split('-');
                     var gameImported = await _gameService.IsGameImported(int.Parse(matchData[0]), int.Parse(matchData[1]), matchData[2].Split('.')[0]);
-                    if (gameImported) continue;
+                    if (gameImported)
+                    {
+                        _logger.LogWarning($"File already imported. {file.FileName}");
+                        continue;
+                    }
 
                     fullPath = Path.Combine(pathToSave, fileName);
 
@@ -54,15 +63,15 @@ namespace LZRStatsApi.Controllers
                     wordFilePath = Path.Combine(pathToSave, tempFileName);
                     FileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
 
-                    //TODO db access rework
                     await _statsImporter.ExtractFromFile(wordFilePath, fileName);
+                    // TODO add file to imported files table?
                 }
 
                 return Ok();
             }
             catch (Exception ex)
             {
-                // TODO log error
+                _logger.LogError(ex, "File import failed");
                 return BadRequest("Import failed.");
             }
             finally

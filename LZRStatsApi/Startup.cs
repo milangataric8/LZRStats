@@ -8,13 +8,14 @@ using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
+using ILogger = Serilog.ILogger;
 
 namespace LZRStatsApi
 {
@@ -23,6 +24,7 @@ namespace LZRStatsApi
 
         public Startup(IConfiguration configuration)
         {
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).MinimumLevel.Override("Microsoft", LogEventLevel.Warning).CreateLogger();
             Configuration = configuration;
         }
 
@@ -44,7 +46,6 @@ namespace LZRStatsApi
             services.AddControllers();
             services.AddDbContext<LzrStatsContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LZRStatsContext")));
-            // configure basic authentication 
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
@@ -74,19 +75,13 @@ namespace LZRStatsApi
             services.AddScoped<ValidateFileAttribute>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddSerilog(); 
             app.UseRouting();
 
-            // global cors policy
             app.UseCors("CorsPolicy");
             app.UseStaticFiles();
-            //app.UseStaticFiles(new StaticFileOptions()
-            //{
-            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-            //    RequestPath = new PathString("/Resources")
-            //});
             app.UseAuthentication();
             app.UseAuthorization();
 

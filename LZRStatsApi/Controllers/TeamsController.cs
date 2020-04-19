@@ -4,6 +4,7 @@ using LZRStatsApi.Models.Responses;
 using LZRStatsApi.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,10 +18,12 @@ namespace LZRStatsApi.Controllers
     {
         private readonly ITeamRepository _teamRepository;
         private readonly IMapper _mapper;
-        public TeamsController(ITeamRepository teamRepository, IMapper mapper)
+        private readonly ILogger<TeamsController> _logger;
+        public TeamsController(ITeamRepository teamRepository, IMapper mapper, ILogger<TeamsController> logger)
         {
             _teamRepository = teamRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -46,13 +49,13 @@ namespace LZRStatsApi.Controllers
             }
             catch (System.Exception ex)
             {
-                // TODO log error
-                throw;
+                _logger.LogError(ex, $"Delete failed for team {id}");
+                return BadRequest("Error occured");
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> PutAsync([FromBody] Team team)
+        public async Task<IActionResult> CreateAsync([FromBody] Team team)
         {
             try
             {
@@ -63,8 +66,8 @@ namespace LZRStatsApi.Controllers
             }
             catch (System.Exception ex)
             {
-                // TODO log error
-                throw;
+                _logger.LogError(ex, $"Create failed for team {team.Name}");
+                return BadRequest("Error occured");
             }
         }
 
@@ -80,8 +83,8 @@ namespace LZRStatsApi.Controllers
             }
             catch (System.Exception ex)
             {
-                // TODO log error
-                throw;
+                _logger.LogError(ex, $"Update failed for team {id}");
+                return BadRequest("Error occured");
             }
         }
     }
