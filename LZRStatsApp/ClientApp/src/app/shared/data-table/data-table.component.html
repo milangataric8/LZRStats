@@ -14,7 +14,7 @@
   </ng-container>
 
   <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <th mat-header-cell *matHeaderCellDef> {{'TABLE.actions' | translate}} </th>
     <td mat-cell *matCellDef="let element">
       <div *ngIf="isUserLoggedIn">
         <i *ngFor="let btn of tableSettings.actionButtons" (click)="onActionButtonClicked(element, btn.actionType)"

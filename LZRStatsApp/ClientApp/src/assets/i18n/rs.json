@@ -1,10 +1,36 @@
 {
   "HOME": {
-    "TITLE": "Početna stranica",
-    "SELECT": "Promeni jezik",
-    "TEAMS": "Timovi",
-    "PLAYERS": "Igrači",
-    "STATS_IMPORT": "Uvezi statistiku",
-    "WELCOME_MSG": "Dobrodosao {{name}} {{lastName}}"
+    "home": "Početna stranica",
+    "select": "Promeni jezik",
+    "teams": "Timovi",
+    "players": "Igrači",
+    "stats_upload": "Otpremi statistiku",
+    "welcome_msg": "Dobrodosao {{firstName}} {{lastName}}",
+    "profile": "Profil",
+    "logout": "Odjava"
+  },
+  "LOGIN": {
+    "welcome": "Dobrodošli",
+    "username_required": "Korisničko ime je neophodno",
+    "password_required": "Lozinka je neophodna",
+    "login": "Prijavite se"
+  },
+  "PLAYERS": {
+    "title": "Igrači"
+  },
+  "TEAMS": {
+    "title": "Timovi"
+  },
+  "DATATABLE": {
+    "add_new": "Dodaj nov",
+    "action": "Akcije"
+  },
+  "STATS_UPLOAD":{
+    "upload": "Otpremi"
+  },
+  "MODALS": {
+    "cancel": "Otkaži",
+    "save": "Sačuvaj",
+    "Confirm": "Potvrdi"
   }
 }

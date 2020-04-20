@@ -4,7 +4,7 @@
             (change)="uploadFile(file.files)" style="display:none;">>
         <div class="wrapper">
             <div class="link_wrapper">
-              <a (click)="file.click()">Upload File</a>
+              <a (click)="file.click()">{{'STATS_UPLOAD.upload' | translate}}</a>
               <div class="icon">
                 <i class="material-icons"><strong>cloud_upload</strong></i>
               </div>
@@ -12,27 +12,6 @@
             </mat-progress-spinner>
             </div>    
         </div>
-    </div>
-    
-    <div class="col-md-4">
-        <!-- <mat-card class="import-spinner-card" *ngIf="inProgress">
-            <mat-progress-spinner color="accent" mode="indeterminate">
-            </mat-progress-spinner>
-            <p style="color: white;">Please wait.
-                Importing file(s)
-            </p>
-        </mat-card> -->
-
-        <!-- <mat-progress-spinner value="progress" mode="determinate" color="accent">
-        </mat-progress-spinner> -->
-
-        <mat-card class="import-spinner-card" *ngIf="message">
-            <span style="color: white;">
-                {{message}}
-            </span>
-        </mat-card>
-
-     
     </div>
 </div>
 

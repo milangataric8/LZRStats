@@ -6,28 +6,27 @@
     </div>
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link nav-link-fade-up" routerLink="/">{{ 'HOME.TITLE' | translate }}</a>
+            <a class="nav-link nav-link-fade-up" routerLink="/">{{ 'HOME.home' | translate }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link nav-link-fade-up" routerLink="/teams">Teams</a>
+            <a class="nav-link nav-link-fade-up" routerLink="/teams">{{ 'HOME.teams' | translate }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link nav-link-fade-up" routerLink="/players">Players</a>
+            <a class="nav-link nav-link-fade-up" routerLink="/players">{{ 'HOME.players' | translate }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link nav-link-fade-up" routerLink="/stats-upload">Stats upload</a>
+            <a class="nav-link nav-link-fade-up" routerLink="/stats-upload">{{ 'HOME.stats_upload' | translate }}</a>
         </li>
     </ul>
     <div class="dropdown nav-item ml-auto">
         <p>
             <span class="nav-link nav-link-fade-up">
-                {{ 'HOME.WELCOME_MSG' | translate:{'name':currentUser.firstName | uppercase, 'lastName': currentUser.lastName | uppercase }}}
+                {{ 'HOME.welcome_msg' | translate: {'firstName': currentUser.firstName, 'lastName': currentUser.lastName } }}
             </span>
-            <!-- {{currentUser.firstName | uppercase}} {{currentUser.lastName | uppercase}} -->
         </p>
         <div class="dropdown-content">
-            <a class="nav-link" routerLink="/">Profile</a>
-            <a class="nav-link" routerLink="/" (click)="logout()">Logout</a> <!-- TODO login button if not logged in -->
+            <a class="nav-link" routerLink="/">{{ 'HOME.profile' | translate }}</a>
+            <a class="nav-link" routerLink="/" (click)="logout()">{{ 'HOME.logout' | translate }}</a> <!-- TODO login button if not logged in -->
         </div>
     </div>
 </div>

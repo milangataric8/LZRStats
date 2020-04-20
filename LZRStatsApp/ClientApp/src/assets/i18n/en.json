@@ -1,10 +1,36 @@
 {
-    "HOME": {
-        "TITLE": "Home",
-        "SELECT": "Change language",
-        "TEAMS": "Teams",
-        "PLAYERS": "Players",
-        "STATS_IMPORT": "Stats import",
-        "WELCOME_MSG": "Welcome {{name}} {{lastName}}"
-      }
+  "HOME": {
+    "home": "Home",
+    "select": "Change language",
+    "teams": "Teams",
+    "players": "Players",
+    "stats_upload": "Stats import",
+    "welcome_msg": "Welcome {{firstName}} {{lastName}}",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "LOGIN": {
+    "welcome": "WELCOME TO LZR STATS",
+    "username_required": "Username is required",
+    "password_required": "Password is required",
+    "login": "Login"
+  },
+  "PLAYERS": {
+    "title": "Players"
+  },
+  "TEAMS": {
+    "title": "Teams"
+  },
+  "TABLE": {
+    "add_new": "Add new",
+    "action": "Actions"
+  },
+  "STATS_UPLOAD":{
+    "upload": "Upload"
+  },
+  "MODALS": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "Confirm": "Confirm"
+  }
 }

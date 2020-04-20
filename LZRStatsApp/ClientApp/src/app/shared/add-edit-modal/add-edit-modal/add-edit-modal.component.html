@@ -10,6 +10,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="modal-background">
-    <button class="mat-raised-button mat-primary buttonL confirm-button" [mat-dialog-close]="item">Save</button>
-    <button class="mat-raised-button buttonR" (click)="close()">Cancel</button>
+    <button class="mat-raised-button mat-primary buttonL confirm-button" [mat-dialog-close]="item">{{'MODALS.save' | translate}}</button>
+    <button class="mat-raised-button buttonR" (click)="close()">{{'MODALS.cancel' | translate}}</button>
 </mat-dialog-actions>
