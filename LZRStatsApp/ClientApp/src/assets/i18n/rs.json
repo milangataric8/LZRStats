@@ -7,7 +7,10 @@
     "stats_upload": "Otpremi statistiku",
     "welcome_msg": "Dobrodosao {{firstName}} {{lastName}}",
     "profile": "Profil",
-    "logout": "Odjava"
+    "logout": "Odjava",
+    "serbian": "Srpski",
+    "english": "Engleski",
+    "select_language": "Izaberi jezik"
   },
   "LOGIN": {
     "welcome": "Dobrodošli",

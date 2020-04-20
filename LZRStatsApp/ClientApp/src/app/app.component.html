@@ -18,6 +18,13 @@
             <a class="nav-link nav-link-fade-up" routerLink="/stats-upload">{{ 'HOME.stats_upload' | translate }}</a>
         </li>
     </ul>
+    <mat-form-field class="dropdown nav-item ml-auto">
+        <mat-label>{{'HOME.select_language' | translate}}</mat-label>
+        <mat-select [(value)]="selectedLanguage" (selectionChange)="changeLanguage()">
+            <mat-option value="rs">Srpski</mat-option>
+            <mat-option value="en">Engleski</mat-option>
+        </mat-select>
+    </mat-form-field>
     <div class="dropdown nav-item ml-auto">
         <p>
             <span class="nav-link nav-link-fade-up">
@@ -26,7 +33,8 @@
         </p>
         <div class="dropdown-content">
             <a class="nav-link" routerLink="/">{{ 'HOME.profile' | translate }}</a>
-            <a class="nav-link" routerLink="/" (click)="logout()">{{ 'HOME.logout' | translate }}</a> <!-- TODO login button if not logged in -->
+            <a class="nav-link" routerLink="/" (click)="logout()">{{ 'HOME.logout' | translate }}</a>
+            <!-- TODO login button if not logged in -->
         </div>
     </div>
 </div>

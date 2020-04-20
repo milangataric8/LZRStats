@@ -19,7 +19,7 @@ import { PlayersComponent } from './players/players.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule
+  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule, MatSelect, MatSelectModule
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSignPipe } from './pipes/number-sign.pipe';
@@ -30,8 +30,8 @@ import { PlayerDetailComponent } from './player-detail/player-detail.component';
 import { ConfirmModalComponent } from './shared/delete-modal/confirm-modal.component';
 import { StatsUploadComponent } from './stats-upload/stats-upload.component';
 import { AddEditModalComponent } from './shared/add-edit-modal/add-edit-modal/add-edit-modal.component';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -66,13 +66,14 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     MatSortModule,
     MatCardModule,
     MatDialogModule,
+    MatSelectModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
-  })
+    })
   ],
   providers: [
     DatePipe,

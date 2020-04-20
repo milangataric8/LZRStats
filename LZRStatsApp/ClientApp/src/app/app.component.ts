@@ -3,6 +3,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { Router } from '@angular/router';
 import { User } from './_models/user';
 import { TranslateService } from '@ngx-translate/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +13,18 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
 
   currentUser: User;
-
+  selectedLanguage = 'rs';
   constructor(private authService: AuthenticationService, private router: Router, private translate: TranslateService) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
-    translate.setDefaultLang('rs');
+    translate.setDefaultLang(this.selectedLanguage);
   }
 
   logout() {
     this.authService.logout();
     this.router.navigate(['login']);
+  }
+
+  changeLanguage() {
+    this.translate.setDefaultLang(this.selectedLanguage);
   }
 }

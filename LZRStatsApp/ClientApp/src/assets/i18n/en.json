@@ -7,7 +7,10 @@
     "stats_upload": "Stats import",
     "welcome_msg": "Welcome {{firstName}} {{lastName}}",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "serbian": "Serbian",
+    "english": "English",
+    "select_language": "Select language"
   },
   "LOGIN": {
     "welcome": "WELCOME TO LZR STATS",
