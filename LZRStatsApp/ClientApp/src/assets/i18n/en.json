@@ -26,9 +26,37 @@
   },
   "TABLE": {
     "add_new": "Add new",
-    "action": "Actions"
+    "actions": "Actions",
+    "filter": "Filter",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "jerseyNumber": "Jersey number",
+    "team": "Team",
+    "gamesPlayed": "GP",
+    "mpg": "MPG",
+    "ppg": "PPG",
+    "apg": "APG",
+    "rpg": "RPG",
+    "spg": "SPG",
+    "bpg": "BPG",
+    "tpg": "TPG",
+    "fg%": "FG%",
+    "fg2%": "2FG%",
+    "fg3%": "3FG%",
+    "ft%": "FT%",
+    "teamName": "Name",
+    "wins": "Wins",
+    "losses": "Losses"
   },
-  "STATS_UPLOAD":{
+  "PAGINATOR": {
+    "ITEMS_PER_PAGE": "Items per page:",
+    "NEXT_PAGE": "Next page",
+    "PREVIOUS_PAGE": "Previous page",
+    "FIRST_PAGE": "First page",
+    "LAST_PAGE": "Last page",
+    "RANGE": "{{startIndex}} – {{endIndex}} of {{length}}"
+  },
+  "STATS_UPLOAD": {
     "upload": "Upload"
   },
   "MODALS": {

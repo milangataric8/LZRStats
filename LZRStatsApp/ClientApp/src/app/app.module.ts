@@ -19,7 +19,7 @@ import { PlayersComponent } from './players/players.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule, MatSelect, MatSelectModule
+  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule, MatSelect, MatSelectModule, MatPaginatorIntl
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSignPipe } from './pipes/number-sign.pipe';
@@ -30,8 +30,10 @@ import { PlayerDetailComponent } from './player-detail/player-detail.component';
 import { ConfirmModalComponent } from './shared/delete-modal/confirm-modal.component';
 import { StatsUploadComponent } from './stats-upload/stats-upload.component';
 import { AddEditModalComponent } from './shared/add-edit-modal/add-edit-modal/add-edit-modal.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { PercentSignPipe } from './pipes/percent-sign.pipe';
+import { MatPaginatorI18nService } from './shared/data-table/mat-paginator-intl';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     PlayersComponent,
     DataTableComponent,
     NumberSignPipe,
+    PercentSignPipe,
     MasterDetailBaseComponent,
     DynamicPipe,
     PlayerComponent,
@@ -72,18 +75,24 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
-      }
+      },
+      defaultLanguage: 'rs'
     })
   ],
   providers: [
     DatePipe,
     DecimalPipe,
     NumberSignPipe,
+    PercentSignPipe,
     PercentPipe,
     AuthenticationService,
     UserService,
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorI18nService,
+    }
   ],
   bootstrap: [AppComponent],
   exports: [

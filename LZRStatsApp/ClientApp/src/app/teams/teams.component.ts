@@ -26,9 +26,9 @@ export class TeamsComponent extends MasterDetailBaseComponent implements OnInit 
   }
 
   createTableOptions(): DataTableSettings {
-    const name: ColumnInfo = new ColumnInfo('Name');
-    const wins: ColumnInfo = new ColumnInfo('Wins');
-    const losses: ColumnInfo = new ColumnInfo('Losses');
+    const name: ColumnInfo = new ColumnInfo('teamName');
+    const wins: ColumnInfo = new ColumnInfo('wins');
+    const losses: ColumnInfo = new ColumnInfo('losses');
     const headers = { name, wins, losses };
     const editBtn = new TableActionButton('edit', ActionType.Edit);
     const removeBtn = new TableActionButton('delete', ActionType.Remove);

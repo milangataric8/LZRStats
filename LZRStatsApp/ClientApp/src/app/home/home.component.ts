@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getAll().subscribe(x => console.log(x));
   }
 
   logout() {

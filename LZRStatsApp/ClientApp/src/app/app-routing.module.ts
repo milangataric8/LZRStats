@@ -6,12 +6,14 @@ import { LoginComponent } from './login/login.component';
 import { TeamsComponent } from './teams/teams.component';
 import { PlayersComponent } from './players/players.component';
 import { StatsUploadComponent } from './stats-upload/stats-upload.component';
+import { PlayerDetailComponent } from './player-detail/player-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'players', component: PlayersComponent },
+  { path: 'playerDetail', component: PlayerDetailComponent },
   { path: 'stats-upload', component: StatsUploadComponent },
 
   // otherwise redirect to home

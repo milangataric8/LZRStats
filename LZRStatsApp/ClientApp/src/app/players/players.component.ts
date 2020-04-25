@@ -9,10 +9,11 @@ import { ColumnInfo } from '../shared/data-table/column-header-models/column-inf
 import { DataTableService } from '../_services/data-table.service';
 import { MasterDetailBaseComponent } from '../shared/master-detail-base/master-detail-base.component';
 import { NumberSignPipe } from '../pipes/number-sign.pipe';
-import { PercentPipe } from '@angular/common';
+import { PercentPipe, DecimalPipe } from '@angular/common';
 import { TableActionButton } from '../shared/data-table/settings/table-action-button';
 import { ActionType } from '../shared/enums/enums';
 import { MatDialog } from '@angular/material';
+import { PercentSignPipe } from '../pipes/percent-sign.pipe';
 
 @Component({
   selector: 'app-players',
@@ -32,35 +33,28 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
   }
 
   createTableOptions() {
-    const firstName: ColumnInfo = new ColumnInfo('First name');
-    const lastName: ColumnInfo = new ColumnInfo('Last name');
-    const teamName: ColumnInfo = new ColumnInfo('Team');
-    const jerseyNumber: ColumnInfo = new ColumnInfo('Jersey number', NumberSignPipe);
-    const gamesPlayed: ColumnInfo = new ColumnInfo('Games played'); // TODO align content right
-    const mpg: ColumnInfo = new ColumnInfo('MPG');
-    const ppg: ColumnInfo = new ColumnInfo('PPG');
-    const apg: ColumnInfo = new ColumnInfo('APG');
-    const rpg: ColumnInfo = new ColumnInfo('RPG');
-    const spg: ColumnInfo = new ColumnInfo('SPG');
-    const bpg: ColumnInfo = new ColumnInfo('BPG');
-    const tpg: ColumnInfo = new ColumnInfo('TPG');
-    const fgPercentage: ColumnInfo = new ColumnInfo('FG%'); // TODO show percent pipe
-    const fG2Percentage: ColumnInfo = new ColumnInfo('2PT%');
-    const fG3Percentage: ColumnInfo = new ColumnInfo('3PT%');
-    const ftPercentage: ColumnInfo = new ColumnInfo('FT%');
-    const fgm: ColumnInfo = new ColumnInfo('FGM');
-    const fga: ColumnInfo = new ColumnInfo('FGA');
-    const fG2M: ColumnInfo = new ColumnInfo('FG2M');
-    const fG2A: ColumnInfo = new ColumnInfo('FG2A');
-    const fG3M: ColumnInfo = new ColumnInfo('FG3M');
-    const fG3A: ColumnInfo = new ColumnInfo('FG3A');
-    const ftm: ColumnInfo = new ColumnInfo('FTM');
-    const fta: ColumnInfo = new ColumnInfo('FTA');
+    const firstName: ColumnInfo = new ColumnInfo('firstName');
+    const lastName: ColumnInfo = new ColumnInfo('lastName');
+    const jerseyNumber: ColumnInfo = new ColumnInfo('jerseyNumber', NumberSignPipe);
+    // const teamName: ColumnInfo = new ColumnInfo('Team'); // TODO add abreviation
+    const gamesPlayed: ColumnInfo = new ColumnInfo('gamesPlayed'); // TODO align content right
+    const mpg: ColumnInfo = new ColumnInfo('mpg');
+    const ppg: ColumnInfo = new ColumnInfo('ppg');
+    const apg: ColumnInfo = new ColumnInfo('apg');
+    const rpg: ColumnInfo = new ColumnInfo('rpg');
+    const spg: ColumnInfo = new ColumnInfo('spg');
+    const bpg: ColumnInfo = new ColumnInfo('bpg');
+    const tpg: ColumnInfo = new ColumnInfo('tpg');
+    const fgPercentage: ColumnInfo = new ColumnInfo('fg%', PercentSignPipe); // TODO show percent pipe
+    const fG2Percentage: ColumnInfo = new ColumnInfo('fg2%', PercentSignPipe);
+    const fG3Percentage: ColumnInfo = new ColumnInfo('fg3%', PercentSignPipe);
+    const ftPercentage: ColumnInfo = new ColumnInfo('ft%', PercentSignPipe);
+
     const headers = {
       firstName,
       lastName,
       jerseyNumber,
-      teamName,
+      // teamName,
       gamesPlayed,
       mpg,
       ppg,
@@ -69,17 +63,9 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
       spg,
       bpg,
       tpg,
-      fgm,
-      fga,
       fgPercentage,
-      fG2M,
-      fG2A,
       fG2Percentage,
-      fG3M,
-      fG3A,
       fG3Percentage,
-      ftm,
-      fta,
       ftPercentage
     };
     const editBtn = new TableActionButton('edit', ActionType.Edit);
@@ -90,7 +76,7 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
   }
 
   onRowSelected = (player: Player) => {
-    this.router.navigateByUrl(`players/${player.id}`);
+    this.router.navigate([`playerDetails`], { queryParams: { player } });
   }
 
   delete() {

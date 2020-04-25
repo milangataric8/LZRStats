@@ -13,10 +13,9 @@ import { FormControl } from '@angular/forms';
 export class AppComponent {
 
   currentUser: User;
-  selectedLanguage = 'rs';
+  selectedLanguage: string;
   constructor(private authService: AuthenticationService, private router: Router, private translate: TranslateService) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
-    translate.setDefaultLang(this.selectedLanguage);
   }
 
   logout() {

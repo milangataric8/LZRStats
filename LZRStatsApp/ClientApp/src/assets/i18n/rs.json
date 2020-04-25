@@ -24,11 +24,39 @@
   "TEAMS": {
     "title": "Timovi"
   },
-  "DATATABLE": {
+  "TABLE": {
     "add_new": "Dodaj nov",
-    "action": "Akcije"
+    "actions": "Akcije",
+    "filter": "Filter",
+    "firstName": "Ime",
+    "lastName": "Prezime",
+    "jerseyNumber": "Broj dresa",
+    "team": "Tim",
+    "gamesPlayed": "GP",
+    "mpg": "MPG",
+    "ppg": "PPG",
+    "apg": "APG",
+    "rpg": "RPG",
+    "spg": "SPG",
+    "bpg": "BPG",
+    "tpg": "TPG",
+    "fg%": "FG%",
+    "fg2%": "2FG%",
+    "fg3%": "3FG%",
+    "ft%": "FT%",
+    "teamName": "Ime",
+    "wins": "Pobede",
+    "losses": "Porazi"
   },
-  "STATS_UPLOAD":{
+  "PAGINATOR": {
+    "ITEMS_PER_PAGE": "Stavki po strani:",
+    "NEXT_PAGE": "Sledeća strana",
+    "PREVIOUS_PAGE": "Prethodna strana",
+    "FIRST_PAGE": "Prva strana",
+    "LAST_PAGE": "Poslednja strana",
+    "RANGE": "{{startIndex}} – {{endIndex}} od {{length}}"
+  },
+  "STATS_UPLOAD": {
     "upload": "Otpremi"
   },
   "MODALS": {

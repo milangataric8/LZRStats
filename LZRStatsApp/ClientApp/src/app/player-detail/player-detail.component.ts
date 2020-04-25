@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { PlayersService } from '../_services/players.service';
 import { Player } from '../_models/player';
@@ -10,31 +10,31 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./player-detail.component.css']
 })
 export class PlayerDetailComponent implements OnInit {
+  private player: Player;
 
-    player: Player;
-    private playerId: Number;
+  private playerId: Number;
 
-    constructor(private route: ActivatedRoute, private PlayersService: PlayersService){
-      
-      route.params.subscribe(param => {
-        this.playerId = param['id'];
+  constructor(private route: ActivatedRoute, private playersService: PlayersService) {
+
+  }
+
+  ngOnInit() {
+    this.route
+      .queryParams
+      .subscribe(params => {
+        // Defaults to 0 if no query param provided.
+        this.player = params['player'] || new Player();
       });
-    }
+  }
 
-    ngOnInit() {
-      if (this.playerId) {
-        this.loadPlayer();
-      }
-    }
-    
-    private loadPlayer = () => {
-      this.PlayersService
-        .getBy(this.playerId)
-        .subscribe(p => {
-          this.player = p as Player;
-        },
+  private loadPlayer = () => {
+    this.playersService
+      .getBy(this.playerId)
+      .subscribe(p => {
+        this.player = p as Player;
+      },
         (error) => {
           console.error(`Error happen while fetching project by ${this.playerId}`);
         });
-    }
+  }
 }
