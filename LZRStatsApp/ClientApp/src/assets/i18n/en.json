@@ -12,22 +12,7 @@
     "english": "English",
     "select_language": "Select language"
   },
-  "LOGIN": {
-    "welcome": "WELCOME TO LZR STATS",
-    "username_required": "Username is required",
-    "password_required": "Password is required",
-    "login": "Login"
-  },
-  "PLAYERS": {
-    "title": "Players"
-  },
-  "TEAMS": {
-    "title": "Teams"
-  },
-  "TABLE": {
-    "add_new": "Add new",
-    "actions": "Actions",
-    "filter": "Filter",
+  "COMMON": {
     "firstName": "First name",
     "lastName": "Last name",
     "jerseyNumber": "Jersey number",
@@ -46,7 +31,37 @@
     "ft%": "FT%",
     "teamName": "Name",
     "wins": "Wins",
-    "losses": "Losses"
+    "losses": "Losses",
+    "name": "Name",
+    "fg2A": "FG2A",
+    "fg2M": "FG2M",
+    "fg2Percentage": "FG2%",
+    "fg3A": "FG3A",
+    "fg3M": "FG3M",
+    "fg3Percentage": "FG3%",
+    "fga": "FG3A",
+    "fgm": "FG3M",
+    "fgPercentage": "FG%",
+    "fta": "FTA",
+    "ftm": "FTM",
+    "ftPercentage": "FT%"
+  },
+  "LOGIN": {
+    "welcome": "WELCOME TO LZR STATS",
+    "username_required": "Username is required",
+    "password_required": "Password is required",
+    "login": "Login"
+  },
+  "PLAYERS": {
+    "title": "Players"
+  },
+  "TEAMS": {
+    "title": "Teams"
+  },
+  "TABLE": {
+    "add_row": "Add row",
+    "actions": "Actions",
+    "filter": "Filter"
   },
   "PAGINATOR": {
     "ITEMS_PER_PAGE": "Items per page:",
@@ -62,6 +77,6 @@
   "MODALS": {
     "cancel": "Cancel",
     "save": "Save",
-    "Confirm": "Confirm"
+    "confirm": "Confirm"
   }
 }

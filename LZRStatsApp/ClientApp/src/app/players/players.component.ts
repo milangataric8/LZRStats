@@ -82,4 +82,8 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
   delete() {
     this.deleteButtonClicked.emit();
   }
+
+  addRow() {
+    this.ShowAddEditModal(new Player(), 'addItem', this.add);
+  }
 }

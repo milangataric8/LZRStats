@@ -3,6 +3,6 @@
 <data-table 
     [tableDataUrl]="getTableDataUrl" 
     [tableSettings]="createTableOptions()" 
-    (tableButtonClicked)="onTableButtonClicked($event)">
+    (tableButtonClicked)="onTableButtonClicked($event)"
+    (addButtonClicked)="addRow()">
 </data-table>
-<button mat-button (click)="addRow()" mat-flat-button color="primary"> Add </button>

@@ -8,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./add-edit-modal.component.css']
 })
 export class AddEditModalComponent {
+  invalidProps = ['id', 'teamId', 'playerId', 'gameId'];
   dialogTitle: string;
   item: any;
   @Output() submitClicked = new EventEmitter<any>();
@@ -28,5 +29,9 @@ export class AddEditModalComponent {
     } else {
       this.item[prop.key] = prop.value;
     }
+  }
+
+  propIsValid(prop: string): boolean {
+    return this.invalidProps.indexOf(prop) === -1;
   }
 }

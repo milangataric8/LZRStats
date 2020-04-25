@@ -27,7 +27,7 @@ import { MasterDetailBaseComponent } from './shared/master-detail-base/master-de
 import { DynamicPipe } from './pipes/dynamic.pipe';
 import { PlayerComponent } from './players/player/player.component';
 import { PlayerDetailComponent } from './player-detail/player-detail.component';
-import { ConfirmModalComponent } from './shared/delete-modal/confirm-modal.component';
+import { ConfirmModalComponent } from './shared/confirm-modal/confirm-modal.component';
 import { StatsUploadComponent } from './stats-upload/stats-upload.component';
 import { AddEditModalComponent } from './shared/add-edit-modal/add-edit-modal/add-edit-modal.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';

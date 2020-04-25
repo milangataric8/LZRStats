@@ -1,9 +1,6 @@
 <h1>{{'PLAYERS.title' | translate}}</h1>
 
-<data-table 
-    [tableDataUrl]="getTableDataUrl" 
-    [tableSettings]="createTableOptions()" 
-    (tableButtonClicked)="onTableButtonClicked($event)" 
-    (itemClicked)="onRowSelected($event)"
-    >
+<data-table [tableDataUrl]="getTableDataUrl" [tableSettings]="createTableOptions()"
+    (tableButtonClicked)="onTableButtonClicked($event)" (itemClicked)="onRowSelected($event)"
+    (addButtonClicked)="addRow()">
 </data-table>

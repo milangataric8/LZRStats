@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import '~material-design-icons/iconfont/material-icons.css';
 /* Provide sufficient contrast against white background */
+
 a {
   color: #0366d6;
 }
@@ -15,20 +17,29 @@ code {
   border-color: #1861ac;
 }
 
-body{
+body {
   background-image: url("assets/images/bbllbkg.jpg");
-  background-repeat:no-repeat;
-  background-size:cover;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-attachment: fixed;
   /* background-color: #FF652F; */
-    /* background-image: linear-gradient(90deg, #ff6600, rgb(0, 0, 0)); */
+  /* background-image: linear-gradient(90deg, #ff6600, rgb(0, 0, 0)); */
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
 
-.clickable{
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.clickable {
   cursor: pointer;
 }
 
-
+.orange-button {
+  background-color: #FA8320;
+  color: white;
+}

@@ -17,6 +17,7 @@ export class DataTableComponent implements OnInit {
   @Input() tableSettings: DataTableSettings;
   @Output() itemClicked: EventEmitter<any> = new EventEmitter();
   @Output() tableButtonClicked: EventEmitter<any> = new EventEmitter();
+  @Output() addButtonClicked: EventEmitter<any> = new EventEmitter();
 
   objectKeys = Object.keys;
   dataSource: MatTableDataSource<any>;
@@ -54,6 +55,10 @@ export class DataTableComponent implements OnInit {
 
   cellClicked(element: any) {
     this.itemClicked.emit(element);
+  }
+
+  addRow() {
+    this.addButtonClicked.emit();
   }
 
   private isActionColumn(dataSubject: string): string {

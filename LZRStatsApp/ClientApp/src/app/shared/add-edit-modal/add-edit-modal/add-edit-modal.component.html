@@ -1,9 +1,9 @@
 <h1 mat-dialog-title>{{dialogTitle}}</h1>
 <mat-dialog-content class="modal-background">
     <div *ngFor="let x of item | keyvalue">
-        <mat-form-field *ngIf="x.key !== 'id'">
+        <mat-form-field *ngIf="propIsValid(x.key)">
             <!-- TODO pretty print x.key (custom pipe lastName -> Last name) -->
-            <input placeholder="{{x.key}}" matInput (change)="onChange(x)" [(ngModel)]="x.value">
+            <input placeholder="{{'COMMON.' + x.key | translate }}" matInput (change)="onChange(x)" [(ngModel)]="x.value">
             <!-- [(ngModel)]="item[x.key]" -->
         </mat-form-field>
     </div>

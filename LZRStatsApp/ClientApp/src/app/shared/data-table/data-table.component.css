@@ -22,3 +22,8 @@ th.mat-header-cell {
 i {
     line-height: unset;
 }
+
+.orange-button {
+    background-color: #FA8320;
+    color: white;
+}

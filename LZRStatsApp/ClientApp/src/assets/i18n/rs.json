@@ -18,16 +18,7 @@
     "password_required": "Lozinka je neophodna",
     "login": "Prijavite se"
   },
-  "PLAYERS": {
-    "title": "Igrači"
-  },
-  "TEAMS": {
-    "title": "Timovi"
-  },
-  "TABLE": {
-    "add_new": "Dodaj nov",
-    "actions": "Akcije",
-    "filter": "Filter",
+  "COMMON": {
     "firstName": "Ime",
     "lastName": "Prezime",
     "jerseyNumber": "Broj dresa",
@@ -46,7 +37,31 @@
     "ft%": "FT%",
     "teamName": "Ime",
     "wins": "Pobede",
-    "losses": "Porazi"
+    "losses": "Porazi",
+    "name": "Ime",
+    "fG2A": "FG2A",
+    "fG2M": "FG2M",
+    "fG2Percentage": "FG2%",
+    "fG3A": "FG3A",
+    "fG3M": "FG3M",
+    "fG3Percentage": "FG3%",
+    "fga": "FG3A",
+    "fgm": "FG3M",
+    "fgPercentage": "FG%",
+    "fta": "FTA",
+    "ftm": "FTM",
+    "ftPercentage": "FT%"
+  },
+  "PLAYERS": {
+    "title": "Igrači"
+  },
+  "TEAMS": {
+    "title": "Timovi"
+  },
+  "TABLE": {
+    "add_row": "Dodaj red",
+    "actions": "Akcije",
+    "filter": "Filter"
   },
   "PAGINATOR": {
     "ITEMS_PER_PAGE": "Stavki po strani:",
@@ -62,6 +77,6 @@
   "MODALS": {
     "cancel": "Otkaži",
     "save": "Sačuvaj",
-    "Confirm": "Potvrdi"
+    "confirm": "Potvrdi"
   }
 }
