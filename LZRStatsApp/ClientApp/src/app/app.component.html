@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="currentUser">
+<div class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="navbar-header">
         <a class="navbar-left logo-hover" routerLink="/">
             <div class="logo"></div>
@@ -14,7 +14,7 @@
         <li class="nav-item">
             <a class="nav-link nav-link-fade-up" routerLink="/players">{{ 'HOME.players' | translate }}</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="currentUser">
             <a class="nav-link nav-link-fade-up" routerLink="/stats-upload">{{ 'HOME.stats_upload' | translate }}</a>
         </li>
     </ul>
@@ -25,7 +25,7 @@
             <mat-option value="en">English</mat-option>
         </mat-select>
     </mat-form-field>
-    <div class="dropdown nav-item ml-auto">
+    <div *ngIf="currentUser" class="dropdown nav-item ml-auto">
         <p>
             <span class="nav-link nav-link-fade-up">
                 {{ 'HOME.welcome_msg' | translate: {'firstName': currentUser.firstName, 'lastName': currentUser.lastName } }}
@@ -34,8 +34,10 @@
         <div class="dropdown-content">
             <a class="nav-link" routerLink="/">{{ 'HOME.profile' | translate }}</a>
             <a class="nav-link" routerLink="/" (click)="logout()">{{ 'HOME.logout' | translate }}</a>
-            <!-- TODO login button if not logged in -->
         </div>
+    </div>
+    <div *ngIf="!currentUser" class="nav-item ml-auto">
+        <a class="nav-link" routerLink="/login">{{ 'LOGIN.login' | translate }}</a>
     </div>
 </div>
 

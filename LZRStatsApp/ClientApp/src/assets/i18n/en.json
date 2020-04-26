@@ -12,6 +12,12 @@
     "english": "English",
     "select_language": "Select language"
   },
+  "LOGIN": {
+    "welcome": "WELCOME TO LZR STATS",
+    "username_required": "Username is required",
+    "password_required": "Password is required",
+    "login": "Login"
+  }, 
   "COMMON": {
     "firstName": "First name",
     "lastName": "Last name",
@@ -45,12 +51,6 @@
     "fta": "FTA",
     "ftm": "FTM",
     "ftPercentage": "FT%"
-  },
-  "LOGIN": {
-    "welcome": "WELCOME TO LZR STATS",
-    "username_required": "Username is required",
-    "password_required": "Password is required",
-    "login": "Login"
   },
   "PLAYERS": {
     "title": "Players"
