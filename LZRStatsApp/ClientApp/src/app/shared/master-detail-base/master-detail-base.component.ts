@@ -15,19 +15,13 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
 export class MasterDetailBaseComponent implements OnInit {
   @ViewChild(DataTableComponent, { static: true }) table: DataTableComponent;
   constructor(public readonly apiUrl: string, private dataTableService: DataTableService, public dialog: MatDialog,
-     private snackbarService: SnackbarService) { }
+    private snackbarService: SnackbarService) { }
 
   ngOnInit() {
   }
 
-  onCreate(event: any) {
-    console.log(this.apiUrl);
-    // TODO show empty modal dialog(***MUST use the same dialog for add/edit!!!)
-  }
-
   onTableButtonClicked(event: any) {
     console.log(event);
-    // TODO open edit dialog
     this.invokeButtonAction(event);
   }
 
@@ -48,29 +42,26 @@ export class MasterDetailBaseComponent implements OnInit {
   add(self: any) {
     self.dataTableService.add(self.apiUrl, this)
       .subscribe((x: any) => {
-        self.snackbarService.open('Successfully added item!', 'Close');
+        self.snackbarService.showInfo('Successfully added item!');
         self.table.initData();
-      }, (error: any) => console.log(error));
+      }, (error: any) => self.snackbarService.showError('Error occured!'));
   }
 
   update(self: any) {
     self.dataTableService.update(self.apiUrl, this)
       .subscribe((x: any) => {
-        // TODO show toast notification
+        self.snackbarService.showInfo('Successfully updated item!');
         self.table.initData();
-      }, (error: any) => console.log(error));
+      }, (error: any) => self.snackbarService.showError('Error occured!'));
   }
 
   delete(self: any) {
     self.dataTableService.remove(self.apiUrl, this)
       .subscribe((x: any) => {
-        // TODO show toast notification
+        self.snackbarService.showInfo('Successfully deleted item!');
         self.table.initData();
-      }, (error: any) => console.log(error));
-  }
-
-  onItemClicked(event: any) {
-    console.log(event);
+      }, (error: any) => self.snackbarService.showError('Error occured!')
+      );
   }
 
   openDialog(modalType: any, item: any, config: any, callback: (payload: any) => void) {

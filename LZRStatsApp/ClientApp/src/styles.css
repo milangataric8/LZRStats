@@ -43,3 +43,20 @@ body {
   background-color: #FA8320;
   color: white;
 }
+
+/* snackbar */
+.snackbar-info {
+  background: green;
+}
+
+.snackbar-warning {
+  background: yellow;
+}
+
+.snackbar-error {
+  background: red;
+}
+
+.mat-simple-snackbar-action  {
+  color: white;
+}
