@@ -12,29 +12,26 @@ import { ActivatedRoute } from '@angular/router';
 export class PlayerDetailComponent implements OnInit {
   private player: Player;
 
-  private playerId: Number;
-
   constructor(private route: ActivatedRoute, private playersService: PlayersService) {
 
   }
 
   ngOnInit() {
-    this.route
-      .queryParams
-      .subscribe(params => {
-        // Defaults to 0 if no query param provided.
-        this.player = params['player'] || new Player();
-      });
+    this.route.params.subscribe(params => {
+      const playerId: number = +params['id'];
+
+      this.loadPlayer(playerId);
+   });
   }
 
-  private loadPlayer = () => {
+  private loadPlayer = (playerId: number) => {
     this.playersService
-      .getBy(this.playerId)
+      .getBy(playerId)
       .subscribe(p => {
         this.player = p as Player;
       },
         (error) => {
-          console.error(`Error happen while fetching project by ${this.playerId}`);
+          console.error(`Error happen while fetching player by ${playerId}`);
         });
   }
 }

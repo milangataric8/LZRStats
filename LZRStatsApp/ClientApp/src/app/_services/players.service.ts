@@ -18,7 +18,7 @@ export class PlayersService {
     return this.http.get(this.accessPointUrl);
   }
 
-  getBy = (playerId: Number): Observable<any> =>{
+  getBy = (playerId: Number): Observable<any> => {
     return this.http
       .get(`${AppSettings.API_ENDPOINT}Players/${playerId}`);
   }

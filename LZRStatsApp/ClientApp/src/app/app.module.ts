@@ -19,7 +19,7 @@ import { PlayersComponent } from './players/players.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule, MatSelect, MatSelectModule, MatPaginatorIntl
+  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule, MatSelect, MatSelectModule, MatPaginatorIntl, MatSnackBarModule
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSignPipe } from './pipes/number-sign.pipe';
@@ -70,6 +70,7 @@ import { MatPaginatorI18nService } from './shared/data-table/mat-paginator-intl'
     MatCardModule,
     MatDialogModule,
     MatSelectModule,
+    MatSnackBarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

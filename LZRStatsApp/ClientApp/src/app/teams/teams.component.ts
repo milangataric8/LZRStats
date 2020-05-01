@@ -9,6 +9,7 @@ import { DataTableService } from '../_services/data-table.service';
 import { TableActionButton } from '../shared/data-table/settings/table-action-button';
 import { ActionType } from '../shared/enums/enums';
 import { MatDialog } from '@angular/material';
+import { SnackbarService } from '../_services/snackbar.service';
 
 @Component({
   selector: 'app-teams',
@@ -18,8 +19,8 @@ import { MatDialog } from '@angular/material';
 export class TeamsComponent extends MasterDetailBaseComponent implements OnInit {
   getTableDataUrl: string = this.apiUrl;
 
-  constructor(dataTableService: DataTableService, public dialog: MatDialog) {
-    super(`${AppSettings.API_ENDPOINT}teams`, dataTableService, dialog);
+  constructor(dataTableService: DataTableService, public dialog: MatDialog, snackbarService: SnackbarService) {
+    super(`${AppSettings.API_ENDPOINT}teams`, dataTableService, dialog, snackbarService);
   }
 
   ngOnInit() {

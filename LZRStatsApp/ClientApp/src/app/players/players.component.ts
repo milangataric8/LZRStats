@@ -14,6 +14,7 @@ import { TableActionButton } from '../shared/data-table/settings/table-action-bu
 import { ActionType } from '../shared/enums/enums';
 import { MatDialog } from '@angular/material';
 import { PercentSignPipe } from '../pipes/percent-sign.pipe';
+import { SnackbarService } from '../_services/snackbar.service';
 
 @Component({
   selector: 'app-players',
@@ -25,16 +26,16 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
   getTableDataUrl: string = this.apiUrl;
   @Output() deleteButtonClicked: EventEmitter<any> = new EventEmitter();
 
-  constructor(dataTableService: DataTableService, private router: Router, public dialog: MatDialog) {
-    super(`${AppSettings.API_ENDPOINT}players`, dataTableService, dialog);
+  constructor(dataTableService: DataTableService, private router: Router, public dialog: MatDialog, snackbarService: SnackbarService) {
+    super(`${AppSettings.API_ENDPOINT}players`, dataTableService, dialog, snackbarService);
   }
 
   ngOnInit() {
   }
 
   createTableOptions() {
-    const firstName: ColumnInfo = new ColumnInfo('firstName');
-    const lastName: ColumnInfo = new ColumnInfo('lastName');
+    const firstName: ColumnInfo = new ColumnInfo('firstName', undefined, undefined, true);
+    const lastName: ColumnInfo = new ColumnInfo('lastName', undefined, undefined, true);
     const jerseyNumber: ColumnInfo = new ColumnInfo('jerseyNumber', NumberSignPipe);
     // const teamName: ColumnInfo = new ColumnInfo('Team'); // TODO add abreviation
     const gamesPlayed: ColumnInfo = new ColumnInfo('gamesPlayed'); // TODO align content right
@@ -76,7 +77,7 @@ export class PlayersComponent extends MasterDetailBaseComponent implements OnIni
   }
 
   onRowSelected = (player: Player) => {
-    this.router.navigate([`playerDetails`], { queryParams: { player } });
+    this.router.navigate(['/player-details', player.id]);
   }
 
   delete() {

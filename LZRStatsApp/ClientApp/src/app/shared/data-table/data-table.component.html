@@ -1,4 +1,4 @@
-<div style="background-color: whitesmoke; opacity: 0.75;">
+<div class="table-filter">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'TABLE.filter' | translate}}">
   </mat-form-field>
@@ -9,7 +9,9 @@
     *ngFor="let dataSubject of objectKeys(tableSettings.columnHeaders)">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>
       {{'COMMON.' + tableSettings.columnHeaders[dataSubject].value | translate }} </th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element"
+      [ngClass]="tableSettings.columnHeaders[dataSubject].isClickable ? 'clickable-cell' : ''"
+      (click)="tableSettings.columnHeaders[dataSubject].isClickable && cellClicked(element)">
       {{element[dataSubject] | dynamicPipe: tableSettings.columnHeaders[dataSubject].pipe: tableSettings.columnHeaders[dataSubject].pipeArgs}}
     </td>
   </ng-container>
@@ -35,4 +37,4 @@
   [pageSizeOptions]="tableSettings.pageSizeSettings.pageSizeOptions">
 </mat-paginator>
 <button mat-button *ngIf="isUserLoggedIn" (click)="addRow()" class="orange-button mat-raised-button mat-primary">
-  {{'TABLE.add_row' | translate }} </button> 
+  {{'TABLE.add_row' | translate }} </button>

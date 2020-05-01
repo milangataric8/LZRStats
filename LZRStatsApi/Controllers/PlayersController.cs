@@ -88,6 +88,18 @@ namespace LZRStatsApi.Controllers
                 return BadRequest("Error occured");
             }
         }
+
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public IActionResult GetPlayerById(int id)
+        {
+            var p = _playerRepo.Find(id);
+            if (p == null)
+            {
+                return NotFound();
+            }
+            return Ok(p);
+        }
     }
 
 }

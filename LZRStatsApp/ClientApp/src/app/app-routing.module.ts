@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'players', component: PlayersComponent },
-  { path: 'playerDetail', component: PlayerDetailComponent },
+  { path: 'player-details/:id', component: PlayerDetailComponent },
   { path: 'stats-upload', component: StatsUploadComponent, canActivate: [AuthGuard] },
 
   // otherwise redirect to home

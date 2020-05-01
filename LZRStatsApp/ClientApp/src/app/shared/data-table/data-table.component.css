@@ -2,7 +2,7 @@ table {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    min-width: 700px;
+    min-width: 1000px;
 }
 
 th.mat-header-cell {
@@ -26,4 +26,10 @@ i {
 .orange-button {
     background-color: #FA8320;
     color: white;
+}
+
+.table-filter {
+    background-color: whitesmoke;
+    opacity: 0.75;
+    width: 100%;
 }

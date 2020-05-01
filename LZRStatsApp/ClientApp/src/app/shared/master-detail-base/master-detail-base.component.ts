@@ -5,6 +5,7 @@ import { MatDialog, MatTable } from '@angular/material';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { DataTableComponent } from '../data-table/data-table.component';
 import { AddEditModalComponent } from '../add-edit-modal/add-edit-modal/add-edit-modal.component';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
   selector: 'app-master-detail-base',
@@ -13,7 +14,8 @@ import { AddEditModalComponent } from '../add-edit-modal/add-edit-modal/add-edit
 })
 export class MasterDetailBaseComponent implements OnInit {
   @ViewChild(DataTableComponent, { static: true }) table: DataTableComponent;
-  constructor(public readonly apiUrl: string, private dataTableService: DataTableService, public dialog: MatDialog) { }
+  constructor(public readonly apiUrl: string, private dataTableService: DataTableService, public dialog: MatDialog,
+     private snackbarService: SnackbarService) { }
 
   ngOnInit() {
   }
@@ -46,7 +48,7 @@ export class MasterDetailBaseComponent implements OnInit {
   add(self: any) {
     self.dataTableService.add(self.apiUrl, this)
       .subscribe((x: any) => {
-        // TODO how toast notification
+        self.snackbarService.open('Successfully added item!', 'Close');
         self.table.initData();
       }, (error: any) => console.log(error));
   }
