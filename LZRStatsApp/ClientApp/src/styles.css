@@ -45,6 +45,7 @@ body {
 }
 
 /* snackbar */
+
 .snackbar-info {
   background: green;
 }
@@ -57,6 +58,20 @@ body {
   background: red;
 }
 
-.mat-simple-snackbar-action  {
+.mat-simple-snackbar-action {
   color: white;
+}
+
+.details-container {
+  margin-top: 40px;
+  background-color: white;
+  position: relative;
+}
+
+.details-container>div {
+  padding: 50px;
+}
+
+.details-container>div>div>div>p {
+  padding-left: 5px;
 }

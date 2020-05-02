@@ -98,7 +98,9 @@ namespace LZRStatsApi.Controllers
             {
                 return NotFound();
             }
-            return Ok(p);
+            var result = _mapper.Map<PlayerResponse>(p);
+
+            return Ok(result);
         }
     }
 

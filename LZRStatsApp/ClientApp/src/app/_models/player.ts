@@ -1,6 +1,7 @@
 export class Player {
     id = 0;
     teamId = 0;
+    teamName = '';
     firstName = '';
     lastName = '';
     jerseyNumber = 0;
