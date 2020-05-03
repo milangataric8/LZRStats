@@ -3,6 +3,9 @@ import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { StatsService } from '../_services/stats.service';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { SnackbarService } from '../_services/snackbar.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SeasonService } from '../_services/season.service';
 
 @Component({
   selector: 'app-stats-upload',
@@ -14,11 +17,18 @@ export class StatsUploadComponent implements OnInit {
   public progress: number;
   public message: string;
   public inProgress: boolean;
+  public selectedSeason: any;
+  public seasons: any;
   @Output() public UploadFinished = new EventEmitter();
 
-  constructor(private statsService: StatsService) { }
+  constructor(private statsService: StatsService, private snackbarService: SnackbarService, private translate: TranslateService,
+    private seasonService: SeasonService) { }
 
   ngOnInit() {
+    this.seasonService.getAll()
+      .subscribe((result) => {
+        this.seasons = result;
+      });
   }
 
   public uploadFile = (files: string | any[]) => {
@@ -33,7 +43,7 @@ export class StatsUploadComponent implements OnInit {
       const file = filesToUpload[index];
       formData.append('file' + file.name, file, file.name);
     }
-
+    // formData.append('season', this.selectedSeason);
     this.statsService.upload(formData).pipe(
       map(event => {
         switch (event.type) {
@@ -42,14 +52,15 @@ export class StatsUploadComponent implements OnInit {
             break;
           case HttpEventType.Response:
             this.inProgress = false;
-            this.message = 'Upload success.';
+            this.snackbarService.showInfo('Upload success');
             this.UploadFinished.emit(event.body);
             return event;
         }
       }),
       catchError((error: HttpErrorResponse) => {
         this.inProgress = false;
-        this.message = 'Upload failed.';
+        this.snackbarService.showError('Upload failed');
+
         return of(`Upload failed.`);
       })).subscribe((event: any) => {
         if (typeof (event) === 'object') {

@@ -1,18 +1,25 @@
-<div  id="wrapper" class="row" style="margin-bottom:15px; margin-top: 100px;">
-    <div class="col-md-3">
-        <input type="file" multiple="multiple" accept="application/pdf" #file placeholder="Choose file"
-            (change)="uploadFile(file.files)" style="display:none;">>
-        <div class="wrapper">
-            <div class="link_wrapper">
-              <a (click)="file.click()">{{'STATS_UPLOAD.upload' | translate}}</a>
-              <div class="icon">
-                <i class="material-icons"><strong>cloud_upload</strong></i>
-              </div>
-              <mat-progress-spinner *ngIf="inProgress" color="accent" mode="indeterminate">
-            </mat-progress-spinner>
-            </div>    
+<mat-form-field class="dropdown nav-item ml-auto">
+  <mat-label>Select season</mat-label>
+  <mat-select [(value)]="selectedSeason">
+    <mat-option *ngFor="let season of seasons" [value]="season.id">
+      {{season.value}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div id="wrapper" class="row" style="margin-bottom:15px; margin-top: 100px;">
+
+  <div class="col-md-3">
+    <input type="file" multiple="multiple" accept="application/pdf" #file placeholder="Choose file"
+      (change)="uploadFile(file.files)" style="display:none;">>
+    <div class="wrapper">
+      <div class="link_wrapper">
+        <a (click)="file.click()">{{'STATS_UPLOAD.upload' | translate}}</a>
+        <div class="icon">
+          <i class="material-icons"><strong>cloud_upload</strong></i>
         </div>
+        <mat-progress-spinner *ngIf="inProgress" color="accent" mode="indeterminate">
+        </mat-progress-spinner>
+      </div>
     </div>
+  </div>
 </div>
-
-

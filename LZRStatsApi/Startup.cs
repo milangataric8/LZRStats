@@ -72,6 +72,7 @@ namespace LZRStatsApi
             services.AddScoped<ITeamGameRepository, TeamGameRepository>();
             services.AddScoped<IStatsImporter, StatsImporter>();
             services.AddScoped<IPlayerStatsCalculator, PlayerStatsCalculator>();
+            services.AddScoped<ISeasonRepository, SeasonRepository>();
             services.AddScoped<ValidateFileAttribute>();
         }
 

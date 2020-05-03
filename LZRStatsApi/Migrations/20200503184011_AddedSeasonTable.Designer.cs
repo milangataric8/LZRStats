@@ -4,14 +4,16 @@ using LZRStatsApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LZRStatsApi.Migrations
 {
     [DbContext(typeof(LzrStatsContext))]
-    partial class LzrStatsContextModelSnapshot : ModelSnapshot
+    [Migration("20200503184011_AddedSeasonTable")]
+    partial class AddedSeasonTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +43,7 @@ namespace LZRStatsApi.Migrations
                     b.Property<int>("Round")
                         .HasColumnType("int");
 
-                    b.Property<int>("SeasonId")
+                    b.Property<int?>("SeasonId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -163,38 +165,6 @@ namespace LZRStatsApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Season");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndYear = 2014,
-                            StartYear = 2013
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EndYear = 2015,
-                            StartYear = 2014
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EndYear = 2017,
-                            StartYear = 2016
-                        },
-                        new
-                        {
-                            Id = 4,
-                            EndYear = 2019,
-                            StartYear = 2018
-                        },
-                        new
-                        {
-                            Id = 5,
-                            EndYear = 2020,
-                            StartYear = 2019
-                        });
                 });
 
             modelBuilder.Entity("LZRStatsApi.Models.Team", b =>
@@ -295,9 +265,7 @@ namespace LZRStatsApi.Migrations
                 {
                     b.HasOne("LZRStatsApi.Models.Season", "Season")
                         .WithMany("Games")
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SeasonId");
                 });
 
             modelBuilder.Entity("LZRStatsApi.Models.Player", b =>

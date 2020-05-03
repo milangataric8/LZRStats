@@ -12,6 +12,7 @@ namespace LZRStatsApi.MappingProfile
             CreateMap<Player, PlayerResponse>()
                 .AfterMap<PlayerAfterMap>();
             CreateMap<PlayerResponse, Player>();
+            CreateMap<Season, SeasonResponse>().ReverseMap();
         }
     }
 }
