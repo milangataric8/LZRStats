@@ -2,9 +2,11 @@
 using LZRStatsApi.Importers;
 using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -27,8 +29,10 @@ namespace LZRStatsApi.Controllers
             _logger = logger;
         }
 
+
+
         [HttpPost, DisableRequestSizeLimit]
-        public async Task<IActionResult> Import()
+        public async Task<IActionResult> Import([FromForm]FileDetails fileDetails)
         {
             string fullPath = string.Empty;
             string wordFilePath = string.Empty;
@@ -62,8 +66,9 @@ namespace LZRStatsApi.Controllers
                     }
                     wordFilePath = Path.Combine(pathToSave, tempFileName);
                     FileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
-
-                    await _statsImporter.ExtractFromFile(wordFilePath, fileName);
+                    fileDetails.FileName = fileName;
+                    fileDetails.FilePath = wordFilePath;
+                    await _statsImporter.ExtractFromFile(fileDetails);
                     // TODO add file to imported files table?
                 }
 

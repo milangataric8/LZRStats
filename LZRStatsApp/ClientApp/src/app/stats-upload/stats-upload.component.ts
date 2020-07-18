@@ -19,12 +19,15 @@ export class StatsUploadComponent implements OnInit {
   public inProgress: boolean;
   public selectedSeason: any;
   public seasons: any;
+  public selectedLeague: string;
+  public leagues: string[];
   @Output() public UploadFinished = new EventEmitter();
 
   constructor(private statsService: StatsService, private snackbarService: SnackbarService, private translate: TranslateService,
     private seasonService: SeasonService) { }
 
   ngOnInit() {
+    this.leagues = ['A', 'B'];
     this.seasonService.getAll()
       .subscribe((result) => {
         this.seasons = result;
@@ -43,7 +46,9 @@ export class StatsUploadComponent implements OnInit {
       const file = filesToUpload[index];
       formData.append('file' + file.name, file, file.name);
     }
-    // formData.append('season', this.selectedSeason);
+
+    formData.append('season', this.selectedSeason);
+    formData.append('league', this.selectedLeague);
     this.statsService.upload(formData).pipe(
       map(event => {
         switch (event.type) {

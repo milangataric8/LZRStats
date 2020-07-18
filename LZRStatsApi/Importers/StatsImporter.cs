@@ -1,13 +1,9 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using LZRStatsApi.Helpers;
+﻿using LZRStatsApi.Helpers;
 using LZRStatsApi.Models;
 using LZRStatsApi.Repositories;
 using LZRStatsApi.Services;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LZRStatsApi.Importers
@@ -26,12 +22,12 @@ namespace LZRStatsApi.Importers
             _teamGameRepo = teamGameRepository;
         }
 
-        public async Task ExtractFromFile(string filePath, string fileName)
+        public async Task ExtractFromFile(FileDetails fileDetails)
         {
-            var data = filePath.GetFileData();
+            var data = fileDetails.FilePath.GetFileData();
             var teamName = data.GetTeamName();
             Team team = await _teamService.GetOrCreateTeam(teamName);
-            Game game = await GetOrCreateGame(fileName, data);
+            Game game = await GetOrCreateGame(fileDetails.FileName, data);
             await data.ExtractPlayers(team, game, _playerRepo);
             TeamGame teamGame = ExtractTeamGameData(data);
             teamGame.Team = team;
@@ -83,7 +79,7 @@ namespace LZRStatsApi.Importers
                 TeamGames = new List<TeamGame>()
             };
 
-            return  game;
+            return game;
         }
 
 
