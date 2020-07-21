@@ -15,6 +15,7 @@ namespace LZRStatsApi.Models
         public int MatchNumber { get; set; }
         public string Location { get; set; }
         public int GameType{ get; set; }
+        public string League { get; set; }
         public virtual ICollection<TeamGame> TeamGames { get; set; }
         public virtual ICollection<PlayerStats> PlayerStats { get; set; }
         public virtual Season Season { get; set; }

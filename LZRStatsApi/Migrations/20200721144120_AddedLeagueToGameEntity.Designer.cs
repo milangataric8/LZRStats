@@ -4,14 +4,16 @@ using LZRStatsApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LZRStatsApi.Migrations
 {
     [DbContext(typeof(LzrStatsContext))]
-    partial class LzrStatsContextModelSnapshot : ModelSnapshot
+    [Migration("20200721144120_AddedLeagueToGameEntity")]
+    partial class AddedLeagueToGameEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

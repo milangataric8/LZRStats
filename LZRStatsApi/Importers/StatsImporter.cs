@@ -28,6 +28,8 @@ namespace LZRStatsApi.Importers
             var teamName = data.GetTeamName();
             Team team = await _teamService.GetOrCreateTeam(teamName);
             Game game = await GetOrCreateGame(fileDetails.FileName, data);
+            game.SeasonId = int.Parse(fileDetails.Season);
+            game.League = fileDetails.League;
             await data.ExtractPlayers(team, game, _playerRepo);
             TeamGame teamGame = ExtractTeamGameData(data);
             teamGame.Team = team;
