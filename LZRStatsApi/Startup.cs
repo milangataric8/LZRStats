@@ -74,6 +74,8 @@ namespace LZRStatsApi
             services.AddScoped<IPlayerStatsCalculator, PlayerStatsCalculator>();
             services.AddScoped<ISeasonRepository, SeasonRepository>();
             services.AddScoped<ValidateFileAttribute>();
+            services.AddScoped<IFileImportHistoryRepository, FileImportHistoryRepository>();
+            services.AddScoped<IFileImportHistoryService, FileImportHistoryService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)

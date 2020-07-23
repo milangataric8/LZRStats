@@ -21,12 +21,14 @@ namespace LZRStatsApi.Controllers
         private readonly IStatsImporter _statsImporter;
         private readonly IGameService _gameService;
         private readonly ILogger<StatsImportController> _logger;
+        private readonly IFileImportHistoryService _fileImportHistoryService;
         private readonly string tempFileName = "temp.docx";
-        public StatsImportController(IStatsImporter statsImporter, IGameService gameService, ILogger<StatsImportController> logger)
+        public StatsImportController(IStatsImporter statsImporter, IGameService gameService, ILogger<StatsImportController> logger, IFileImportHistoryService fileImportHistoryService)
         {
             _statsImporter = statsImporter;
             _gameService = gameService;
             _logger = logger;
+            _fileImportHistoryService = fileImportHistoryService;
         }
 
 
@@ -69,7 +71,7 @@ namespace LZRStatsApi.Controllers
                     fileDetails.FileName = fileName;
                     fileDetails.FilePath = wordFilePath;
                     await _statsImporter.ExtractFromFile(fileDetails);
-                    // TODO add file to imported files table
+                    await _fileImportHistoryService.SaveFile(new Models.FileImportHistory { FileName = fileName, DateImported = DateTime.Now });
                 }
 
                 return Ok();

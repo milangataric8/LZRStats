@@ -14,6 +14,7 @@ namespace LZRStatsApi.Data
         public DbSet<Team> Team { get; set; }
         public DbSet<Player> Player { get; set; }
         public DbSet<Season> Season { get; set; }
+        public DbSet<FileImportHistory> FileImportHistory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
