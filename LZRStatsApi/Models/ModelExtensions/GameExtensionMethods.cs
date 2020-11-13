@@ -10,7 +10,7 @@ namespace LZRStatsApi.Models.ModelExtensions
     {
         public static bool IsPlayoffGame(this Game game)
         {
-            return game.GameType == (int)GameType.Playoff;
+            return game.GameType == GameType.Playoff;
         }
     }
 }

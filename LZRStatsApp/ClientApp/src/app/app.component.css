@@ -1,11 +1,10 @@
 .logo {
-  background-image: url("../assets/images/basketball-ball-logo.png");
-  background-size: contain;
+  background-image: url("../assets/images/lzr-logo.png");
+  background-size: cover;
   background-color: #ddd;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   margin-right: 20px;
-  border-radius: 50%;
   border-style: solid;
   border-color: #ddd;
 }
@@ -16,7 +15,6 @@ li a:focus {
 
 .logo:hover {
   background-color: #FA8320;
-  border-radius: 50%;
   border-color: #FA8320;
 }
 
@@ -126,20 +124,18 @@ a {
 @media screen and (max-width: 1200px) {
 
   .logo {
-    background-image: url("../assets/images/basketball-ball-logo.png");
-    background-size: contain;
+    background-image: url("../assets/images/lzr-logo.png");
+    background-size: cover;
     background-color: #ddd;
     width: 50px;
     height: 50px;
     margin-right: 20px;
-    border-radius: 50%;
     border-style: solid;
     border-color: #ddd;
   }
   
   .logo:hover {
     background-color: #FA8320;
-    border-radius: 50%;
     border-color: #FA8320;
   }
 
@@ -185,20 +181,18 @@ a {
 @media screen and (max-width: 1000px) {
 
   .logo {
-    background-image: url("../assets/images/basketball-ball-logo.png");
-    background-size: contain;
+    background-image: url("../assets/images/lzr-logo.png");
+    background-size: cover;
     background-color: #ddd;
     width: 47px;
     height: 47px;
     margin-right: 11px;
-    border-radius: 50%;
     border-style: solid;
     border-color: #ddd;
   }
   
   .logo:hover {
     background-color: #FA8320;
-    border-radius: 50%;
     border-color: #FA8320;
   }
 
@@ -278,20 +272,18 @@ a {
 @media screen and (max-width: 800px) {
 
   .logo {
-    background-image: url("../assets/images/basketball-ball-logo.png");
-    background-size: contain;
+    background-image: url("../assets/images/lzr-logo.png");
+    background-size: cover;
     background-color: #ddd;
     width: 45px;
     height: 45px;
     margin: 0px 15px 0px 0px;
-    border-radius: 50%;
     border-style: solid;
     border-color: #ddd;
   }
   
   .logo:hover {
     background-color: #FA8320;
-    border-radius: 50%;
     border-color: #FA8320;
   }
 
@@ -378,20 +370,18 @@ a {
 @media screen and (max-width: 600px) {
 
   .logo {
-    background-image: url("../assets/images/basketball-ball-logo.png");
-    background-size: contain;
+    background-image: url("../assets/images/lzr-logo.png");
+    background-size: cover;
     background-color: #ddd;
     width: 35px;
     height: 35px;
     margin-right: 10px;
-    border-radius: 50%;
     border-style: solid;
     border-color: #ddd;
   }
   
   .logo:hover {
     background-color: #FA8320;
-    border-radius: 50%;
     border-color: #FA8320;
   }
 

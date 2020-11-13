@@ -21,6 +21,7 @@ export class StatsUploadComponent implements OnInit {
   public seasons: any;
   public selectedLeague: string;
   public leagues: string[];
+  public gameType = 0;
   @Output() public UploadFinished = new EventEmitter();
 
   constructor(private statsService: StatsService, private snackbarService: SnackbarService, private translate: TranslateService,

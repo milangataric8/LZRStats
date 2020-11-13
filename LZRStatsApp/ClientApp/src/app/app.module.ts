@@ -19,7 +19,8 @@ import { PlayersComponent } from './players/players.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule, MatSelect, MatSelectModule, MatPaginatorIntl, MatSnackBarModule
+  MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule,
+  MatSelectModule, MatPaginatorIntl, MatSnackBarModule, MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSignPipe } from './pipes/number-sign.pipe';
@@ -71,6 +72,7 @@ import { MatPaginatorI18nService } from './shared/data-table/mat-paginator-intl'
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatRadioModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -93,6 +95,10 @@ import { MatPaginatorI18nService } from './shared/data-table/mat-paginator-intl'
     {
       provide: MatPaginatorIntl,
       useClass: MatPaginatorI18nService,
+    },
+    {
+      provide: MAT_RADIO_DEFAULT_OPTIONS,
+      useValue: { color: 'warn' },
     }
   ],
   bootstrap: [AppComponent],

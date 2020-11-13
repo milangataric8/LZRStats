@@ -14,7 +14,13 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
-
+<section class="game-type-section">
+  <label class="game-type-margin">Game type:</label>
+  <mat-radio-group [(ngModel)]="gameType">
+    <mat-radio-button class="game-type-margin" value="0">Regular season</mat-radio-button>
+    <mat-radio-button class="game-type-margin" value="1">Playoffs</mat-radio-button>
+  </mat-radio-group>
+</section>
 <div id="wrapper" class="row" style="margin-bottom:15px; margin-top: 100px;">
 
   <div class="col-md-3">
