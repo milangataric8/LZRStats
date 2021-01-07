@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
@@ -34,10 +35,11 @@ namespace LZRStatsApi.Controllers
 
 
         [HttpPost, DisableRequestSizeLimit]
-        public async Task<IActionResult> Import([FromForm]FileDetails fileDetails)
+        public async Task<IActionResult> Import([FromForm]FilesImportSettings importSettings)
         {
             string fullPath = string.Empty;
             string wordFilePath = string.Empty;
+            var filesSkipped = new List<string>();
             try
             {
                 var folderName = Path.Combine("Resources", "Files", "PDF");
@@ -49,6 +51,7 @@ namespace LZRStatsApi.Controllers
                     if (file.Length <= 0)
                     {
                         _logger.LogWarning($"File invalid. {file.FileName}");
+                        filesSkipped.Add(file.FileName);
                         continue;
                     }
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
@@ -57,6 +60,7 @@ namespace LZRStatsApi.Controllers
                     if (gameImported)
                     {
                         _logger.LogWarning($"File already imported. {file.FileName}");
+                        filesSkipped.Add(fileName);
                         continue;
                     }
 
@@ -68,13 +72,19 @@ namespace LZRStatsApi.Controllers
                     }
                     wordFilePath = Path.Combine(pathToSave, tempFileName);
                     FileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
-                    fileDetails.FileName = fileName;
-                    fileDetails.FilePath = wordFilePath;
-                    await _statsImporter.ExtractFromFile(fileDetails);
-                    await _fileImportHistoryService.SaveFile(new Models.FileImportHistory { FileName = fileName, DateImported = DateTime.Now });
+                    GameDetails gameDetails = new GameDetails
+                    {
+                        FileName = fileName,
+                        FilePath = wordFilePath,
+                        League = importSettings.League,
+                        SeasonId = importSettings.SeasonId
+                    };
+
+                    await _statsImporter.ImportAsync(gameDetails);
+                    await _fileImportHistoryService.AddOrUpdateAsync(new Models.FileImportHistory { FileName = fileName, DateImported = DateTime.Now });
                 }
 
-                return Ok();
+                return Ok(filesSkipped);
             }
             catch (Exception ex)
             {

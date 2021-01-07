@@ -16,16 +16,17 @@
 </mat-form-field>
 <section class="game-type-section">
   <label class="game-type-margin">Game type:</label>
+  <br />
   <mat-radio-group [(ngModel)]="gameType">
-    <mat-radio-button class="game-type-margin" value="0">Regular season</mat-radio-button>
-    <mat-radio-button class="game-type-margin" value="1">Playoffs</mat-radio-button>
+    <mat-radio-button *ngFor="let gt of gameTypes" class="game-type-margin" [value]="gt.value" >{{gt.name}}</mat-radio-button>
+    <br />
   </mat-radio-group>
 </section>
 <div id="wrapper" class="row" style="margin-bottom:15px; margin-top: 100px;">
 
   <div class="col-md-3">
     <input type="file" multiple="multiple" accept="application/pdf" #file placeholder="Choose file"
-      (change)="uploadFile(file.files)" style="display:none;">>
+      (change)="uploadFile(file.files)" style="display:none;">
     <div class="wrapper">
       <div class="link_wrapper">
         <a (click)="file.click()">{{'STATS_UPLOAD.upload' | translate}}</a>

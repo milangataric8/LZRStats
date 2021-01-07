@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { StatsService } from '../_services/stats.service';
 import { catchError, map } from 'rxjs/operators';
@@ -21,18 +21,24 @@ export class StatsUploadComponent implements OnInit {
   public seasons: any;
   public selectedLeague: string;
   public leagues: string[];
-  public gameType = 0;
+  public gameTypes = [{ name: 'Regular season', value: 0 }, { name: 'Playoff game', value: 1 }];
+  public gameType: number;
   @Output() public UploadFinished = new EventEmitter();
-
+  @ViewChild('file', {static: true})
+  filesInput: ElementRef;
+  
   constructor(private statsService: StatsService, private snackbarService: SnackbarService, private translate: TranslateService,
     private seasonService: SeasonService) { }
 
   ngOnInit() {
-    this.leagues = ['A', 'B'];
+    this.leagues = ['A', 'B']; // TODO read from config file or db
+    this.selectedLeague = this.leagues[0];
     this.seasonService.getAll()
-      .subscribe((result) => {
+      .subscribe((result: any[]) => { // TODO create season model
         this.seasons = result;
+        this.selectedSeason = result[result.length -1].id
       });
+      this.gameType = this.gameTypes[0].value;
   }
 
   public uploadFile = (files: string | any[]) => {
@@ -48,9 +54,9 @@ export class StatsUploadComponent implements OnInit {
       formData.append('file' + file.name, file, file.name);
     }
 
-    formData.append('season', this.selectedSeason);
+    formData.append('seasonId', this.selectedSeason);
     formData.append('league', this.selectedLeague);
-    this.statsService.upload(formData).pipe(
+    this.statsService.import(formData).pipe(
       map(event => {
         switch (event.type) {
           case HttpEventType.UploadProgress:
@@ -60,18 +66,23 @@ export class StatsUploadComponent implements OnInit {
             this.inProgress = false;
             this.snackbarService.showInfo('Upload success');
             this.UploadFinished.emit(event.body);
+            this.resetFilesInput();
             return event;
         }
       }),
       catchError((error: HttpErrorResponse) => {
         this.inProgress = false;
         this.snackbarService.showError('Upload failed');
-
+        this.resetFilesInput();
         return of(`Upload failed.`);
       })).subscribe((event: any) => {
         if (typeof (event) === 'object') {
           console.log(event.body);
         }
       });
+  }
+
+  private resetFilesInput(){
+    this.filesInput.nativeElement.value = "";
   }
 }

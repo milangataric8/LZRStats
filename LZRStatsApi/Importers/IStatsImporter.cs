@@ -8,6 +8,6 @@ namespace LZRStatsApi.Importers
 {
     public interface IStatsImporter
     {
-        Task ExtractFromFile(FileDetails fileDetails);
+        Task ImportAsync(GameDetails fileDetails);
     }
 }

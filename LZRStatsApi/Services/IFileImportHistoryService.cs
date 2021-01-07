@@ -5,6 +5,6 @@ namespace LZRStatsApi.Services
 {
     public interface IFileImportHistoryService
     {
-        Task SaveFile(FileImportHistory file);
+        Task AddOrUpdateAsync(FileImportHistory file);
     }
 }

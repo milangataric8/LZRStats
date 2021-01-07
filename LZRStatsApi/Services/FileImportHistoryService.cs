@@ -12,7 +12,7 @@ namespace LZRStatsApi.Services
             _fileImportHistoryRepository = fileImportHistoryRepository;
         }
 
-        public async Task SaveFile(FileImportHistory file)
+        public async Task AddOrUpdateAsync(FileImportHistory file)
         {
             await _fileImportHistoryRepository.AddOrUpdateAsync(file);
             await _fileImportHistoryRepository.SaveChangesAsync();

@@ -9,6 +9,10 @@
   border-color: #ddd;
 }
 
+.container {
+  background-color: white;
+}
+
 li a:focus {
   color: #FA8320;
 }

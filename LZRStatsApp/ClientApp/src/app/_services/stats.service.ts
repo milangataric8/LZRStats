@@ -9,7 +9,7 @@ export class StatsService {
 
   constructor(private http: HttpClient) { }
 
-  upload(formData: FormData) {
+  import(formData: FormData) {
     return this.http.post(`${AppSettings.API_ENDPOINT}statsImport`, formData, { reportProgress: true, observe: 'events' });
   }
 }

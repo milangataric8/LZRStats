@@ -22,15 +22,15 @@ namespace LZRStatsApi.Importers
             _teamGameRepo = teamGameRepository;
         }
 
-        public async Task ExtractFromFile(FileDetails fileDetails)
+        public async Task ImportAsync(GameDetails fileDetails)
         {
             var data = fileDetails.FilePath.GetFileData();
             var teamName = data.GetTeamName();
             Team team = await _teamService.GetOrCreateTeam(teamName);
             Game game = await GetOrCreateGame(fileDetails.FileName, data);
-            game.SeasonId = int.Parse(fileDetails.Season);
+            game.SeasonId = int.Parse(fileDetails.SeasonId);
             game.League = fileDetails.League;
-            await data.ExtractPlayers(team, game, _playerRepo);
+            await data.ExtractPlayers(team, game, _playerRepo);// TODO refactor this
             TeamGame teamGame = ExtractTeamGameData(data);
             teamGame.Team = team;
             teamGame.Game = game;

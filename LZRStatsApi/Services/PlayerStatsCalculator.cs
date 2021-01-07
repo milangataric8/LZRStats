@@ -13,26 +13,27 @@ namespace LZRStatsApi.Services
 
         public decimal GetFGPercentage(Player player)
         {
-            var fg2p = GetFG2Percentage(player);
-            var fg3p = GetFG3Percentage(player);
-
-            return Math.Round((decimal)(fg2p + fg3p) / 2, 1);
+            var totalFG3Made = GetTotalFG3Made(player);
+            var totalFG3Attempted = GetTotalFG3Missed(player);
+            var totalFG2Made = GetTotalFG2Made(player);
+            var totalFG2Attempted = GetTotalFG2Missed(player);
+            return CalculateShootingPercentage(totalFG3Made + totalFG2Made, totalFG3Attempted + totalFG2Attempted);
         }
 
         public decimal GetFG3Percentage(Player player)
         {
             var totalFG3Made = GetTotalFG3Made(player);
-            var totalFG3Missed = GetTotalFG3Missed(player);
+            var totalFG3Attempted = GetTotalFG3Missed(player);
 
-            return CalculateShootingPercentage(totalFG3Made, totalFG3Missed + totalFG3Made);
+            return CalculateShootingPercentage(totalFG3Made, totalFG3Attempted);
         }
 
         public decimal GetFG2Percentage(Player player)
         {
             var totalFG2Made = GetTotalFG2Made(player);
-            var totalFG2Missed = GetTotalFG2Missed(player);
+            var totalFG2Attempted = GetTotalFG2Missed(player);
 
-            return CalculateShootingPercentage(totalFG2Made, totalFG2Missed + totalFG2Made);
+            return CalculateShootingPercentage(totalFG2Made, totalFG2Attempted);
         }
 
 

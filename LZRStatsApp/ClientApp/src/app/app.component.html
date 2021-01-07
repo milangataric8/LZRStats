@@ -21,8 +21,7 @@
     <mat-form-field class="dropdown nav-item ml-auto">
         <mat-label>{{'HOME.select_language' | translate}}</mat-label>
         <mat-select [(value)]="selectedLanguage" (selectionChange)="changeLanguage()">
-            <mat-option value="rs">Srpski</mat-option>
-            <mat-option value="en">English</mat-option>
+            <mat-option *ngFor="let lang of languages" [value]="lang.code">{{lang.resourceName | translate}}</mat-option>
         </mat-select>
     </mat-form-field>
     <div *ngIf="currentUser" class="dropdown nav-item ml-auto">
