@@ -33,8 +33,8 @@ namespace LZRStatsApi.MappingProfile
             destination.FTPercentage = _statsCalculator.GetFTPercentage(source);
             int fg2Made = _statsCalculator.GetTotalFG2Made(source);
             int fg3Made = _statsCalculator.GetTotalFG3Made(source);
-            int fg2Missed = _statsCalculator.GetTotalFG2Missed(source);
-            int fg3Missed = _statsCalculator.GetTotalFG3Missed(source);
+            int fg2Missed = _statsCalculator.GetTotalFG2Attempted(source);
+            int fg3Missed = _statsCalculator.GetTotalFG3Attempted(source);
             destination.FGA = fg2Made + fg3Made + fg2Missed + fg3Missed;
             destination.FGM = fg2Made + fg3Made;
             destination.FG2A = fg2Made + fg2Missed;

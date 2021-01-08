@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace LZRStatsApi.Models.Responses
 {
-    public class PlayerResponse: PlayerDetailsResponse
+    public class SeasonStatsResponse
     {
+        public string Value { get; set; }
         public decimal PPG { get; set; }
         public decimal RPG { get; set; }
         public decimal APG { get; set; }

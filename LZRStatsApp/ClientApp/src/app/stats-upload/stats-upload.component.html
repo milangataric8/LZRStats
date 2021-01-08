@@ -22,6 +22,14 @@
     <br />
   </mat-radio-group>
 </section>
+<mat-list>
+  <div mat-subheader>Import result</div>
+  <mat-list-item *ngFor="let file of fileImportResults"> 
+    <div mat-line>{{file.name}}</div>
+    <mat-icon mat-list-icon *ngIf="file.imported" class="color-success">check_circle</mat-icon>
+    <mat-icon mat-list-icon *ngIf="!file.imported" class="color-fail">cancel</mat-icon>
+  </mat-list-item>
+ </mat-list>
 <div id="wrapper" class="row" style="margin-bottom:15px; margin-top: 100px;">
 
   <div class="col-md-3">

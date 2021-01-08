@@ -26,8 +26,10 @@ export class StatsUploadComponent implements OnInit {
   @Output() public UploadFinished = new EventEmitter();
   @ViewChild('file', {static: true})
   filesInput: ElementRef;
-  
-  constructor(private statsService: StatsService, private snackbarService: SnackbarService, private translate: TranslateService,
+  fileImportResults: any[];
+  constructor(private statsService: StatsService,
+    private snackbarService: SnackbarService,
+    private translate: TranslateService,
     private seasonService: SeasonService) { }
 
   ngOnInit() {
@@ -36,9 +38,10 @@ export class StatsUploadComponent implements OnInit {
     this.seasonService.getAll()
       .subscribe((result: any[]) => { // TODO create season model
         this.seasons = result;
-        this.selectedSeason = result[result.length -1].id
+        this.selectedSeason = result[result.length - 1].id;
       });
       this.gameType = this.gameTypes[0].value;
+      this.fileImportResults = [{ name: 'file1', imported: true}, { name: 'file2', imported: false}]; // TODO remove
   }
 
   public uploadFile = (files: string | any[]) => {
@@ -58,6 +61,7 @@ export class StatsUploadComponent implements OnInit {
     formData.append('league', this.selectedLeague);
     this.statsService.import(formData).pipe(
       map(event => {
+        // TODO return file import results
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progress = Math.round(event.loaded * 100 / event.total);

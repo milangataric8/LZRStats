@@ -12,8 +12,8 @@ namespace LZRStatsApi.Services
         public int GetTotalPoints(Player player);
         public int GetTotalFG2Made(Player player);
         public int GetTotalFG3Made(Player player);
-        public int GetTotalFG2Missed(Player player);
-        public int GetTotalFG3Missed(Player player);
+        public int GetTotalFG2Attempted(Player player);
+        public int GetTotalFG3Attempted(Player player);
         public int GetTotalFTMade(Player player);
         public int GetTotalFTAttempted(Player player);
         public decimal GetAssistsPerGame(Player player);

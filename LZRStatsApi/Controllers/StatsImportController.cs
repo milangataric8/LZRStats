@@ -1,5 +1,6 @@
 ﻿using LZRStatsApi.Helpers;
 using LZRStatsApi.Importers;
+using LZRStatsApi.Models;
 using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,13 +24,20 @@ namespace LZRStatsApi.Controllers
         private readonly IGameService _gameService;
         private readonly ILogger<StatsImportController> _logger;
         private readonly IFileImportHistoryService _fileImportHistoryService;
+        private readonly IFileConverterService _fileConverter;
         private readonly string tempFileName = "temp.docx";
-        public StatsImportController(IStatsImporter statsImporter, IGameService gameService, ILogger<StatsImportController> logger, IFileImportHistoryService fileImportHistoryService)
+        public StatsImportController(
+            IStatsImporter statsImporter,
+            IGameService gameService,
+            ILogger<StatsImportController> logger,
+            IFileImportHistoryService fileImportHistoryService,
+            IFileConverterService fileConverter)
         {
             _statsImporter = statsImporter;
             _gameService = gameService;
             _logger = logger;
             _fileImportHistoryService = fileImportHistoryService;
+            _fileConverter = fileConverter;
         }
 
 
@@ -56,7 +64,10 @@ namespace LZRStatsApi.Controllers
                     }
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     var matchData = fileName.ReplaceBadMinusCharacter().Split('-');
-                    var gameImported = await _gameService.IsGameImported(int.Parse(matchData[0]), int.Parse(matchData[1]), matchData[2].Split('.')[0]);
+                    int roundNumber = int.Parse(matchData[0]);
+                    int matchNumber = int.Parse(matchData[1]);
+                    string teamName = matchData[2].Split('.')[0];
+                    var gameImported = await _gameService.IsGameImported(roundNumber, matchNumber, teamName);
                     if (gameImported)
                     {
                         _logger.LogWarning($"File already imported. {file.FileName}");
@@ -70,8 +81,8 @@ namespace LZRStatsApi.Controllers
                     {
                         file.CopyTo(stream);
                     }
-                    wordFilePath = Path.Combine(pathToSave, tempFileName);
-                    FileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
+                    wordFilePath = Path.Combine(pathToSave, tempFileName); //TODO import from pdf directly without converting
+                    _fileConverter.ConvertPdfToDocx(fullPath, wordFilePath);
                     GameDetails gameDetails = new GameDetails
                     {
                         FileName = fileName,
@@ -81,7 +92,7 @@ namespace LZRStatsApi.Controllers
                     };
 
                     await _statsImporter.ImportAsync(gameDetails);
-                    await _fileImportHistoryService.AddOrUpdateAsync(new Models.FileImportHistory { FileName = fileName, DateImported = DateTime.Now });
+                    await _fileImportHistoryService.AddOrUpdateAsync(new FileImportHistory { FileName = fileName, DateImported = DateTime.Now });
                 }
 
                 return Ok(filesSkipped);

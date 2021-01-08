@@ -138,3 +138,11 @@ a:hover+.icon {
   background: white;
   right: -25%;
 }
+
+.color-success {
+  color: #28a745;
+}
+
+.color-fail {
+  color: #f4511e;
+}

@@ -14,16 +14,16 @@ namespace LZRStatsApi.Services
         public decimal GetFGPercentage(Player player)
         {
             var totalFG3Made = GetTotalFG3Made(player);
-            var totalFG3Attempted = GetTotalFG3Missed(player);
+            var totalFG3Attempted = GetTotalFG3Attempted(player);
             var totalFG2Made = GetTotalFG2Made(player);
-            var totalFG2Attempted = GetTotalFG2Missed(player);
+            var totalFG2Attempted = GetTotalFG2Attempted(player);
             return CalculateShootingPercentage(totalFG3Made + totalFG2Made, totalFG3Attempted + totalFG2Attempted);
         }
 
         public decimal GetFG3Percentage(Player player)
         {
             var totalFG3Made = GetTotalFG3Made(player);
-            var totalFG3Attempted = GetTotalFG3Missed(player);
+            var totalFG3Attempted = GetTotalFG3Attempted(player);
 
             return CalculateShootingPercentage(totalFG3Made, totalFG3Attempted);
         }
@@ -31,7 +31,7 @@ namespace LZRStatsApi.Services
         public decimal GetFG2Percentage(Player player)
         {
             var totalFG2Made = GetTotalFG2Made(player);
-            var totalFG2Attempted = GetTotalFG2Missed(player);
+            var totalFG2Attempted = GetTotalFG2Attempted(player);
 
             return CalculateShootingPercentage(totalFG2Made, totalFG2Attempted);
         }
@@ -79,12 +79,12 @@ namespace LZRStatsApi.Services
             return player.PlayerStats.Sum(x => x.FG3Made);
         }
 
-        public int GetTotalFG2Missed(Player player)
+        public int GetTotalFG2Attempted(Player player)
         {
             return player.PlayerStats.Sum(x => x.FG2Attempted);
         }
 
-        public int GetTotalFG3Missed(Player player)
+        public int GetTotalFG3Attempted(Player player)
         {
             return player.PlayerStats.Sum(x => x.FG3Attempted);
         }

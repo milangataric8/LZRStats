@@ -20,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatSortModule, MatTableModule, MatFormFieldModule, MatCardModule, MatDialogModule,
-  MatSelectModule, MatPaginatorIntl, MatSnackBarModule, MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS
+  MatSelectModule, MatPaginatorIntl, MatSnackBarModule, MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS, MatListModule, MatIconModule
 } from '@angular/material';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { NumberSignPipe } from './pipes/number-sign.pipe';
@@ -73,6 +73,8 @@ import { MatPaginatorI18nService } from './shared/data-table/mat-paginator-intl'
     MatSelectModule,
     MatSnackBarModule,
     MatRadioModule,
+    MatListModule,
+    MatIconModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
