@@ -77,6 +77,7 @@ namespace LZRStatsApi
             services.AddScoped<IFileImportHistoryRepository, FileImportHistoryRepository>();
             services.AddScoped<IFileImportHistoryService, FileImportHistoryService>();
             services.AddScoped<ISeasonService, SeasonService>();
+            services.AddScoped<IFileConverterService, FileConverterService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)

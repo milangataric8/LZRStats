@@ -72,7 +72,10 @@
     "RANGE": "{{startIndex}} – {{endIndex}} of {{length}}"
   },
   "STATS_UPLOAD": {
-    "upload": "Upload"
+    "upload": "Upload",
+    "regular_season_game": "Regular season game",
+    "playoff_game": "Playoff game",
+    "exibition_game": "Exibition game"
   },
   "MODALS": {
     "cancel": "Cancel",

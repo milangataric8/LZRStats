@@ -65,11 +65,11 @@ namespace LZRStatsApi.Data
                 new User { Id = 1, FirstName = "Super", LastName = "Admin", Username = "admin", Password = "admin" });
 
             modelBuilder.Entity<Season>().HasData(
-                    new Season { Id = 1, StartYear = 2013, EndYear = 2014 },
                     new Season { Id = 2, StartYear = 2014, EndYear = 2015 },
                     new Season { Id = 3, StartYear = 2016, EndYear = 2017 },
                     new Season { Id = 4, StartYear = 2018, EndYear = 2019 },
-                    new Season { Id = 5, StartYear = 2019, EndYear = 2020 }
+                    new Season { Id = 5, StartYear = 2019, EndYear = 2020 },
+                    new Season { Id = 5, StartYear = 2020, EndYear = 2021 }
                 );
         }
 

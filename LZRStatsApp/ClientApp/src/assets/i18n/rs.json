@@ -72,7 +72,10 @@
     "RANGE": "{{startIndex}} – {{endIndex}} od {{length}}"
   },
   "STATS_UPLOAD": {
-    "upload": "Otpremi"
+    "upload": "Otpremi",
+    "regular_season_game":"Utakmica redovne sezone",
+    "playoff_game":"Plej-of utakmica",
+    "exibition_game": "Prijateljska utakmica"
   },
   "MODALS": {
     "cancel": "Otkaži",

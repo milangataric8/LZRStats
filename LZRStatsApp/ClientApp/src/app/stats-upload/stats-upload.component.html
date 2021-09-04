@@ -1,6 +1,6 @@
 <mat-form-field class="dropdown nav-item ml-auto">
   <mat-label>Select season</mat-label>
-  <mat-select [(value)]="selectedSeason">
+  <mat-select [(value)]="selectedSeasonId">
     <mat-option *ngFor="let season of seasons" [value]="season.id">
       {{season.value}}
     </mat-option>
@@ -17,9 +17,9 @@
 <section class="game-type-section">
   <label class="game-type-margin">Game type:</label>
   <br />
-  <mat-radio-group [(ngModel)]="gameType">
-    <mat-radio-button *ngFor="let gt of gameTypes" class="game-type-margin" [value]="gt.value" >{{gt.name}}</mat-radio-button>
-    <br />
+  <mat-radio-group [(ngModel)]="gameType" class="game-type-radio-group">
+    <mat-radio-button *ngFor="let gt of gameTypes" [value]="gt.value">
+      {{'STATS_UPLOAD.'+gt.nameResourceKey | translate}}</mat-radio-button>
   </mat-radio-group>
 </section>
 <mat-list>

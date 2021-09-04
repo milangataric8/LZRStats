@@ -6,6 +6,8 @@ import { of } from 'rxjs';
 import { SnackbarService } from '../_services/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SeasonService } from '../_services/season.service';
+import { Season } from '../_models/season';
+import { AppSettings } from '../constants';
 
 @Component({
   selector: 'app-stats-upload',
@@ -17,14 +19,13 @@ export class StatsUploadComponent implements OnInit {
   public progress: number;
   public message: string;
   public inProgress: boolean;
-  public selectedSeason: any;
-  public seasons: any;
-  public selectedLeague: string;
-  public leagues: string[];
-  public gameTypes = [{ name: 'Regular season', value: 0 }, { name: 'Playoff game', value: 1 }];
-  public gameType: number;
-  @Output() public UploadFinished = new EventEmitter();
-  @ViewChild('file', {static: true})
+  public selectedSeasonId: number;
+  public seasons: Season[];
+  public selectedLeague: string = AppSettings.DEFAULT_LEAGUE;
+  public leagues: string[] = AppSettings.LEAGUES;
+  public gameTypes = AppSettings.GAME_TYPES;
+  public gameType: number = AppSettings.DEFAULT_GAME_TYPE;
+  @ViewChild('file', { static: true })
   filesInput: ElementRef;
   fileImportResults: any[];
   constructor(private statsService: StatsService,
@@ -33,15 +34,11 @@ export class StatsUploadComponent implements OnInit {
     private seasonService: SeasonService) { }
 
   ngOnInit() {
-    this.leagues = ['A', 'B']; // TODO read from config file or db
-    this.selectedLeague = this.leagues[0];
     this.seasonService.getAll()
-      .subscribe((result: any[]) => { // TODO create season model
+      .subscribe((result: Season[]) => {
         this.seasons = result;
-        this.selectedSeason = result[result.length - 1].id;
+        this.selectedSeasonId = result[result.length - 1].id;
       });
-      this.gameType = this.gameTypes[0].value;
-      this.fileImportResults = [{ name: 'file1', imported: true}, { name: 'file2', imported: false}]; // TODO remove
   }
 
   public uploadFile = (files: string | any[]) => {
@@ -57,36 +54,22 @@ export class StatsUploadComponent implements OnInit {
       formData.append('file' + file.name, file, file.name);
     }
 
-    formData.append('seasonId', this.selectedSeason);
+    formData.append('seasonId', this.selectedSeasonId.toString());
     formData.append('league', this.selectedLeague);
-    this.statsService.import(formData).pipe(
-      map(event => {
+    this.statsService.import(formData).subscribe((result: any) => {
         // TODO return file import results
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            this.progress = Math.round(event.loaded * 100 / event.total);
-            break;
-          case HttpEventType.Response:
-            this.inProgress = false;
-            this.snackbarService.showInfo('Upload success');
-            this.UploadFinished.emit(event.body);
-            this.resetFilesInput();
-            return event;
-        }
-      }),
-      catchError((error: HttpErrorResponse) => {
+        this.inProgress = false;
+        this.snackbarService.showInfo('Upload success');
+        this.resetFilesInput();
+      },
+      (error) => {
         this.inProgress = false;
         this.snackbarService.showError('Upload failed');
         this.resetFilesInput();
-        return of(`Upload failed.`);
-      })).subscribe((event: any) => {
-        if (typeof (event) === 'object') {
-          console.log(event.body);
-        }
       });
   }
 
-  private resetFilesInput(){
-    this.filesInput.nativeElement.value = "";
+  private resetFilesInput() {
+    this.filesInput.nativeElement.value = '';
   }
 }
