@@ -1,8 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
-import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { StatsService } from '../_services/stats.service';
-import { catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { SnackbarService } from '../_services/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SeasonService } from '../_services/season.service';
@@ -56,6 +53,7 @@ export class StatsUploadComponent implements OnInit {
 
     formData.append('seasonId', this.selectedSeasonId.toString());
     formData.append('league', this.selectedLeague);
+    formData.append('gameType', this.gameType.toString());
     this.statsService.import(formData).subscribe((result: any) => {
         // TODO return file import results
         this.inProgress = false;

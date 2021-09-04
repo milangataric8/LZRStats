@@ -6,6 +6,7 @@ namespace LZRStatsApi.Helpers
     {
         public string SeasonId { get; set; }
         public string League { get; set; } = LeagueEnum.A.ToString();
+        public GameTypeEnum GameType { get; set; } = GameTypeEnum.Regular;
         public string FilePath { get; set; }
         public string FileName { get; set; }
     }

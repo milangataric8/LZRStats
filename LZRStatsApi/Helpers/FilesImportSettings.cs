@@ -6,5 +6,6 @@ namespace LZRStatsApi.Helpers
     {
         public string SeasonId { get; set; }
         public string League { get; set; } = LeagueEnum.A.ToString();
+        public string GameType { get; set; } = GameTypeEnum.Regular.ToString();
     }
 }

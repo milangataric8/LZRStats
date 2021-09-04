@@ -1,6 +1,7 @@
 ﻿using LZRStatsApi.Helpers;
 using LZRStatsApi.Importers;
 using LZRStatsApi.Models;
+using LZRStatsApi.Models.Enums;
 using LZRStatsApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -88,7 +89,8 @@ namespace LZRStatsApi.Controllers
                         FileName = fileName,
                         FilePath = wordFilePath,
                         League = importSettings.League,
-                        SeasonId = importSettings.SeasonId
+                        SeasonId = importSettings.SeasonId,
+                        GameType = (GameTypeEnum)Enum.Parse(typeof(GameTypeEnum), importSettings.GameType)
                     };
 
                     await _statsImporter.ImportAsync(gameDetails);

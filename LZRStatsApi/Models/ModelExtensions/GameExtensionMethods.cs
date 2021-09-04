@@ -1,8 +1,4 @@
 ﻿using LZRStatsApi.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LZRStatsApi.Models.ModelExtensions
 {
@@ -10,7 +6,7 @@ namespace LZRStatsApi.Models.ModelExtensions
     {
         public static bool IsPlayoffGame(this Game game)
         {
-            return game.GameType == GameType.Playoff;
+            return game.GameType == GameTypeEnum.Playoff;
         }
     }
 }
